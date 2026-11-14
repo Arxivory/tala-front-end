@@ -1,0 +1,1658 @@
+{
+  "run_id": "0814f798-4345-40b1-a500-519c61cf7f6f",
+  "session_id": "sha256:d5b90f2d06ae09d2d680620fa60b17c5971c023f4d89aa3a803036f44c9a50e9",
+  "recording_fingerprint": "d5b90f2d06ae09d2d680620fa60b17c5971c023f4d89aa3a803036f44c9a50e9",
+  "assessment": {
+    "assessment_version": "0.2.0",
+    "assessment_type": "contextual_wellness_and_movement_assessment",
+    "daily_checkin": {
+      "sleep": {
+        "duration_hours": null,
+        "quality": null
+      },
+      "fatigue": null,
+      "soreness": {
+        "shoulders": null,
+        "arms": null,
+        "elbows": null,
+        "lower_back": null,
+        "hips": null,
+        "thighs": null,
+        "knees": null,
+        "ankles": null
+      },
+      "stress_level": null,
+      "hydration": null,
+      "nutrition": null,
+      "pain_note": null
+    },
+    "movement_observations": [
+      {
+        "joint": "hip",
+        "title": "Estimated hip coordinate movement",
+        "available": true,
+        "sides": {
+          "right": {
+            "available": true,
+            "source_column": "hip_flexion_r",
+            "sample_count": 282,
+            "minimum_degrees": 5.68,
+            "maximum_degrees": 119.76,
+            "coordinate_excursion_degrees": 114.09,
+            "time_at_minimum_seconds": 3.703,
+            "time_at_maximum_seconds": 8.508,
+            "source_unit": "radians",
+            "display_unit": "degrees"
+          },
+          "left": {
+            "available": true,
+            "source_column": "hip_flexion_l",
+            "sample_count": 282,
+            "minimum_degrees": 20.74,
+            "maximum_degrees": 111.63,
+            "coordinate_excursion_degrees": 90.89,
+            "time_at_minimum_seconds": 7.64,
+            "time_at_maximum_seconds": 8.474,
+            "source_unit": "radians",
+            "display_unit": "degrees"
+          }
+        },
+        "interpretation": "The values describe the estimated coordinate range in this reconstructed movement. They are not a clinical range-of-motion assessment.",
+        "limitations": [
+          "The estimates depend on monocular pose estimation and approximate OpenSim marker fitting.",
+          "Coordinate excursion does not establish movement quality, injury risk, or safety."
+        ]
+      },
+      {
+        "joint": "knee",
+        "title": "Estimated knee coordinate movement",
+        "available": true,
+        "sides": {
+          "right": {
+            "available": true,
+            "source_column": "knee_angle_r",
+            "sample_count": 282,
+            "minimum_degrees": 0.16,
+            "maximum_degrees": 139.94,
+            "coordinate_excursion_degrees": 139.78,
+            "time_at_minimum_seconds": 7.34,
+            "time_at_maximum_seconds": 6.105,
+            "source_unit": "radians",
+            "display_unit": "degrees"
+          },
+          "left": {
+            "available": true,
+            "source_column": "knee_angle_l",
+            "sample_count": 282,
+            "minimum_degrees": 7.58,
+            "maximum_degrees": 139.67,
+            "coordinate_excursion_degrees": 132.09,
+            "time_at_minimum_seconds": 1.535,
+            "time_at_maximum_seconds": 2.903,
+            "source_unit": "radians",
+            "display_unit": "degrees"
+          }
+        },
+        "interpretation": "The values describe the estimated coordinate range in this reconstructed movement. They are not a clinical range-of-motion assessment.",
+        "limitations": [
+          "The estimates depend on monocular pose estimation and approximate OpenSim marker fitting.",
+          "Coordinate excursion does not establish movement quality, injury risk, or safety."
+        ]
+      },
+      {
+        "joint": "ankle",
+        "title": "Estimated ankle coordinate movement",
+        "available": true,
+        "sides": {
+          "right": {
+            "available": true,
+            "source_column": "ankle_angle_r",
+            "sample_count": 282,
+            "minimum_degrees": -48.46,
+            "maximum_degrees": -2.96,
+            "coordinate_excursion_degrees": 45.5,
+            "time_at_minimum_seconds": 9.375,
+            "time_at_maximum_seconds": 6.94,
+            "source_unit": "radians",
+            "display_unit": "degrees"
+          },
+          "left": {
+            "available": true,
+            "source_column": "ankle_angle_l",
+            "sample_count": 282,
+            "minimum_degrees": -46.68,
+            "maximum_degrees": -5.56,
+            "coordinate_excursion_degrees": 41.12,
+            "time_at_minimum_seconds": 0.767,
+            "time_at_maximum_seconds": 3.036,
+            "source_unit": "radians",
+            "display_unit": "degrees"
+          }
+        },
+        "interpretation": "The values describe the estimated coordinate range in this reconstructed movement. They are not a clinical range-of-motion assessment.",
+        "limitations": [
+          "The estimates depend on monocular pose estimation and approximate OpenSim marker fitting.",
+          "Coordinate excursion does not establish movement quality, injury risk, or safety."
+        ]
+      }
+    ],
+    "gravity_context": {
+      "status": "reported",
+      "method": "Whole-body gravitational potential-energy comparison using the OpenSim model center of mass.",
+      "vertical_axis": "OpenSim Y",
+      "metrics": {
+        "total_body_mass_kg": 74.30439078738935,
+        "initial_com_height_m": 1.077161265072107,
+        "minimum_com_height_m": 0.8850734548612327,
+        "maximum_com_height_m": 1.5692437691048398,
+        "com_height_excursion_m": 0.6841703142436071
+      },
+      "environments": {
+        "microgravity": {
+          "metrics": {
+            "gravity_m_per_s2": 0.0,
+            "minimum_relative_potential_energy_j": -0.0,
+            "maximum_relative_potential_energy_j": -0.0,
+            "relative_potential_energy_at_lowest_com_j": -0.0,
+            "energy_difference_to_return_to_initial_height_j": 0.0
+          },
+          "individual_phases": [
+            {
+              "phase_id": "ascent_1",
+              "phase": "ascent",
+              "phase_number": 1.0,
+              "start_frame_index": 0.0,
+              "end_frame_index": 55.0,
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 1.8349718056,
+              "duration_seconds": 1.8349718056,
+              "start_com_height_m": 1.077161265072107,
+              "end_com_height_m": 1.567002430590393,
+              "minimum_com_height_m": 1.077161265072107,
+              "maximum_com_height_m": 1.5671175490721545,
+              "potential_energy_change_j": 0.0,
+              "potential_energy_range_j": 0.0
+            },
+            {
+              "phase_id": "descent_2",
+              "phase": "descent",
+              "phase_number": 2.0,
+              "start_frame_index": 55.0,
+              "end_frame_index": 99.0,
+              "start_time_seconds": 1.8349718056,
+              "end_time_seconds": 3.3029492501,
+              "duration_seconds": 1.4679774445000002,
+              "start_com_height_m": 1.567002430590393,
+              "end_com_height_m": 1.0799300066651647,
+              "minimum_com_height_m": 1.077171039819899,
+              "maximum_com_height_m": 1.5692437691048398,
+              "potential_energy_change_j": -0.0,
+              "potential_energy_range_j": 0.0
+            },
+            {
+              "phase_id": "ascent_3",
+              "phase": "ascent",
+              "phase_number": 3.0,
+              "start_frame_index": 99.0,
+              "end_frame_index": 132.0,
+              "start_time_seconds": 3.3029492501,
+              "end_time_seconds": 4.4039323334,
+              "duration_seconds": 1.1009830833,
+              "start_com_height_m": 1.0799300066651647,
+              "end_com_height_m": 1.4605331244577677,
+              "minimum_com_height_m": 1.0788819977123316,
+              "maximum_com_height_m": 1.4605331244577677,
+              "potential_energy_change_j": 0.0,
+              "potential_energy_range_j": 0.0
+            },
+            {
+              "phase_id": "descent_4",
+              "phase": "descent",
+              "phase_number": 4.0,
+              "start_frame_index": 132.0,
+              "end_frame_index": 185.0,
+              "start_time_seconds": 4.4039323334,
+              "end_time_seconds": 6.1721778915,
+              "duration_seconds": 1.7682455580999994,
+              "start_com_height_m": 1.4605331244577677,
+              "end_com_height_m": 0.9536517079702822,
+              "minimum_com_height_m": 0.9514474821945197,
+              "maximum_com_height_m": 1.4605331244577677,
+              "potential_energy_change_j": -0.0,
+              "potential_energy_range_j": 0.0
+            },
+            {
+              "phase_id": "ascent_5",
+              "phase": "ascent",
+              "phase_number": 5.0,
+              "start_frame_index": 185.0,
+              "end_frame_index": 218.0,
+              "start_time_seconds": 6.1721778915,
+              "end_time_seconds": 7.2731609749,
+              "duration_seconds": 1.1009830834,
+              "start_com_height_m": 0.9536517079702822,
+              "end_com_height_m": 1.365893388776585,
+              "minimum_com_height_m": 0.9463355575642292,
+              "maximum_com_height_m": 1.3685003109783669,
+              "potential_energy_change_j": 0.0,
+              "potential_energy_range_j": 0.0
+            },
+            {
+              "phase_id": "descent_6",
+              "phase": "descent",
+              "phase_number": 6.0,
+              "start_frame_index": 218.0,
+              "end_frame_index": 268.0,
+              "start_time_seconds": 7.2731609749,
+              "end_time_seconds": 8.9413171618,
+              "duration_seconds": 1.668156186900001,
+              "start_com_height_m": 1.365893388776585,
+              "end_com_height_m": 0.8882099304840524,
+              "minimum_com_height_m": 0.8882099304840524,
+              "maximum_com_height_m": 1.365893388776585,
+              "potential_energy_change_j": -0.0,
+              "potential_energy_range_j": 0.0
+            },
+            {
+              "phase_id": "ascent_7",
+              "phase": "ascent",
+              "phase_number": 7.0,
+              "start_frame_index": 268.0,
+              "end_frame_index": 281.0,
+              "start_time_seconds": 8.9413171618,
+              "end_time_seconds": 9.3750377704,
+              "duration_seconds": 0.43372060859999984,
+              "start_com_height_m": 0.8882099304840524,
+              "end_com_height_m": 1.068642395856312,
+              "minimum_com_height_m": 0.8850734548612327,
+              "maximum_com_height_m": 1.068642395856312,
+              "potential_energy_change_j": 0.0,
+              "potential_energy_range_j": 0.0
+            }
+          ],
+          "phase_aggregates": {
+            "ascent": {
+              "phase_count": 4.0,
+              "total_potential_energy_change_j": 0.0,
+              "total_potential_energy_range_j": 0.0,
+              "individual_phase_ids": [
+                "ascent_1",
+                "ascent_3",
+                "ascent_5",
+                "ascent_7"
+              ]
+            },
+            "descent": {
+              "phase_count": 3.0,
+              "total_potential_energy_change_j": 0.0,
+              "total_potential_energy_range_j": 0.0,
+              "individual_phase_ids": [
+                "descent_2",
+                "descent_4",
+                "descent_6"
+              ]
+            }
+          }
+        },
+        "moon": {
+          "metrics": {
+            "gravity_m_per_s2": 1.62,
+            "minimum_relative_potential_energy_j": -23.122207698952344,
+            "maximum_relative_potential_energy_j": 59.23350290044215,
+            "relative_potential_energy_at_lowest_com_j": -23.122207698952344,
+            "energy_difference_to_return_to_initial_height_j": 23.122207698952344
+          },
+          "individual_phases": [
+            {
+              "phase_id": "ascent_1",
+              "phase": "ascent",
+              "phase_number": 1.0,
+              "start_frame_index": 0.0,
+              "end_frame_index": 55.0,
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 1.8349718056,
+              "duration_seconds": 1.8349718056,
+              "start_com_height_m": 1.077161265072107,
+              "end_com_height_m": 1.567002430590393,
+              "minimum_com_height_m": 1.077161265072107,
+              "maximum_com_height_m": 1.5671175490721545,
+              "potential_energy_change_j": 58.963706006002006,
+              "potential_energy_range_j": 58.977563176024184
+            },
+            {
+              "phase_id": "descent_2",
+              "phase": "descent",
+              "phase_number": 2.0,
+              "start_frame_index": 55.0,
+              "end_frame_index": 99.0,
+              "start_time_seconds": 1.8349718056,
+              "end_time_seconds": 3.3029492501,
+              "duration_seconds": 1.4679774445000002,
+              "start_com_height_m": 1.567002430590393,
+              "end_com_height_m": 1.0799300066651647,
+              "minimum_com_height_m": 1.077171039819899,
+              "maximum_com_height_m": 1.5692437691048398,
+              "potential_energy_change_j": -58.63042396114383,
+              "potential_energy_range_j": 59.232326283620885
+            },
+            {
+              "phase_id": "ascent_3",
+              "phase": "ascent",
+              "phase_number": 3.0,
+              "start_frame_index": 99.0,
+              "end_frame_index": 132.0,
+              "start_time_seconds": 3.3029492501,
+              "end_time_seconds": 4.4039323334,
+              "duration_seconds": 1.1009830833,
+              "start_com_height_m": 1.0799300066651647,
+              "end_com_height_m": 1.4605331244577677,
+              "minimum_com_height_m": 1.0788819977123316,
+              "maximum_com_height_m": 1.4605331244577677,
+              "potential_energy_change_j": 45.81438213496378,
+              "potential_energy_range_j": 45.94053423514737
+            },
+            {
+              "phase_id": "descent_4",
+              "phase": "descent",
+              "phase_number": 4.0,
+              "start_frame_index": 132.0,
+              "end_frame_index": 185.0,
+              "start_time_seconds": 4.4039323334,
+              "end_time_seconds": 6.1721778915,
+              "duration_seconds": 1.7682455580999994,
+              "start_com_height_m": 1.4605331244577677,
+              "end_com_height_m": 0.9536517079702822,
+              "minimum_com_height_m": 0.9514474821945197,
+              "maximum_com_height_m": 1.4605331244577677,
+              "potential_energy_change_j": -61.01489406275357,
+              "potential_energy_range_j": 61.28022358130352
+            },
+            {
+              "phase_id": "ascent_5",
+              "phase": "ascent",
+              "phase_number": 5.0,
+              "start_frame_index": 185.0,
+              "end_frame_index": 218.0,
+              "start_time_seconds": 6.1721778915,
+              "end_time_seconds": 7.2731609749,
+              "duration_seconds": 1.1009830834,
+              "start_com_height_m": 0.9536517079702822,
+              "end_com_height_m": 1.365893388776585,
+              "minimum_com_height_m": 0.9463355575642292,
+              "maximum_com_height_m": 1.3685003109783669,
+              "potential_energy_change_j": 49.62281445816043,
+              "potential_energy_range_j": 50.81728559924045
+            },
+            {
+              "phase_id": "descent_6",
+              "phase": "descent",
+              "phase_number": 6.0,
+              "start_frame_index": 218.0,
+              "end_frame_index": 268.0,
+              "start_time_seconds": 7.2731609749,
+              "end_time_seconds": 8.9413171618,
+              "duration_seconds": 1.668156186900001,
+              "start_com_height_m": 1.365893388776585,
+              "end_com_height_m": 0.8882099304840524,
+              "minimum_com_height_m": 0.8882099304840524,
+              "maximum_com_height_m": 1.365893388776585,
+              "potential_energy_change_j": -57.50024493937671,
+              "potential_energy_range_j": 57.50024493937671
+            },
+            {
+              "phase_id": "ascent_7",
+              "phase": "ascent",
+              "phase_number": 7.0,
+              "start_frame_index": 268.0,
+              "end_frame_index": 281.0,
+              "start_time_seconds": 8.9413171618,
+              "end_time_seconds": 9.3750377704,
+              "duration_seconds": 0.43372060859999984,
+              "start_com_height_m": 0.8882099304840524,
+              "end_com_height_m": 1.068642395856312,
+              "minimum_com_height_m": 0.8850734548612327,
+              "maximum_com_height_m": 1.068642395856312,
+              "potential_energy_change_j": 21.719217556759016,
+              "potential_energy_range_j": 22.096764891563463
+            }
+          ],
+          "phase_aggregates": {
+            "ascent": {
+              "phase_count": 4.0,
+              "total_potential_energy_change_j": 176.12012015588525,
+              "total_potential_energy_range_j": 177.83214790197545,
+              "individual_phase_ids": [
+                "ascent_1",
+                "ascent_3",
+                "ascent_5",
+                "ascent_7"
+              ]
+            },
+            "descent": {
+              "phase_count": 3.0,
+              "total_potential_energy_change_j": -177.1455629632741,
+              "total_potential_energy_range_j": 178.0127948043011,
+              "individual_phase_ids": [
+                "descent_2",
+                "descent_4",
+                "descent_6"
+              ]
+            }
+          }
+        },
+        "mars": {
+          "metrics": {
+            "gravity_m_per_s2": 3.71,
+            "minimum_relative_potential_energy_j": -52.95271022414394,
+            "maximum_relative_potential_energy_j": 135.65203442014837,
+            "relative_potential_energy_at_lowest_com_j": -52.95271022414394,
+            "energy_difference_to_return_to_initial_height_j": 52.95271022414394
+          },
+          "individual_phases": [
+            {
+              "phase_id": "ascent_1",
+              "phase": "ascent",
+              "phase_number": 1.0,
+              "start_frame_index": 0.0,
+              "end_frame_index": 55.0,
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 1.8349718056,
+              "duration_seconds": 1.8349718056,
+              "start_com_height_m": 1.077161265072107,
+              "end_com_height_m": 1.567002430590393,
+              "minimum_com_height_m": 1.077161265072107,
+              "maximum_com_height_m": 1.5671175490721545,
+              "potential_energy_change_j": 135.03416622362187,
+              "potential_energy_range_j": 135.06590085373438
+            },
+            {
+              "phase_id": "descent_2",
+              "phase": "descent",
+              "phase_number": 2.0,
+              "start_frame_index": 55.0,
+              "end_frame_index": 99.0,
+              "start_time_seconds": 1.8349718056,
+              "end_time_seconds": 3.3029492501,
+              "duration_seconds": 1.4679774445000002,
+              "start_com_height_m": 1.567002430590393,
+              "end_com_height_m": 1.0799300066651647,
+              "minimum_com_height_m": 1.077171039819899,
+              "maximum_com_height_m": 1.5692437691048398,
+              "potential_energy_change_j": -134.27090919496518,
+              "potential_energy_range_j": 135.64933982236633
+            },
+            {
+              "phase_id": "ascent_3",
+              "phase": "ascent",
+              "phase_number": 3.0,
+              "start_frame_index": 99.0,
+              "end_frame_index": 132.0,
+              "start_time_seconds": 3.3029492501,
+              "end_time_seconds": 4.4039323334,
+              "duration_seconds": 1.1009830833,
+              "start_com_height_m": 1.0799300066651647,
+              "end_com_height_m": 1.4605331244577677,
+              "minimum_com_height_m": 1.0788819977123316,
+              "maximum_com_height_m": 1.4605331244577677,
+              "potential_energy_change_j": 104.92059118562692,
+              "potential_energy_range_j": 105.2094950693807
+            },
+            {
+              "phase_id": "descent_4",
+              "phase": "descent",
+              "phase_number": 4.0,
+              "start_frame_index": 132.0,
+              "end_frame_index": 185.0,
+              "start_time_seconds": 4.4039323334,
+              "end_time_seconds": 6.1721778915,
+              "duration_seconds": 1.7682455580999994,
+              "start_com_height_m": 1.4605331244577677,
+              "end_com_height_m": 0.9536517079702822,
+              "minimum_com_height_m": 0.9514474821945197,
+              "maximum_com_height_m": 1.4605331244577677,
+              "potential_energy_change_j": -139.73164010667637,
+              "potential_energy_range_j": 140.33927746088645
+            },
+            {
+              "phase_id": "ascent_5",
+              "phase": "ascent",
+              "phase_number": 5.0,
+              "start_frame_index": 185.0,
+              "end_frame_index": 218.0,
+              "start_time_seconds": 6.1721778915,
+              "end_time_seconds": 7.2731609749,
+              "duration_seconds": 1.1009830834,
+              "start_com_height_m": 0.9536517079702822,
+              "end_com_height_m": 1.365893388776585,
+              "minimum_com_height_m": 0.9463355575642292,
+              "maximum_com_height_m": 1.3685003109783669,
+              "potential_energy_change_j": 113.64237138257727,
+              "potential_energy_range_j": 116.37785776122348
+            },
+            {
+              "phase_id": "descent_6",
+              "phase": "descent",
+              "phase_number": 6.0,
+              "start_frame_index": 218.0,
+              "end_frame_index": 268.0,
+              "start_time_seconds": 7.2731609749,
+              "end_time_seconds": 8.9413171618,
+              "duration_seconds": 1.668156186900001,
+              "start_com_height_m": 1.365893388776585,
+              "end_com_height_m": 0.8882099304840524,
+              "minimum_com_height_m": 0.8882099304840524,
+              "maximum_com_height_m": 1.365893388776585,
+              "potential_energy_change_j": -131.68265970684416,
+              "potential_energy_range_j": 131.68265970684416
+            },
+            {
+              "phase_id": "ascent_7",
+              "phase": "ascent",
+              "phase_number": 7.0,
+              "start_frame_index": 268.0,
+              "end_frame_index": 281.0,
+              "start_time_seconds": 8.9413171618,
+              "end_time_seconds": 9.3750377704,
+              "duration_seconds": 0.43372060859999984,
+              "start_com_height_m": 0.8882099304840524,
+              "end_com_height_m": 1.068642395856312,
+              "minimum_com_height_m": 0.8850734548612327,
+              "maximum_com_height_m": 1.068642395856312,
+              "potential_energy_change_j": 49.73968958986169,
+              "potential_energy_range_j": 50.604319597345956
+            }
+          ],
+          "phase_aggregates": {
+            "ascent": {
+              "phase_count": 4.0,
+              "total_potential_energy_change_j": 403.33681838168775,
+              "total_potential_energy_range_j": 407.25757328168453,
+              "individual_phase_ids": [
+                "ascent_1",
+                "ascent_3",
+                "ascent_5",
+                "ascent_7"
+              ]
+            },
+            "descent": {
+              "phase_count": 3.0,
+              "total_potential_energy_change_j": -405.68520900848574,
+              "total_potential_energy_range_j": 407.67127699009694,
+              "individual_phase_ids": [
+                "descent_2",
+                "descent_4",
+                "descent_6"
+              ]
+            }
+          }
+        },
+        "earth": {
+          "metrics": {
+            "gravity_m_per_s2": 9.80665,
+            "minimum_relative_potential_energy_j": -139.9699988462537,
+            "maximum_relative_potential_energy_j": 358.5692785300129,
+            "relative_potential_energy_at_lowest_com_j": -139.9699988462537,
+            "energy_difference_to_return_to_initial_height_j": 139.9699988462537
+          },
+          "individual_phases": [
+            {
+              "phase_id": "ascent_1",
+              "phase": "ascent",
+              "phase_number": 1.0,
+              "start_frame_index": 0.0,
+              "end_frame_index": 55.0,
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 1.8349718056,
+              "duration_seconds": 1.8349718056,
+              "start_com_height_m": 1.077161265072107,
+              "end_com_height_m": 1.567002430590393,
+              "minimum_com_height_m": 1.077161265072107,
+              "maximum_com_height_m": 1.5671175490721545,
+              "potential_energy_change_j": 356.93606636034536,
+              "potential_energy_range_j": 357.0199505679984
+            },
+            {
+              "phase_id": "descent_2",
+              "phase": "descent",
+              "phase_number": 2.0,
+              "start_frame_index": 55.0,
+              "end_frame_index": 99.0,
+              "start_time_seconds": 1.8349718056,
+              "end_time_seconds": 3.3029492501,
+              "duration_seconds": 1.4679774445000002,
+              "start_com_height_m": 1.567002430590393,
+              "end_com_height_m": 1.0799300066651647,
+              "minimum_com_height_m": 1.077171039819899,
+              "maximum_com_height_m": 1.5692437691048398,
+              "potential_energy_change_j": -354.91854761638956,
+              "potential_energy_range_j": 358.5621558946115
+            },
+            {
+              "phase_id": "ascent_3",
+              "phase": "ascent",
+              "phase_number": 3.0,
+              "start_frame_index": 99.0,
+              "end_frame_index": 132.0,
+              "start_time_seconds": 3.3029492501,
+              "end_time_seconds": 4.4039323334,
+              "duration_seconds": 1.1009830833,
+              "start_com_height_m": 1.0799300066651647,
+              "end_com_height_m": 1.4605331244577677,
+              "minimum_com_height_m": 1.0788819977123316,
+              "maximum_com_height_m": 1.4605331244577677,
+              "potential_energy_change_j": 277.3367966443472,
+              "potential_energy_range_j": 278.1004568253752
+            },
+            {
+              "phase_id": "descent_4",
+              "phase": "descent",
+              "phase_number": 4.0,
+              "start_frame_index": 132.0,
+              "end_frame_index": 185.0,
+              "start_time_seconds": 4.4039323334,
+              "end_time_seconds": 6.1721778915,
+              "duration_seconds": 1.7682455580999994,
+              "start_com_height_m": 1.4605331244577677,
+              "end_com_height_m": 0.9536517079702822,
+              "minimum_com_height_m": 0.9514474821945197,
+              "maximum_com_height_m": 1.4605331244577677,
+              "potential_energy_change_j": -369.3529079385816,
+              "potential_energy_range_j": 370.9590769034507
+            },
+            {
+              "phase_id": "ascent_5",
+              "phase": "ascent",
+              "phase_number": 5.0,
+              "start_frame_index": 185.0,
+              "end_frame_index": 218.0,
+              "start_time_seconds": 6.1721778915,
+              "end_time_seconds": 7.2731609749,
+              "duration_seconds": 1.1009830834,
+              "start_com_height_m": 0.9536517079702822,
+              "end_com_height_m": 1.365893388776585,
+              "minimum_com_height_m": 0.9463355575642292,
+              "maximum_com_height_m": 1.3685003109783669,
+              "potential_energy_change_j": 300.3910946951351,
+              "potential_energy_range_j": 307.6218110011057
+            },
+            {
+              "phase_id": "descent_6",
+              "phase": "descent",
+              "phase_number": 6.0,
+              "start_frame_index": 218.0,
+              "end_frame_index": 268.0,
+              "start_time_seconds": 7.2731609749,
+              "end_time_seconds": 8.9413171618,
+              "duration_seconds": 1.668156186900001,
+              "start_com_height_m": 1.365893388776585,
+              "end_com_height_m": 0.8882099304840524,
+              "minimum_com_height_m": 0.8882099304840524,
+              "maximum_com_height_m": 1.365893388776585,
+              "potential_energy_change_j": -348.07702286094974,
+              "potential_energy_range_j": 348.07702286094974
+            },
+            {
+              "phase_id": "ascent_7",
+              "phase": "ascent",
+              "phase_number": 7.0,
+              "start_frame_index": 268.0,
+              "end_frame_index": 281.0,
+              "start_time_seconds": 8.9413171618,
+              "end_time_seconds": 9.3750377704,
+              "duration_seconds": 0.43372060859999984,
+              "start_com_height_m": 0.8882099304840524,
+              "end_com_height_m": 1.068642395856312,
+              "minimum_com_height_m": 0.8850734548612327,
+              "maximum_com_height_m": 1.068642395856312,
+              "potential_energy_change_j": 131.47701534135234,
+              "potential_energy_range_j": 133.76249347151284
+            }
+          ],
+          "phase_aggregates": {
+            "ascent": {
+              "phase_count": 4.0,
+              "total_potential_energy_change_j": 1066.1409730411801,
+              "total_potential_energy_range_j": 1076.5047118659922,
+              "individual_phase_ids": [
+                "ascent_1",
+                "ascent_3",
+                "ascent_5",
+                "ascent_7"
+              ]
+            },
+            "descent": {
+              "phase_count": 3.0,
+              "total_potential_energy_change_j": -1072.348478415921,
+              "total_potential_energy_range_j": 1077.598255659012,
+              "individual_phase_ids": [
+                "descent_2",
+                "descent_4",
+                "descent_6"
+              ]
+            }
+          }
+        }
+      },
+      "interpretation": [
+        "The same reconstructed movement is evaluated under each gravity condition.",
+        "Relative potential energy is referenced to the first reconstructed frame.",
+        "Phase energy changes are calculated from the COM height at each phase's start and end.",
+        "Potential-energy range describes the difference between the highest and lowest COM positions within a phase.",
+        "Aggregate phase energy changes are sums of the individual phase endpoint changes, not estimates of metabolic expenditure.",
+        "Energy differences represent gravitational potential-energy changes, not measured muscle work or metabolic energy expenditure.",
+        "The analysis does not predict movement adaptation, muscle activation, joint loading, or exercise resistance."
+      ],
+      "limitations": [
+        "Center-of-mass estimates depend on the scaled OpenSim model and reconstructed kinematics.",
+        "The input movement is a monocular-video-derived kinematic reconstruction, not calibrated motion capture.",
+        "The comparison holds the reconstructed movement fixed across gravitational environments.",
+        "The calculation assumes the OpenSim Y-axis is vertical.",
+        "Phase boundaries are estimated from the smoothed COM signal and may not correspond exactly to independently annotated exercise repetitions."
+      ]
+    },
+    "reconstruction_quality": {
+      "status": "limited",
+      "metrics": {
+        "frame_count": 282.0,
+        "duration_seconds": 9.37503777039998,
+        "sampling_rate_hz": 29.973212575975715,
+        "marker_sample_count": 3384.0,
+        "mean_fitting_error_m": 0.02653025813329224,
+        "rms_fitting_error_m": 0.030645953647046163,
+        "maximum_fitting_error_m": 0.1377175137261149
+      },
+      "source_paths": {
+        "frame_count": "frame_count",
+        "duration_seconds": "duration_seconds",
+        "sampling_rate_hz": "sampling_rate_hz",
+        "marker_sample_count": "marker_fitting_diagnostics.overall_fitting.sample_count",
+        "mean_fitting_error_m": "marker_fitting_diagnostics.overall_fitting.mean_error_m",
+        "rms_fitting_error_m": "marker_fitting_diagnostics.overall_fitting.rms_error_m",
+        "maximum_fitting_error_m": "marker_fitting_diagnostics.overall_fitting.maximum_error_m"
+      },
+      "limitations": [
+        "MediaPipe world landmarks are estimated and are not camera-calibrated motion capture.",
+        "Pose scale and body segment scale factors are estimated from monocular landmarks; segment proportions may be biased by pose estimation errors.",
+        "Pelvis camera-depth translation is not observable from hip-centered world landmarks and is held at zero.",
+        "Virtual wrist markers are attached to the model hand origins; the model wrist flexion and deviation coordinates are locked.",
+        "Markers with no samples above the confidence threshold are omitted; motion of an unobserved limb cannot be recovered reliably.",
+        "Single-camera depth ambiguity can affect pelvis and limb rotations.",
+        "Marker fit is kinematic only; no inverse dynamics or joint loads are computed."
+      ],
+      "interpretation": "Marker-fitting residuals describe agreement between the transformed pose targets and fitted model markers. They do not establish anatomical accuracy."
+    },
+    "wellness_summary": {
+      "flags": [],
+      "missing_fields": [
+        "sleep.duration_hours",
+        "sleep.quality",
+        "fatigue",
+        "soreness.shoulders",
+        "soreness.arms",
+        "soreness.elbows",
+        "soreness.lower_back",
+        "soreness.hips",
+        "soreness.thighs",
+        "soreness.knees",
+        "soreness.ankles",
+        "stress_level",
+        "hydration",
+        "nutrition"
+      ],
+      "is_complete": false
+    },
+    "wellness_flags": [],
+    "context_flags": [
+      {
+        "code": "incomplete_daily_checkin",
+        "category": "data_completeness",
+        "severity": "information",
+        "evidence": {
+          "missing_fields": [
+            "sleep.duration_hours",
+            "sleep.quality",
+            "fatigue",
+            "soreness.shoulders",
+            "soreness.arms",
+            "soreness.elbows",
+            "soreness.lower_back",
+            "soreness.hips",
+            "soreness.thighs",
+            "soreness.knees",
+            "soreness.ankles",
+            "stress_level",
+            "hydration",
+            "nutrition"
+          ]
+        },
+        "message": "Some check-in fields were not reported. Unanswered fields were not interpreted as normal."
+      },
+      {
+        "code": "reconstruction_quality_limited",
+        "category": "reconstruction_quality",
+        "severity": "information",
+        "evidence": {
+          "quality_status": "limited"
+        },
+        "message": "The reconstruction has limitations that should be considered when interpreting movement observations."
+      }
+    ],
+    "contextual_insights": [
+      {
+        "category": "reconstruction_quality",
+        "title": "Reconstruction has known limitations",
+        "observation": "The IK report identifies limitations or unavailable marker samples.",
+        "evidence": [
+          {
+            "metrics": {
+              "frame_count": 282.0,
+              "duration_seconds": 9.37503777039998,
+              "sampling_rate_hz": 29.973212575975715,
+              "marker_sample_count": 3384.0,
+              "mean_fitting_error_m": 0.02653025813329224,
+              "rms_fitting_error_m": 0.030645953647046163,
+              "maximum_fitting_error_m": 0.1377175137261149
+            }
+          },
+          {
+            "limitations": [
+              "MediaPipe world landmarks are estimated and are not camera-calibrated motion capture.",
+              "Pose scale and body segment scale factors are estimated from monocular landmarks; segment proportions may be biased by pose estimation errors.",
+              "Pelvis camera-depth translation is not observable from hip-centered world landmarks and is held at zero.",
+              "Virtual wrist markers are attached to the model hand origins; the model wrist flexion and deviation coordinates are locked.",
+              "Markers with no samples above the confidence threshold are omitted; motion of an unobserved limb cannot be recovered reliably.",
+              "Single-camera depth ambiguity can affect pelvis and limb rotations.",
+              "Marker fit is kinematic only; no inverse dynamics or joint loads are computed."
+            ]
+          }
+        ],
+        "interpretation": "The movement estimates should be interpreted cautiously, particularly for body regions affected by missing markers.",
+        "suggested_actions": [
+          "For a future recording, keep the full body visible, use a stable camera position, and ensure adequate lighting.",
+          "Avoid interpreting unavailable or neutralized coordinates as observed movement."
+        ],
+        "when_to_seek_support": "This is a reconstruction limitation, not a medical finding.",
+        "limitations": [
+          "Marker-fitting residuals describe agreement between the transformed pose targets and fitted model markers. They do not establish anatomical accuracy."
+        ]
+      },
+      {
+        "category": "gravity_context",
+        "title": "Gravity-dependent potential-energy context",
+        "observation": "The modeled body mass was 74.30 kg; the reconstructed center-of-mass height excursion was 0.684 m. Relative gravitational potential energy was evaluated under these environments: microgravity, moon, mars, earth.",
+        "evidence": [
+          {
+            "whole_body_metrics": {
+              "total_body_mass_kg": 74.30439078738935,
+              "initial_com_height_m": 1.077161265072107,
+              "minimum_com_height_m": 0.8850734548612327,
+              "maximum_com_height_m": 1.5692437691048398,
+              "com_height_excursion_m": 0.6841703142436071
+            },
+            "gravity_environments": {
+              "microgravity": {
+                "metrics": {
+                  "gravity_m_per_s2": 0.0,
+                  "minimum_relative_potential_energy_j": -0.0,
+                  "maximum_relative_potential_energy_j": -0.0,
+                  "relative_potential_energy_at_lowest_com_j": -0.0,
+                  "energy_difference_to_return_to_initial_height_j": 0.0
+                },
+                "individual_phases": [
+                  {
+                    "phase_id": "ascent_1",
+                    "phase": "ascent",
+                    "phase_number": 1.0,
+                    "start_frame_index": 0.0,
+                    "end_frame_index": 55.0,
+                    "start_time_seconds": 0.0,
+                    "end_time_seconds": 1.8349718056,
+                    "duration_seconds": 1.8349718056,
+                    "start_com_height_m": 1.077161265072107,
+                    "end_com_height_m": 1.567002430590393,
+                    "minimum_com_height_m": 1.077161265072107,
+                    "maximum_com_height_m": 1.5671175490721545,
+                    "potential_energy_change_j": 0.0,
+                    "potential_energy_range_j": 0.0
+                  },
+                  {
+                    "phase_id": "descent_2",
+                    "phase": "descent",
+                    "phase_number": 2.0,
+                    "start_frame_index": 55.0,
+                    "end_frame_index": 99.0,
+                    "start_time_seconds": 1.8349718056,
+                    "end_time_seconds": 3.3029492501,
+                    "duration_seconds": 1.4679774445000002,
+                    "start_com_height_m": 1.567002430590393,
+                    "end_com_height_m": 1.0799300066651647,
+                    "minimum_com_height_m": 1.077171039819899,
+                    "maximum_com_height_m": 1.5692437691048398,
+                    "potential_energy_change_j": -0.0,
+                    "potential_energy_range_j": 0.0
+                  },
+                  {
+                    "phase_id": "ascent_3",
+                    "phase": "ascent",
+                    "phase_number": 3.0,
+                    "start_frame_index": 99.0,
+                    "end_frame_index": 132.0,
+                    "start_time_seconds": 3.3029492501,
+                    "end_time_seconds": 4.4039323334,
+                    "duration_seconds": 1.1009830833,
+                    "start_com_height_m": 1.0799300066651647,
+                    "end_com_height_m": 1.4605331244577677,
+                    "minimum_com_height_m": 1.0788819977123316,
+                    "maximum_com_height_m": 1.4605331244577677,
+                    "potential_energy_change_j": 0.0,
+                    "potential_energy_range_j": 0.0
+                  },
+                  {
+                    "phase_id": "descent_4",
+                    "phase": "descent",
+                    "phase_number": 4.0,
+                    "start_frame_index": 132.0,
+                    "end_frame_index": 185.0,
+                    "start_time_seconds": 4.4039323334,
+                    "end_time_seconds": 6.1721778915,
+                    "duration_seconds": 1.7682455580999994,
+                    "start_com_height_m": 1.4605331244577677,
+                    "end_com_height_m": 0.9536517079702822,
+                    "minimum_com_height_m": 0.9514474821945197,
+                    "maximum_com_height_m": 1.4605331244577677,
+                    "potential_energy_change_j": -0.0,
+                    "potential_energy_range_j": 0.0
+                  },
+                  {
+                    "phase_id": "ascent_5",
+                    "phase": "ascent",
+                    "phase_number": 5.0,
+                    "start_frame_index": 185.0,
+                    "end_frame_index": 218.0,
+                    "start_time_seconds": 6.1721778915,
+                    "end_time_seconds": 7.2731609749,
+                    "duration_seconds": 1.1009830834,
+                    "start_com_height_m": 0.9536517079702822,
+                    "end_com_height_m": 1.365893388776585,
+                    "minimum_com_height_m": 0.9463355575642292,
+                    "maximum_com_height_m": 1.3685003109783669,
+                    "potential_energy_change_j": 0.0,
+                    "potential_energy_range_j": 0.0
+                  },
+                  {
+                    "phase_id": "descent_6",
+                    "phase": "descent",
+                    "phase_number": 6.0,
+                    "start_frame_index": 218.0,
+                    "end_frame_index": 268.0,
+                    "start_time_seconds": 7.2731609749,
+                    "end_time_seconds": 8.9413171618,
+                    "duration_seconds": 1.668156186900001,
+                    "start_com_height_m": 1.365893388776585,
+                    "end_com_height_m": 0.8882099304840524,
+                    "minimum_com_height_m": 0.8882099304840524,
+                    "maximum_com_height_m": 1.365893388776585,
+                    "potential_energy_change_j": -0.0,
+                    "potential_energy_range_j": 0.0
+                  },
+                  {
+                    "phase_id": "ascent_7",
+                    "phase": "ascent",
+                    "phase_number": 7.0,
+                    "start_frame_index": 268.0,
+                    "end_frame_index": 281.0,
+                    "start_time_seconds": 8.9413171618,
+                    "end_time_seconds": 9.3750377704,
+                    "duration_seconds": 0.43372060859999984,
+                    "start_com_height_m": 0.8882099304840524,
+                    "end_com_height_m": 1.068642395856312,
+                    "minimum_com_height_m": 0.8850734548612327,
+                    "maximum_com_height_m": 1.068642395856312,
+                    "potential_energy_change_j": 0.0,
+                    "potential_energy_range_j": 0.0
+                  }
+                ],
+                "phase_aggregates": {
+                  "ascent": {
+                    "phase_count": 4.0,
+                    "total_potential_energy_change_j": 0.0,
+                    "total_potential_energy_range_j": 0.0,
+                    "individual_phase_ids": [
+                      "ascent_1",
+                      "ascent_3",
+                      "ascent_5",
+                      "ascent_7"
+                    ]
+                  },
+                  "descent": {
+                    "phase_count": 3.0,
+                    "total_potential_energy_change_j": 0.0,
+                    "total_potential_energy_range_j": 0.0,
+                    "individual_phase_ids": [
+                      "descent_2",
+                      "descent_4",
+                      "descent_6"
+                    ]
+                  }
+                }
+              },
+              "moon": {
+                "metrics": {
+                  "gravity_m_per_s2": 1.62,
+                  "minimum_relative_potential_energy_j": -23.122207698952344,
+                  "maximum_relative_potential_energy_j": 59.23350290044215,
+                  "relative_potential_energy_at_lowest_com_j": -23.122207698952344,
+                  "energy_difference_to_return_to_initial_height_j": 23.122207698952344
+                },
+                "individual_phases": [
+                  {
+                    "phase_id": "ascent_1",
+                    "phase": "ascent",
+                    "phase_number": 1.0,
+                    "start_frame_index": 0.0,
+                    "end_frame_index": 55.0,
+                    "start_time_seconds": 0.0,
+                    "end_time_seconds": 1.8349718056,
+                    "duration_seconds": 1.8349718056,
+                    "start_com_height_m": 1.077161265072107,
+                    "end_com_height_m": 1.567002430590393,
+                    "minimum_com_height_m": 1.077161265072107,
+                    "maximum_com_height_m": 1.5671175490721545,
+                    "potential_energy_change_j": 58.963706006002006,
+                    "potential_energy_range_j": 58.977563176024184
+                  },
+                  {
+                    "phase_id": "descent_2",
+                    "phase": "descent",
+                    "phase_number": 2.0,
+                    "start_frame_index": 55.0,
+                    "end_frame_index": 99.0,
+                    "start_time_seconds": 1.8349718056,
+                    "end_time_seconds": 3.3029492501,
+                    "duration_seconds": 1.4679774445000002,
+                    "start_com_height_m": 1.567002430590393,
+                    "end_com_height_m": 1.0799300066651647,
+                    "minimum_com_height_m": 1.077171039819899,
+                    "maximum_com_height_m": 1.5692437691048398,
+                    "potential_energy_change_j": -58.63042396114383,
+                    "potential_energy_range_j": 59.232326283620885
+                  },
+                  {
+                    "phase_id": "ascent_3",
+                    "phase": "ascent",
+                    "phase_number": 3.0,
+                    "start_frame_index": 99.0,
+                    "end_frame_index": 132.0,
+                    "start_time_seconds": 3.3029492501,
+                    "end_time_seconds": 4.4039323334,
+                    "duration_seconds": 1.1009830833,
+                    "start_com_height_m": 1.0799300066651647,
+                    "end_com_height_m": 1.4605331244577677,
+                    "minimum_com_height_m": 1.0788819977123316,
+                    "maximum_com_height_m": 1.4605331244577677,
+                    "potential_energy_change_j": 45.81438213496378,
+                    "potential_energy_range_j": 45.94053423514737
+                  },
+                  {
+                    "phase_id": "descent_4",
+                    "phase": "descent",
+                    "phase_number": 4.0,
+                    "start_frame_index": 132.0,
+                    "end_frame_index": 185.0,
+                    "start_time_seconds": 4.4039323334,
+                    "end_time_seconds": 6.1721778915,
+                    "duration_seconds": 1.7682455580999994,
+                    "start_com_height_m": 1.4605331244577677,
+                    "end_com_height_m": 0.9536517079702822,
+                    "minimum_com_height_m": 0.9514474821945197,
+                    "maximum_com_height_m": 1.4605331244577677,
+                    "potential_energy_change_j": -61.01489406275357,
+                    "potential_energy_range_j": 61.28022358130352
+                  },
+                  {
+                    "phase_id": "ascent_5",
+                    "phase": "ascent",
+                    "phase_number": 5.0,
+                    "start_frame_index": 185.0,
+                    "end_frame_index": 218.0,
+                    "start_time_seconds": 6.1721778915,
+                    "end_time_seconds": 7.2731609749,
+                    "duration_seconds": 1.1009830834,
+                    "start_com_height_m": 0.9536517079702822,
+                    "end_com_height_m": 1.365893388776585,
+                    "minimum_com_height_m": 0.9463355575642292,
+                    "maximum_com_height_m": 1.3685003109783669,
+                    "potential_energy_change_j": 49.62281445816043,
+                    "potential_energy_range_j": 50.81728559924045
+                  },
+                  {
+                    "phase_id": "descent_6",
+                    "phase": "descent",
+                    "phase_number": 6.0,
+                    "start_frame_index": 218.0,
+                    "end_frame_index": 268.0,
+                    "start_time_seconds": 7.2731609749,
+                    "end_time_seconds": 8.9413171618,
+                    "duration_seconds": 1.668156186900001,
+                    "start_com_height_m": 1.365893388776585,
+                    "end_com_height_m": 0.8882099304840524,
+                    "minimum_com_height_m": 0.8882099304840524,
+                    "maximum_com_height_m": 1.365893388776585,
+                    "potential_energy_change_j": -57.50024493937671,
+                    "potential_energy_range_j": 57.50024493937671
+                  },
+                  {
+                    "phase_id": "ascent_7",
+                    "phase": "ascent",
+                    "phase_number": 7.0,
+                    "start_frame_index": 268.0,
+                    "end_frame_index": 281.0,
+                    "start_time_seconds": 8.9413171618,
+                    "end_time_seconds": 9.3750377704,
+                    "duration_seconds": 0.43372060859999984,
+                    "start_com_height_m": 0.8882099304840524,
+                    "end_com_height_m": 1.068642395856312,
+                    "minimum_com_height_m": 0.8850734548612327,
+                    "maximum_com_height_m": 1.068642395856312,
+                    "potential_energy_change_j": 21.719217556759016,
+                    "potential_energy_range_j": 22.096764891563463
+                  }
+                ],
+                "phase_aggregates": {
+                  "ascent": {
+                    "phase_count": 4.0,
+                    "total_potential_energy_change_j": 176.12012015588525,
+                    "total_potential_energy_range_j": 177.83214790197545,
+                    "individual_phase_ids": [
+                      "ascent_1",
+                      "ascent_3",
+                      "ascent_5",
+                      "ascent_7"
+                    ]
+                  },
+                  "descent": {
+                    "phase_count": 3.0,
+                    "total_potential_energy_change_j": -177.1455629632741,
+                    "total_potential_energy_range_j": 178.0127948043011,
+                    "individual_phase_ids": [
+                      "descent_2",
+                      "descent_4",
+                      "descent_6"
+                    ]
+                  }
+                }
+              },
+              "mars": {
+                "metrics": {
+                  "gravity_m_per_s2": 3.71,
+                  "minimum_relative_potential_energy_j": -52.95271022414394,
+                  "maximum_relative_potential_energy_j": 135.65203442014837,
+                  "relative_potential_energy_at_lowest_com_j": -52.95271022414394,
+                  "energy_difference_to_return_to_initial_height_j": 52.95271022414394
+                },
+                "individual_phases": [
+                  {
+                    "phase_id": "ascent_1",
+                    "phase": "ascent",
+                    "phase_number": 1.0,
+                    "start_frame_index": 0.0,
+                    "end_frame_index": 55.0,
+                    "start_time_seconds": 0.0,
+                    "end_time_seconds": 1.8349718056,
+                    "duration_seconds": 1.8349718056,
+                    "start_com_height_m": 1.077161265072107,
+                    "end_com_height_m": 1.567002430590393,
+                    "minimum_com_height_m": 1.077161265072107,
+                    "maximum_com_height_m": 1.5671175490721545,
+                    "potential_energy_change_j": 135.03416622362187,
+                    "potential_energy_range_j": 135.06590085373438
+                  },
+                  {
+                    "phase_id": "descent_2",
+                    "phase": "descent",
+                    "phase_number": 2.0,
+                    "start_frame_index": 55.0,
+                    "end_frame_index": 99.0,
+                    "start_time_seconds": 1.8349718056,
+                    "end_time_seconds": 3.3029492501,
+                    "duration_seconds": 1.4679774445000002,
+                    "start_com_height_m": 1.567002430590393,
+                    "end_com_height_m": 1.0799300066651647,
+                    "minimum_com_height_m": 1.077171039819899,
+                    "maximum_com_height_m": 1.5692437691048398,
+                    "potential_energy_change_j": -134.27090919496518,
+                    "potential_energy_range_j": 135.64933982236633
+                  },
+                  {
+                    "phase_id": "ascent_3",
+                    "phase": "ascent",
+                    "phase_number": 3.0,
+                    "start_frame_index": 99.0,
+                    "end_frame_index": 132.0,
+                    "start_time_seconds": 3.3029492501,
+                    "end_time_seconds": 4.4039323334,
+                    "duration_seconds": 1.1009830833,
+                    "start_com_height_m": 1.0799300066651647,
+                    "end_com_height_m": 1.4605331244577677,
+                    "minimum_com_height_m": 1.0788819977123316,
+                    "maximum_com_height_m": 1.4605331244577677,
+                    "potential_energy_change_j": 104.92059118562692,
+                    "potential_energy_range_j": 105.2094950693807
+                  },
+                  {
+                    "phase_id": "descent_4",
+                    "phase": "descent",
+                    "phase_number": 4.0,
+                    "start_frame_index": 132.0,
+                    "end_frame_index": 185.0,
+                    "start_time_seconds": 4.4039323334,
+                    "end_time_seconds": 6.1721778915,
+                    "duration_seconds": 1.7682455580999994,
+                    "start_com_height_m": 1.4605331244577677,
+                    "end_com_height_m": 0.9536517079702822,
+                    "minimum_com_height_m": 0.9514474821945197,
+                    "maximum_com_height_m": 1.4605331244577677,
+                    "potential_energy_change_j": -139.73164010667637,
+                    "potential_energy_range_j": 140.33927746088645
+                  },
+                  {
+                    "phase_id": "ascent_5",
+                    "phase": "ascent",
+                    "phase_number": 5.0,
+                    "start_frame_index": 185.0,
+                    "end_frame_index": 218.0,
+                    "start_time_seconds": 6.1721778915,
+                    "end_time_seconds": 7.2731609749,
+                    "duration_seconds": 1.1009830834,
+                    "start_com_height_m": 0.9536517079702822,
+                    "end_com_height_m": 1.365893388776585,
+                    "minimum_com_height_m": 0.9463355575642292,
+                    "maximum_com_height_m": 1.3685003109783669,
+                    "potential_energy_change_j": 113.64237138257727,
+                    "potential_energy_range_j": 116.37785776122348
+                  },
+                  {
+                    "phase_id": "descent_6",
+                    "phase": "descent",
+                    "phase_number": 6.0,
+                    "start_frame_index": 218.0,
+                    "end_frame_index": 268.0,
+                    "start_time_seconds": 7.2731609749,
+                    "end_time_seconds": 8.9413171618,
+                    "duration_seconds": 1.668156186900001,
+                    "start_com_height_m": 1.365893388776585,
+                    "end_com_height_m": 0.8882099304840524,
+                    "minimum_com_height_m": 0.8882099304840524,
+                    "maximum_com_height_m": 1.365893388776585,
+                    "potential_energy_change_j": -131.68265970684416,
+                    "potential_energy_range_j": 131.68265970684416
+                  },
+                  {
+                    "phase_id": "ascent_7",
+                    "phase": "ascent",
+                    "phase_number": 7.0,
+                    "start_frame_index": 268.0,
+                    "end_frame_index": 281.0,
+                    "start_time_seconds": 8.9413171618,
+                    "end_time_seconds": 9.3750377704,
+                    "duration_seconds": 0.43372060859999984,
+                    "start_com_height_m": 0.8882099304840524,
+                    "end_com_height_m": 1.068642395856312,
+                    "minimum_com_height_m": 0.8850734548612327,
+                    "maximum_com_height_m": 1.068642395856312,
+                    "potential_energy_change_j": 49.73968958986169,
+                    "potential_energy_range_j": 50.604319597345956
+                  }
+                ],
+                "phase_aggregates": {
+                  "ascent": {
+                    "phase_count": 4.0,
+                    "total_potential_energy_change_j": 403.33681838168775,
+                    "total_potential_energy_range_j": 407.25757328168453,
+                    "individual_phase_ids": [
+                      "ascent_1",
+                      "ascent_3",
+                      "ascent_5",
+                      "ascent_7"
+                    ]
+                  },
+                  "descent": {
+                    "phase_count": 3.0,
+                    "total_potential_energy_change_j": -405.68520900848574,
+                    "total_potential_energy_range_j": 407.67127699009694,
+                    "individual_phase_ids": [
+                      "descent_2",
+                      "descent_4",
+                      "descent_6"
+                    ]
+                  }
+                }
+              },
+              "earth": {
+                "metrics": {
+                  "gravity_m_per_s2": 9.80665,
+                  "minimum_relative_potential_energy_j": -139.9699988462537,
+                  "maximum_relative_potential_energy_j": 358.5692785300129,
+                  "relative_potential_energy_at_lowest_com_j": -139.9699988462537,
+                  "energy_difference_to_return_to_initial_height_j": 139.9699988462537
+                },
+                "individual_phases": [
+                  {
+                    "phase_id": "ascent_1",
+                    "phase": "ascent",
+                    "phase_number": 1.0,
+                    "start_frame_index": 0.0,
+                    "end_frame_index": 55.0,
+                    "start_time_seconds": 0.0,
+                    "end_time_seconds": 1.8349718056,
+                    "duration_seconds": 1.8349718056,
+                    "start_com_height_m": 1.077161265072107,
+                    "end_com_height_m": 1.567002430590393,
+                    "minimum_com_height_m": 1.077161265072107,
+                    "maximum_com_height_m": 1.5671175490721545,
+                    "potential_energy_change_j": 356.93606636034536,
+                    "potential_energy_range_j": 357.0199505679984
+                  },
+                  {
+                    "phase_id": "descent_2",
+                    "phase": "descent",
+                    "phase_number": 2.0,
+                    "start_frame_index": 55.0,
+                    "end_frame_index": 99.0,
+                    "start_time_seconds": 1.8349718056,
+                    "end_time_seconds": 3.3029492501,
+                    "duration_seconds": 1.4679774445000002,
+                    "start_com_height_m": 1.567002430590393,
+                    "end_com_height_m": 1.0799300066651647,
+                    "minimum_com_height_m": 1.077171039819899,
+                    "maximum_com_height_m": 1.5692437691048398,
+                    "potential_energy_change_j": -354.91854761638956,
+                    "potential_energy_range_j": 358.5621558946115
+                  },
+                  {
+                    "phase_id": "ascent_3",
+                    "phase": "ascent",
+                    "phase_number": 3.0,
+                    "start_frame_index": 99.0,
+                    "end_frame_index": 132.0,
+                    "start_time_seconds": 3.3029492501,
+                    "end_time_seconds": 4.4039323334,
+                    "duration_seconds": 1.1009830833,
+                    "start_com_height_m": 1.0799300066651647,
+                    "end_com_height_m": 1.4605331244577677,
+                    "minimum_com_height_m": 1.0788819977123316,
+                    "maximum_com_height_m": 1.4605331244577677,
+                    "potential_energy_change_j": 277.3367966443472,
+                    "potential_energy_range_j": 278.1004568253752
+                  },
+                  {
+                    "phase_id": "descent_4",
+                    "phase": "descent",
+                    "phase_number": 4.0,
+                    "start_frame_index": 132.0,
+                    "end_frame_index": 185.0,
+                    "start_time_seconds": 4.4039323334,
+                    "end_time_seconds": 6.1721778915,
+                    "duration_seconds": 1.7682455580999994,
+                    "start_com_height_m": 1.4605331244577677,
+                    "end_com_height_m": 0.9536517079702822,
+                    "minimum_com_height_m": 0.9514474821945197,
+                    "maximum_com_height_m": 1.4605331244577677,
+                    "potential_energy_change_j": -369.3529079385816,
+                    "potential_energy_range_j": 370.9590769034507
+                  },
+                  {
+                    "phase_id": "ascent_5",
+                    "phase": "ascent",
+                    "phase_number": 5.0,
+                    "start_frame_index": 185.0,
+                    "end_frame_index": 218.0,
+                    "start_time_seconds": 6.1721778915,
+                    "end_time_seconds": 7.2731609749,
+                    "duration_seconds": 1.1009830834,
+                    "start_com_height_m": 0.9536517079702822,
+                    "end_com_height_m": 1.365893388776585,
+                    "minimum_com_height_m": 0.9463355575642292,
+                    "maximum_com_height_m": 1.3685003109783669,
+                    "potential_energy_change_j": 300.3910946951351,
+                    "potential_energy_range_j": 307.6218110011057
+                  },
+                  {
+                    "phase_id": "descent_6",
+                    "phase": "descent",
+                    "phase_number": 6.0,
+                    "start_frame_index": 218.0,
+                    "end_frame_index": 268.0,
+                    "start_time_seconds": 7.2731609749,
+                    "end_time_seconds": 8.9413171618,
+                    "duration_seconds": 1.668156186900001,
+                    "start_com_height_m": 1.365893388776585,
+                    "end_com_height_m": 0.8882099304840524,
+                    "minimum_com_height_m": 0.8882099304840524,
+                    "maximum_com_height_m": 1.365893388776585,
+                    "potential_energy_change_j": -348.07702286094974,
+                    "potential_energy_range_j": 348.07702286094974
+                  },
+                  {
+                    "phase_id": "ascent_7",
+                    "phase": "ascent",
+                    "phase_number": 7.0,
+                    "start_frame_index": 268.0,
+                    "end_frame_index": 281.0,
+                    "start_time_seconds": 8.9413171618,
+                    "end_time_seconds": 9.3750377704,
+                    "duration_seconds": 0.43372060859999984,
+                    "start_com_height_m": 0.8882099304840524,
+                    "end_com_height_m": 1.068642395856312,
+                    "minimum_com_height_m": 0.8850734548612327,
+                    "maximum_com_height_m": 1.068642395856312,
+                    "potential_energy_change_j": 131.47701534135234,
+                    "potential_energy_range_j": 133.76249347151284
+                  }
+                ],
+                "phase_aggregates": {
+                  "ascent": {
+                    "phase_count": 4.0,
+                    "total_potential_energy_change_j": 1066.1409730411801,
+                    "total_potential_energy_range_j": 1076.5047118659922,
+                    "individual_phase_ids": [
+                      "ascent_1",
+                      "ascent_3",
+                      "ascent_5",
+                      "ascent_7"
+                    ]
+                  },
+                  "descent": {
+                    "phase_count": 3.0,
+                    "total_potential_energy_change_j": -1072.348478415921,
+                    "total_potential_energy_range_j": 1077.598255659012,
+                    "individual_phase_ids": [
+                      "descent_2",
+                      "descent_4",
+                      "descent_6"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "interpretation": "The same reconstructed movement trajectory was evaluated under each reported gravitational acceleration. The resulting values describe modeled gravitational potential-energy changes associated with center-of-mass height. They do not measure muscle work, metabolic energy expenditure, exercise effort, joint loading, or movement adaptation.",
+        "suggested_actions": [
+          "Use the environment comparison as physical context when reviewing the reconstructed movement.",
+          "Interpret these values alongside the reconstruction-quality limitations and the movement observations."
+        ],
+        "when_to_seek_support": "This is a modeled physics output, not a medical finding or an indication for medical consultation.",
+        "limitations": [
+          "Center-of-mass estimates depend on the scaled OpenSim model and reconstructed kinematics.",
+          "The input movement is a monocular-video-derived kinematic reconstruction, not calibrated motion capture.",
+          "The comparison holds the reconstructed movement fixed across gravitational environments.",
+          "The calculation assumes the OpenSim Y-axis is vertical.",
+          "Phase boundaries are estimated from the smoothed COM signal and may not correspond exactly to independently annotated exercise repetitions."
+        ]
+      }
+    ],
+    "limitations": [
+      "This assessment is informational and is not a medical diagnosis.",
+      "User-reported wellness information is not independently verified.",
+      "Movement estimates are derived from monocular video and approximate OpenSim inverse kinematics.",
+      "Coordinate ranges are not clinically validated range-of-motion measurements.",
+      "The current pipeline does not calculate video-derived joint loads or establish exercise safety.",
+      "No readiness score, medical clearance, or automatic exercise prescription is generated.",
+      "Gravity outputs describe modeled gravitational potential-energy changes and do not measure muscle work or metabolic expenditure.",
+      "The gravity comparison holds the reconstructed movement fixed across gravitational environments and does not predict movement adaptation.",
+      "MediaPipe world landmarks are estimated and are not camera-calibrated motion capture.",
+      "Pose scale and body segment scale factors are estimated from monocular landmarks; segment proportions may be biased by pose estimation errors.",
+      "Pelvis camera-depth translation is not observable from hip-centered world landmarks and is held at zero.",
+      "Virtual wrist markers are attached to the model hand origins; the model wrist flexion and deviation coordinates are locked.",
+      "Markers with no samples above the confidence threshold are omitted; motion of an unobserved limb cannot be recovered reliably.",
+      "Single-camera depth ambiguity can affect pelvis and limb rotations.",
+      "Marker fit is kinematic only; no inverse dynamics or joint loads are computed.",
+      "Center-of-mass estimates depend on the scaled OpenSim model and reconstructed kinematics.",
+      "The input movement is a monocular-video-derived kinematic reconstruction, not calibrated motion capture.",
+      "The comparison holds the reconstructed movement fixed across gravitational environments.",
+      "The calculation assumes the OpenSim Y-axis is vertical.",
+      "Phase boundaries are estimated from the smoothed COM signal and may not correspond exactly to independently annotated exercise repetitions.",
+      "Movement analysis is based on the supplied exercise signal and does not independently validate pose estimation or OpenSim reconstruction.",
+      "Baseline comparisons are descriptive comparisons with prior recorded sessions, not clinical reference ranges."
+    ],
+    "evidence_references": [],
+    "movement_analysis": {
+      "exercise": "squat",
+      "sample_count": 282,
+      "signal": {
+        "name": "com_y_m",
+        "minimum": 0.8916649102,
+        "maximum": 1.5671175491,
+        "range": 0.6754526389
+      },
+      "phases": {
+        "ascent": {
+          "count": 4,
+          "total_duration_seconds": 4.4706585809
+        },
+        "descent": {
+          "count": 3,
+          "total_duration_seconds": 4.9043791895
+        }
+      },
+      "repetitions": {
+        "count": 2,
+        "status": "available",
+        "cycle_start_extreme": "high",
+        "durations_seconds": [
+          2.5689605278000003,
+          2.8692286414999995
+        ]
+      },
+      "completeness": {
+        "status": "incomplete",
+        "is_complete": false,
+        "reason": "The recording does not sufficiently capture the expected starting posture and the expected ending posture."
+      },
+      "limitations": [
+        "Exercise type is supplied by the caller, not recognized automatically.",
+        "Phase segmentation uses one numerical movement signal.",
+        "Completeness is estimated from relative endpoint positions.",
+        "This analysis does not validate the underlying OpenSim reconstruction."
+      ]
+    },
+    "baseline_comparison": {
+      "exercise": "squat",
+      "status": "unavailable",
+      "comparison_method": "historical_session_median",
+      "metrics": {
+        "median_repetition_duration_seconds": {
+          "status": "unavailable",
+          "current_value": 2.7190945846499996,
+          "reference_median": null,
+          "difference": null,
+          "difference_percent": null,
+          "reference_session_count": 0
+        },
+        "median_ascent_duration_seconds": {
+          "status": "unavailable",
+          "current_value": 1.10098308335,
+          "reference_median": null,
+          "difference": null,
+          "difference_percent": null,
+          "reference_session_count": 0
+        },
+        "median_descent_duration_seconds": {
+          "status": "unavailable",
+          "current_value": 1.668156186900001,
+          "reference_median": null,
+          "difference": null,
+          "difference_percent": null,
+          "reference_session_count": 0
+        }
+      },
+      "limitations": [
+        "Comparisons use previously recorded, fingerprinted sessions from the same exercise and baseline scope.",
+        "Legacy history entries without recording fingerprints are excluded.",
+        "A historical median is descriptive and is not a clinical or population reference range.",
+        "Differences do not independently establish improvement, deterioration, fatigue, or injury.",
+        "Video quality, reconstruction quality, exercise execution, and recording duration may affect comparability.",
+        "No comparison is available until prior compatible recording data exists."
+      ]
+    }
+  },
+  "rag": {
+    "status": "available",
+    "answer": "TALA observed estimated right and left hip coordinate movements with excursions of 114.09 degrees and 90.89 degrees, respectively, alongside specified minimum and maximum degrees and timing metrics. The assessment limitations note that these estimates depend on monocular pose estimation and approximate OpenSim marker fitting, and they do not constitute a clinical range-of-motion assessment. \n\nThe retrieved scientific literature discusses astronaut fitness maintenance during space missions, noting that exploration vehicles may have limited hardware volume compared to the ISS, which could alter hardware effectiveness and necessitate compact exercise devices like the E4D and Orion Flywheel [Evidence Report: Reduced Cardiorespiratory and Musculoskeletal Fitness, pp. 138-139]. The literature also emphasizes monitoring adherence to prescribed in-flight exercise programs to evaluate countermeasure effectiveness and crew readiness for mission duties [Evidence Report: Reduced Cardiorespiratory and Musculoskeletal Fitness, pp. 55-56]. \n\nHowever, the retrieved evidence does not establish a direct relationship between TALA's estimated joint coordinate excursions and an individual's movement outcome, exercise performance, or physiological adaptation. Furthermore, the supplied literature discusses astronaut exercise countermeasures and monitoring generally and does not validate TALA's measurements or provide direct proof of an individual's movement mechanics.",
+    "abstained": false,
+    "abstention_reason": "",
+    "limitations": [
+      "Retrieved NASA evidence primarily concerns astronauts and spaceflight; it should not automatically be treated as general-population clinical guidance.",
+      "The generated explanation is not a medical diagnosis or a substitute for professional clinical assessment.",
+      "The LLM explains supplied assessment findings but does not generate or modify them."
+    ],
+    "evidence": [
+      {
+        "source_id": "nasa_hrp_musculoskeletal_fitness",
+        "title": "Evidence Report: Reduced Cardiorespiratory and Musculoskeletal Fitness",
+        "page_start": 138,
+        "page_end": 139,
+        "population": "astronauts",
+        "domain": "musculoskeletal_fitness",
+        "distance": 0.3745877742767334
+      },
+      {
+        "source_id": "nasa_hrp_musculoskeletal_fitness",
+        "title": "Evidence Report: Reduced Cardiorespiratory and Musculoskeletal Fitness",
+        "page_start": 5,
+        "page_end": 6,
+        "population": "astronauts",
+        "domain": "musculoskeletal_fitness",
+        "distance": 0.3850758671760559
+      },
+      {
+        "source_id": "nasa_hrp_musculoskeletal_fitness",
+        "title": "Evidence Report: Reduced Cardiorespiratory and Musculoskeletal Fitness",
+        "page_start": 55,
+        "page_end": 56,
+        "population": "astronauts",
+        "domain": "musculoskeletal_fitness",
+        "distance": 0.38740718364715576
+      },
+      {
+        "source_id": "nasa_ochmo_tb_031",
+        "title": "Exercise Overview",
+        "page_start": 7,
+        "page_end": 7,
+        "population": "astronauts",
+        "domain": "exercise_physiology",
+        "distance": 0.39197343587875366
+      },
+      {
+        "source_id": "nasa_hrp_musculoskeletal_fitness",
+        "title": "Evidence Report: Reduced Cardiorespiratory and Musculoskeletal Fitness",
+        "page_start": 140,
+        "page_end": 140,
+        "population": "astronauts",
+        "domain": "musculoskeletal_fitness",
+        "distance": 0.39300352334976196
+      }
+    ]
+  }
+}

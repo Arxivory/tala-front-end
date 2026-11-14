@@ -1,0 +1,3194 @@
+{
+    "stage": "phase3_10_full_body_inverse_kinematics",
+    "status": "motion_file_generated",
+    "method": "OpenSim InverseKinematicsTool fitting model markers to MediaPipe pose landmarks.",
+    "source_model": "E:\\Machine Learning\\Projects\\tala-backend\\models\\opensim\\RajagopalLaiUhlrich2023.osim",
+    "scaled_model": "E:\\Machine Learning\\Projects\\tala-backend\\results\\kinematic_reconstruction\\scaled_model.osim",
+    "input_landmarks": "E:\\Machine Learning\\Projects\\tala-backend\\results\\pose_estimation\\pose_landmarks.csv",
+    "input_metadata": "E:\\Machine Learning\\Projects\\tala-backend\\results\\pose_estimation\\video_metadata.json",
+    "frame_count": 282,
+    "duration_seconds": 9.37503777039998,
+    "sampling_rate_hz": 29.973212575975715,
+    "timestamp_source": "pose_landmarks.csv.timestamp_seconds",
+    "coordinate_count": 39,
+    "coordinates": [
+        "pelvis_tilt",
+        "pelvis_list",
+        "pelvis_rotation",
+        "pelvis_tx",
+        "pelvis_ty",
+        "pelvis_tz",
+        "hip_flexion_r",
+        "hip_adduction_r",
+        "hip_rotation_r",
+        "knee_angle_r",
+        "knee_angle_r_beta",
+        "ankle_angle_r",
+        "subtalar_angle_r",
+        "mtp_angle_r",
+        "hip_flexion_l",
+        "hip_adduction_l",
+        "hip_rotation_l",
+        "knee_angle_l",
+        "knee_angle_l_beta",
+        "ankle_angle_l",
+        "subtalar_angle_l",
+        "mtp_angle_l",
+        "lumbar_extension",
+        "lumbar_bending",
+        "lumbar_rotation",
+        "arm_flex_r",
+        "arm_add_r",
+        "arm_rot_r",
+        "elbow_flex_r",
+        "pro_sup_r",
+        "wrist_flex_r",
+        "wrist_dev_r",
+        "arm_flex_l",
+        "arm_add_l",
+        "arm_rot_l",
+        "elbow_flex_l",
+        "pro_sup_l",
+        "wrist_flex_l",
+        "wrist_dev_l"
+    ],
+    "motion_angles_in_degrees": true,
+    "marker_mapping": {
+        "RSJC": {
+            "pose_landmark": "right_shoulder",
+            "weight": 2.0,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "LSJC": {
+            "pose_landmark": "left_shoulder",
+            "weight": 2.0,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "LEJC": {
+            "pose_landmark": "left_elbow",
+            "weight": 2.0,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "IK_WRIST_L": {
+            "pose_landmark": "left_wrist",
+            "weight": 1.5,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "RHJC": {
+            "pose_landmark": "right_hip",
+            "weight": 2.0,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "LHJC": {
+            "pose_landmark": "left_hip",
+            "weight": 2.0,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "RKJC": {
+            "pose_landmark": "right_knee",
+            "weight": 2.0,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "LKJC": {
+            "pose_landmark": "left_knee",
+            "weight": 2.0,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "RAJC": {
+            "pose_landmark": "right_ankle",
+            "weight": 1.5,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "LAJC": {
+            "pose_landmark": "left_ankle",
+            "weight": 1.5,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "RTOE": {
+            "pose_landmark": "right_foot_index",
+            "weight": 0.75,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "LTOE": {
+            "pose_landmark": "left_foot_index",
+            "weight": 0.75,
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        }
+    },
+    "landmark_coverage": {
+        "left_ankle": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "left_elbow": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "left_foot_index": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "left_hip": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "left_knee": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "left_shoulder": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "left_wrist": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "right_ankle": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "right_elbow": {
+            "valid_source_frames": 0,
+            "valid_source_frame_percentage": 0.0
+        },
+        "right_foot_index": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "right_hip": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "right_knee": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "right_shoulder": {
+            "valid_source_frames": 282,
+            "valid_source_frame_percentage": 100.0
+        },
+        "right_wrist": {
+            "valid_source_frames": 0,
+            "valid_source_frame_percentage": 0.0
+        }
+    },
+    "skipped_markers": {
+        "REJC": {
+            "pose_landmark": "right_elbow",
+            "reason": "No samples met the visibility/presence threshold."
+        },
+        "IK_WRIST_R": {
+            "pose_landmark": "right_wrist",
+            "reason": "No samples met the visibility/presence threshold."
+        }
+    },
+    "neutralized_unobserved_limbs": {
+        "right_arm": {
+            "assumption": "Assumed neutral posture, not recovered movement.",
+            "coordinate_targets": {
+                "arm_flex_r": {
+                    "value_radians": 0.0,
+                    "value_degrees": 0.0
+                },
+                "arm_add_r": {
+                    "value_radians": 0.0,
+                    "value_degrees": 0.0
+                },
+                "arm_rot_r": {
+                    "value_radians": 0.0,
+                    "value_degrees": 0.0
+                },
+                "elbow_flex_r": {
+                    "value_radians": 0.2617993877991494,
+                    "value_degrees": 14.999999999999998
+                },
+                "pro_sup_r": {
+                    "value_radians": 0.0,
+                    "value_degrees": 0.0
+                }
+            }
+        }
+    },
+    "neutralization_scope": "Coordinate tasks are constant over the full motion. They are not switched on only during missing frames.",
+    "pose_to_model_scale": 1.1020664945440948,
+    "segment_scale_ratios": {
+        "left_shoulder_to_left_elbow": 1.1213764317828903,
+        "left_elbow_to_left_wrist": 1.089640004588419,
+        "right_hip_to_right_knee": 1.1766877227774888,
+        "left_hip_to_left_knee": 1.0816302994208138,
+        "right_knee_to_right_ankle": 1.1144929844997709,
+        "left_knee_to_left_ankle": 1.1924102237485,
+        "right_ankle_to_right_foot_index": 1.0777936739046352,
+        "left_ankle_to_left_foot_index": 0.9620591654659773
+    },
+    "applied_body_scale_factors": {
+        "humerus_l": 0.9827801470661423,
+        "ulna_l": 1.0114042159826626,
+        "radius_l": 1.0114042159826626,
+        "femur_r": 0.9365836603978022,
+        "femur_l": 1.0188938818875766,
+        "tibia_r": 0.9888500958476166,
+        "tibia_l": 0.9242343554214105,
+        "calcn_r": 1.0225208416296636,
+        "calcn_l": 1.145528813719377,
+        "torso": 0.9826470087687436,
+        "pelvis": 1.0001271559151397,
+        "humerus_r": 0.9827801470661423,
+        "ulna_r": 1.0114042159826626,
+        "radius_r": 1.0114042159826626
+    },
+    "root_translation_estimation": {
+        "reference_pelvis_ty_m": 0.94,
+        "meters_per_normalized_y": 3.7521768647434275,
+        "meters_per_normalized_x": 2.1105994864181783,
+        "pelvis_tx": "Held at zero; hip-centered MediaPipe world landmarks do not provide camera-depth translation."
+    },
+    "valid_ik_markers_per_frame": {
+        "minimum": 12,
+        "maximum": 12
+    },
+    "coordinate_diagnostics": {
+        "pelvis_tilt": {
+            "minimum": -1.1390487464281482,
+            "maximum": 0.02047436809428778,
+            "model_range": [
+                -1.57079633,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "pelvis_list": {
+            "minimum": 0.09241031529715131,
+            "maximum": 0.8818969512137057,
+            "model_range": [
+                -1.57079633,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "pelvis_rotation": {
+            "minimum": -1.0519061727092591,
+            "maximum": -0.33772434015985037,
+            "model_range": [
+                -1.57079633,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "pelvis_tx": {
+            "minimum": 0.01680746,
+            "maximum": 0.06497362,
+            "model_range": [
+                -5.0,
+                5.0
+            ],
+            "units": "meters"
+        },
+        "pelvis_ty": {
+            "minimum": 0.79840599,
+            "maximum": 1.52363977,
+            "model_range": [
+                -1.0,
+                2.0
+            ],
+            "units": "meters"
+        },
+        "pelvis_tz": {
+            "minimum": -0.24762799,
+            "maximum": 0.03230795,
+            "model_range": [
+                -3.0,
+                3.0
+            ],
+            "units": "meters"
+        },
+        "hip_flexion_r": {
+            "minimum": 0.09906325611128168,
+            "maximum": 2.090290805846426,
+            "model_range": [
+                -0.52359878,
+                2.0943951
+            ],
+            "units": "radians"
+        },
+        "hip_adduction_r": {
+            "minimum": -0.8703176499870156,
+            "maximum": -0.3025624548147003,
+            "model_range": [
+                -0.87266463,
+                0.52359878
+            ],
+            "units": "radians"
+        },
+        "hip_rotation_r": {
+            "minimum": -0.6799000668296228,
+            "maximum": 0.6942621978101797,
+            "model_range": [
+                -0.6981317,
+                0.6981317
+            ],
+            "units": "radians"
+        },
+        "knee_angle_r": {
+            "minimum": 0.0028344422814409725,
+            "maximum": 2.442475542514379,
+            "model_range": [
+                0.0,
+                2.44346095279206
+            ],
+            "units": "radians"
+        },
+        "knee_angle_r_beta": {
+            "minimum": 0.00283444,
+            "maximum": 2.44247554,
+            "model_range": [
+                -99999.9,
+                99999.9
+            ],
+            "units": "meters"
+        },
+        "ankle_angle_r": {
+            "minimum": -0.8458003373343576,
+            "maximum": -0.051739360650868337,
+            "model_range": [
+                -0.8726646259971648,
+                0.8726646259971648
+            ],
+            "units": "radians"
+        },
+        "subtalar_angle_r": {
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "model_range": [
+                -0.610865238198015,
+                0.610865238198015
+            ],
+            "units": "radians"
+        },
+        "mtp_angle_r": {
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "model_range": [
+                -0.7853981633974483,
+                0.52359878
+            ],
+            "units": "radians"
+        },
+        "hip_flexion_l": {
+            "minimum": 0.36203231296056937,
+            "maximum": 1.9483933099210298,
+            "model_range": [
+                -0.52359878,
+                2.0943951
+            ],
+            "units": "radians"
+        },
+        "hip_adduction_l": {
+            "minimum": -0.42160827595485256,
+            "maximum": 0.5212323342800681,
+            "model_range": [
+                -0.87266463,
+                0.52359878
+            ],
+            "units": "radians"
+        },
+        "hip_rotation_l": {
+            "minimum": -0.5395909266395599,
+            "maximum": 0.3853210103365311,
+            "model_range": [
+                -0.6981317,
+                0.6981317
+            ],
+            "units": "radians"
+        },
+        "knee_angle_l": {
+            "minimum": 0.1322500790528535,
+            "maximum": 2.4377104599494817,
+            "model_range": [
+                0.0,
+                2.44346095279206
+            ],
+            "units": "radians"
+        },
+        "knee_angle_l_beta": {
+            "minimum": 0.13225008,
+            "maximum": 2.43771046,
+            "model_range": [
+                -99999.9,
+                99999.9
+            ],
+            "units": "meters"
+        },
+        "ankle_angle_l": {
+            "minimum": -0.8147691389614644,
+            "maximum": -0.09706900102005091,
+            "model_range": [
+                -0.8726646259971648,
+                0.8726646259971648
+            ],
+            "units": "radians"
+        },
+        "subtalar_angle_l": {
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "model_range": [
+                -0.610865238198015,
+                0.610865238198015
+            ],
+            "units": "radians"
+        },
+        "mtp_angle_l": {
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "model_range": [
+                -0.7853981633974483,
+                0.52359878
+            ],
+            "units": "radians"
+        },
+        "lumbar_extension": {
+            "minimum": -0.7892604037209171,
+            "maximum": 0.9608574084838091,
+            "model_range": [
+                -1.57079633,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "lumbar_bending": {
+            "minimum": -0.3986313298134809,
+            "maximum": 0.09842730316134964,
+            "model_range": [
+                -1.57079633,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "lumbar_rotation": {
+            "minimum": -0.24466767254295196,
+            "maximum": 0.25567083028611615,
+            "model_range": [
+                -1.57079633,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "arm_flex_r": {
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "model_range": [
+                -1.57079633,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "arm_add_r": {
+            "minimum": -1.0026916552707423e-06,
+            "maximum": 9.747663872388331e-07,
+            "model_range": [
+                -2.0943951,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "arm_rot_r": {
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "model_range": [
+                -1.57079633,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "elbow_flex_r": {
+            "minimum": 0.2617987048518131,
+            "maximum": 0.2618006847533166,
+            "model_range": [
+                0.0,
+                2.618
+            ],
+            "units": "radians"
+        },
+        "pro_sup_r": {
+            "minimum": 0.00029898450017751466,
+            "maximum": 0.0006665387978756817,
+            "model_range": [
+                0.0,
+                2.09
+            ],
+            "units": "radians"
+        },
+        "wrist_flex_r": {
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "model_range": [
+                -1.22173048,
+                1.22173048
+            ],
+            "units": "radians"
+        },
+        "wrist_dev_r": {
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "model_range": [
+                -0.43633231,
+                0.61086524
+            ],
+            "units": "radians"
+        },
+        "arm_flex_l": {
+            "minimum": -0.048613570906457806,
+            "maximum": 1.1331351038722839,
+            "model_range": [
+                -1.57079633,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "arm_add_l": {
+            "minimum": -1.1100389218978706,
+            "maximum": -0.4950698119662258,
+            "model_range": [
+                -2.0943951,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "arm_rot_l": {
+            "minimum": -1.5692862635627478,
+            "maximum": -0.5835168852596943,
+            "model_range": [
+                -1.57079633,
+                1.57079633
+            ],
+            "units": "radians"
+        },
+        "elbow_flex_l": {
+            "minimum": 1.3919151619499393,
+            "maximum": 2.6175441579559355,
+            "model_range": [
+                0.0,
+                2.618
+            ],
+            "units": "radians"
+        },
+        "pro_sup_l": {
+            "minimum": 0.24909563586164754,
+            "maximum": 1.7713850626087768,
+            "model_range": [
+                0.0,
+                2.09
+            ],
+            "units": "radians"
+        },
+        "wrist_flex_l": {
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "model_range": [
+                -1.22173048,
+                1.22173048
+            ],
+            "units": "radians"
+        },
+        "wrist_dev_l": {
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "model_range": [
+                -0.43633231,
+                0.61086524
+            ],
+            "units": "radians"
+        }
+    },
+    "marker_fitting_diagnostics": {
+        "interpretation": "Marker-fitting agreement with transformed pose targets; not a measure of anatomical accuracy.",
+        "overall_fitting": {
+            "sample_count": 3384,
+            "rms_error_m": 0.030645953647046163,
+            "mean_error_m": 0.02653025813329224,
+            "maximum_error_m": 0.1377175137261149
+        },
+        "observed_only_fitting": {
+            "sample_count": 3384,
+            "rms_error_m": 0.030645953647046163,
+            "mean_error_m": 0.02653025813329224,
+            "maximum_error_m": 0.1377175137261149
+        },
+        "sample_counts": {
+            "observed": 3384,
+            "interpolated": 0,
+            "unavailable": 564
+        },
+        "per_marker": {
+            "RSJC": {
+                "pose_landmark": "right_shoulder",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.033120538830572935,
+                    "mean_error_m": 0.030426681759429704,
+                    "maximum_error_m": 0.06121689177101073
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.033120538830572935,
+                    "mean_error_m": 0.030426681759429704,
+                    "maximum_error_m": 0.06121689177101073
+                }
+            },
+            "LSJC": {
+                "pose_landmark": "left_shoulder",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.028845401703938144,
+                    "mean_error_m": 0.027825480379999906,
+                    "maximum_error_m": 0.07053575462601896
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.028845401703938144,
+                    "mean_error_m": 0.027825480379999906,
+                    "maximum_error_m": 0.07053575462601896
+                }
+            },
+            "REJC": {
+                "pose_landmark": "right_elbow",
+                "sample_counts": {
+                    "observed": 0,
+                    "interpolated": 0,
+                    "unavailable": 282
+                },
+                "fitting": {
+                    "sample_count": 0,
+                    "rms_error_m": null,
+                    "mean_error_m": null,
+                    "maximum_error_m": null
+                },
+                "observed_only_fitting": {
+                    "sample_count": 0,
+                    "rms_error_m": null,
+                    "mean_error_m": null,
+                    "maximum_error_m": null
+                }
+            },
+            "LEJC": {
+                "pose_landmark": "left_elbow",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.02289222963804668,
+                    "mean_error_m": 0.019207497309887536,
+                    "maximum_error_m": 0.05472026487701416
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.02289222963804668,
+                    "mean_error_m": 0.019207497309887536,
+                    "maximum_error_m": 0.05472026487701416
+                }
+            },
+            "IK_WRIST_R": {
+                "pose_landmark": "right_wrist",
+                "sample_counts": {
+                    "observed": 0,
+                    "interpolated": 0,
+                    "unavailable": 282
+                },
+                "fitting": {
+                    "sample_count": 0,
+                    "rms_error_m": null,
+                    "mean_error_m": null,
+                    "maximum_error_m": null
+                },
+                "observed_only_fitting": {
+                    "sample_count": 0,
+                    "rms_error_m": null,
+                    "mean_error_m": null,
+                    "maximum_error_m": null
+                }
+            },
+            "IK_WRIST_L": {
+                "pose_landmark": "left_wrist",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.01793376834194317,
+                    "mean_error_m": 0.012961357746500249,
+                    "maximum_error_m": 0.1377175137261149
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.01793376834194317,
+                    "mean_error_m": 0.012961357746500249,
+                    "maximum_error_m": 0.1377175137261149
+                }
+            },
+            "RHJC": {
+                "pose_landmark": "right_hip",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.04139257356340063,
+                    "mean_error_m": 0.04055562415882231,
+                    "maximum_error_m": 0.06491031784629885
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.04139257356340063,
+                    "mean_error_m": 0.04055562415882231,
+                    "maximum_error_m": 0.06491031784629885
+                }
+            },
+            "LHJC": {
+                "pose_landmark": "left_hip",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.05537911354250729,
+                    "mean_error_m": 0.0550055007032072,
+                    "maximum_error_m": 0.07646544627730084
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.05537911354250729,
+                    "mean_error_m": 0.0550055007032072,
+                    "maximum_error_m": 0.07646544627730084
+                }
+            },
+            "RKJC": {
+                "pose_landmark": "right_knee",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.02669820594654019,
+                    "mean_error_m": 0.024263305199551968,
+                    "maximum_error_m": 0.05012594259438831
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.02669820594654019,
+                    "mean_error_m": 0.024263305199551968,
+                    "maximum_error_m": 0.05012594259438831
+                }
+            },
+            "LKJC": {
+                "pose_landmark": "left_knee",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.017987708103703474,
+                    "mean_error_m": 0.01624230663562172,
+                    "maximum_error_m": 0.04079847537239341
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.017987708103703474,
+                    "mean_error_m": 0.01624230663562172,
+                    "maximum_error_m": 0.04079847537239341
+                }
+            },
+            "RAJC": {
+                "pose_landmark": "right_ankle",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.026883814640772007,
+                    "mean_error_m": 0.022462742906049524,
+                    "maximum_error_m": 0.09909069516965413
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.026883814640772007,
+                    "mean_error_m": 0.022462742906049524,
+                    "maximum_error_m": 0.09909069516965413
+                }
+            },
+            "LAJC": {
+                "pose_landmark": "left_ankle",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.0193659296215467,
+                    "mean_error_m": 0.018225880684811596,
+                    "maximum_error_m": 0.03911942473861581
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.0193659296215467,
+                    "mean_error_m": 0.018225880684811596,
+                    "maximum_error_m": 0.03911942473861581
+                }
+            },
+            "RTOE": {
+                "pose_landmark": "right_foot_index",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.027000091402231072,
+                    "mean_error_m": 0.024294395666713743,
+                    "maximum_error_m": 0.06964819393147305
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.027000091402231072,
+                    "mean_error_m": 0.024294395666713743,
+                    "maximum_error_m": 0.06964819393147305
+                }
+            },
+            "LTOE": {
+                "pose_landmark": "left_foot_index",
+                "sample_counts": {
+                    "observed": 282,
+                    "interpolated": 0,
+                    "unavailable": 0
+                },
+                "fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.029190157940510573,
+                    "mean_error_m": 0.026892324448911414,
+                    "maximum_error_m": 0.0683117732123408
+                },
+                "observed_only_fitting": {
+                    "sample_count": 282,
+                    "rms_error_m": 0.029190157940510573,
+                    "mean_error_m": 0.026892324448911414,
+                    "maximum_error_m": 0.0683117732123408
+                }
+            }
+        },
+        "error_over_time": [
+            {
+                "frame_index": 0,
+                "time_seconds": 0.0,
+                "marker_count": 12,
+                "mean_error_m": 0.025867937879553243,
+                "rms_error_m": 0.031075831398906448,
+                "maximum_error_m": 0.06491031784629885
+            },
+            {
+                "frame_index": 1,
+                "time_seconds": 0.03336312373807822,
+                "marker_count": 12,
+                "mean_error_m": 0.02421085766592354,
+                "rms_error_m": 0.02818945729666178,
+                "maximum_error_m": 0.052765221500360636
+            },
+            {
+                "frame_index": 2,
+                "time_seconds": 0.06672624747615644,
+                "marker_count": 12,
+                "mean_error_m": 0.02509185304228104,
+                "rms_error_m": 0.029171875470821215,
+                "maximum_error_m": 0.05030086017038868
+            },
+            {
+                "frame_index": 3,
+                "time_seconds": 0.10008937121423465,
+                "marker_count": 12,
+                "mean_error_m": 0.026439331454091233,
+                "rms_error_m": 0.030359425636808157,
+                "maximum_error_m": 0.05050206603432292
+            },
+            {
+                "frame_index": 4,
+                "time_seconds": 0.13345249495231287,
+                "marker_count": 12,
+                "mean_error_m": 0.025466157070778872,
+                "rms_error_m": 0.029221749151330825,
+                "maximum_error_m": 0.04946380051572471
+            },
+            {
+                "frame_index": 5,
+                "time_seconds": 0.1668156186903911,
+                "marker_count": 12,
+                "mean_error_m": 0.02576161364457316,
+                "rms_error_m": 0.029204511514322188,
+                "maximum_error_m": 0.04968419931790799
+            },
+            {
+                "frame_index": 6,
+                "time_seconds": 0.2001787424284693,
+                "marker_count": 12,
+                "mean_error_m": 0.025142151022069886,
+                "rms_error_m": 0.027990833669136895,
+                "maximum_error_m": 0.050264442371251064
+            },
+            {
+                "frame_index": 7,
+                "time_seconds": 0.23354186616654754,
+                "marker_count": 12,
+                "mean_error_m": 0.024456921882427235,
+                "rms_error_m": 0.027714898606688576,
+                "maximum_error_m": 0.05217378323973902
+            },
+            {
+                "frame_index": 8,
+                "time_seconds": 0.26690498990462574,
+                "marker_count": 12,
+                "mean_error_m": 0.023781668603627102,
+                "rms_error_m": 0.02700287678993452,
+                "maximum_error_m": 0.05041473162685177
+            },
+            {
+                "frame_index": 9,
+                "time_seconds": 0.30026811364270395,
+                "marker_count": 12,
+                "mean_error_m": 0.023468433653493024,
+                "rms_error_m": 0.026628426569721808,
+                "maximum_error_m": 0.049240153383620554
+            },
+            {
+                "frame_index": 10,
+                "time_seconds": 0.3336312373807822,
+                "marker_count": 12,
+                "mean_error_m": 0.02436248087466406,
+                "rms_error_m": 0.02783370808744958,
+                "maximum_error_m": 0.05371284939869576
+            },
+            {
+                "frame_index": 11,
+                "time_seconds": 0.3669943611188604,
+                "marker_count": 12,
+                "mean_error_m": 0.025498880638710916,
+                "rms_error_m": 0.02925925762140099,
+                "maximum_error_m": 0.052266330854403895
+            },
+            {
+                "frame_index": 12,
+                "time_seconds": 0.4003574848569386,
+                "marker_count": 12,
+                "mean_error_m": 0.026448097926863954,
+                "rms_error_m": 0.030012989540347403,
+                "maximum_error_m": 0.052069329828316295
+            },
+            {
+                "frame_index": 13,
+                "time_seconds": 0.4337206085950169,
+                "marker_count": 12,
+                "mean_error_m": 0.026281105581099584,
+                "rms_error_m": 0.02982959953434031,
+                "maximum_error_m": 0.05193544594886358
+            },
+            {
+                "frame_index": 14,
+                "time_seconds": 0.4670837323330951,
+                "marker_count": 12,
+                "mean_error_m": 0.025144015897721732,
+                "rms_error_m": 0.029072378727371197,
+                "maximum_error_m": 0.051126234583272194
+            },
+            {
+                "frame_index": 15,
+                "time_seconds": 0.5004468560711733,
+                "marker_count": 12,
+                "mean_error_m": 0.026225998212417483,
+                "rms_error_m": 0.03046456426807284,
+                "maximum_error_m": 0.052927896750159895
+            },
+            {
+                "frame_index": 16,
+                "time_seconds": 0.5338099798092515,
+                "marker_count": 12,
+                "mean_error_m": 0.029538585485889862,
+                "rms_error_m": 0.03374874245556551,
+                "maximum_error_m": 0.06199968142512648
+            },
+            {
+                "frame_index": 17,
+                "time_seconds": 0.5671731035473297,
+                "marker_count": 12,
+                "mean_error_m": 0.029186644447327183,
+                "rms_error_m": 0.03214758247488932,
+                "maximum_error_m": 0.061430785914048526
+            },
+            {
+                "frame_index": 18,
+                "time_seconds": 0.6005362272854079,
+                "marker_count": 12,
+                "mean_error_m": 0.02323228664287008,
+                "rms_error_m": 0.028174987446143843,
+                "maximum_error_m": 0.06258613707730727
+            },
+            {
+                "frame_index": 19,
+                "time_seconds": 0.6338993510234862,
+                "marker_count": 12,
+                "mean_error_m": 0.022569723436529177,
+                "rms_error_m": 0.02737498941798954,
+                "maximum_error_m": 0.05962294483206761
+            },
+            {
+                "frame_index": 20,
+                "time_seconds": 0.6672624747615644,
+                "marker_count": 12,
+                "mean_error_m": 0.02326136486599556,
+                "rms_error_m": 0.026414717367093655,
+                "maximum_error_m": 0.0544994484435824
+            },
+            {
+                "frame_index": 21,
+                "time_seconds": 0.7006255984996426,
+                "marker_count": 12,
+                "mean_error_m": 0.025753125772612618,
+                "rms_error_m": 0.028214365144602075,
+                "maximum_error_m": 0.05247804214628518
+            },
+            {
+                "frame_index": 22,
+                "time_seconds": 0.7339887222377208,
+                "marker_count": 12,
+                "mean_error_m": 0.030086423111831014,
+                "rms_error_m": 0.03404687434998477,
+                "maximum_error_m": 0.06517899923020662
+            },
+            {
+                "frame_index": 23,
+                "time_seconds": 0.7673518459757991,
+                "marker_count": 12,
+                "mean_error_m": 0.023156285445931055,
+                "rms_error_m": 0.028648108938164572,
+                "maximum_error_m": 0.0580144668886124
+            },
+            {
+                "frame_index": 24,
+                "time_seconds": 0.8007149697138772,
+                "marker_count": 12,
+                "mean_error_m": 0.023326511699781238,
+                "rms_error_m": 0.027795786875468076,
+                "maximum_error_m": 0.05700203100196704
+            },
+            {
+                "frame_index": 25,
+                "time_seconds": 0.8340780934519555,
+                "marker_count": 12,
+                "mean_error_m": 0.021485606677095672,
+                "rms_error_m": 0.026895439810967495,
+                "maximum_error_m": 0.0569443912581875
+            },
+            {
+                "frame_index": 26,
+                "time_seconds": 0.8674412171900338,
+                "marker_count": 12,
+                "mean_error_m": 0.022564860976783997,
+                "rms_error_m": 0.02729809131864177,
+                "maximum_error_m": 0.05812528659498747
+            },
+            {
+                "frame_index": 27,
+                "time_seconds": 0.9008043409281119,
+                "marker_count": 12,
+                "mean_error_m": 0.026604704938320983,
+                "rms_error_m": 0.03185309979115328,
+                "maximum_error_m": 0.06128090934631188
+            },
+            {
+                "frame_index": 28,
+                "time_seconds": 0.9341674646661902,
+                "marker_count": 12,
+                "mean_error_m": 0.024142662372400075,
+                "rms_error_m": 0.02908489944710145,
+                "maximum_error_m": 0.05958703920417537
+            },
+            {
+                "frame_index": 29,
+                "time_seconds": 0.9675305884042683,
+                "marker_count": 12,
+                "mean_error_m": 0.030463305630240353,
+                "rms_error_m": 0.03307265428445605,
+                "maximum_error_m": 0.062306685403197476
+            },
+            {
+                "frame_index": 30,
+                "time_seconds": 1.0008937121423467,
+                "marker_count": 12,
+                "mean_error_m": 0.02242066336888654,
+                "rms_error_m": 0.027261749051244927,
+                "maximum_error_m": 0.06061559514603099
+            },
+            {
+                "frame_index": 31,
+                "time_seconds": 1.0342568358804247,
+                "marker_count": 12,
+                "mean_error_m": 0.01868528987541444,
+                "rms_error_m": 0.024243331671762878,
+                "maximum_error_m": 0.05943977197884687
+            },
+            {
+                "frame_index": 32,
+                "time_seconds": 1.067619959618503,
+                "marker_count": 12,
+                "mean_error_m": 0.020733101119785786,
+                "rms_error_m": 0.02525246578120011,
+                "maximum_error_m": 0.06017256120281932
+            },
+            {
+                "frame_index": 33,
+                "time_seconds": 1.1009830833565812,
+                "marker_count": 12,
+                "mean_error_m": 0.018451204883016395,
+                "rms_error_m": 0.02368027693817443,
+                "maximum_error_m": 0.055346676822984664
+            },
+            {
+                "frame_index": 34,
+                "time_seconds": 1.1343462070946595,
+                "marker_count": 12,
+                "mean_error_m": 0.019051600029169734,
+                "rms_error_m": 0.02426728916204171,
+                "maximum_error_m": 0.055362555637783875
+            },
+            {
+                "frame_index": 35,
+                "time_seconds": 1.1677093308327378,
+                "marker_count": 12,
+                "mean_error_m": 0.02272278457689944,
+                "rms_error_m": 0.02711425595079086,
+                "maximum_error_m": 0.058326966586346514
+            },
+            {
+                "frame_index": 36,
+                "time_seconds": 1.2010724545708158,
+                "marker_count": 12,
+                "mean_error_m": 0.023420698855724602,
+                "rms_error_m": 0.02737734316157547,
+                "maximum_error_m": 0.0573637302950193
+            },
+            {
+                "frame_index": 37,
+                "time_seconds": 1.234435578308894,
+                "marker_count": 12,
+                "mean_error_m": 0.024507398403328325,
+                "rms_error_m": 0.02834400101479251,
+                "maximum_error_m": 0.05772078944715847
+            },
+            {
+                "frame_index": 38,
+                "time_seconds": 1.2677987020469723,
+                "marker_count": 12,
+                "mean_error_m": 0.02540401234940896,
+                "rms_error_m": 0.029095734565356704,
+                "maximum_error_m": 0.0583366126982356
+            },
+            {
+                "frame_index": 39,
+                "time_seconds": 1.3011618257850506,
+                "marker_count": 12,
+                "mean_error_m": 0.027762363571403725,
+                "rms_error_m": 0.031128344283040926,
+                "maximum_error_m": 0.05879416341908522
+            },
+            {
+                "frame_index": 40,
+                "time_seconds": 1.3345249495231288,
+                "marker_count": 12,
+                "mean_error_m": 0.030180721515251963,
+                "rms_error_m": 0.033686455874368255,
+                "maximum_error_m": 0.060888958481434746
+            },
+            {
+                "frame_index": 41,
+                "time_seconds": 1.367888073261207,
+                "marker_count": 12,
+                "mean_error_m": 0.02966934702151264,
+                "rms_error_m": 0.03272893575014815,
+                "maximum_error_m": 0.05993111348394721
+            },
+            {
+                "frame_index": 42,
+                "time_seconds": 1.4012511969992851,
+                "marker_count": 12,
+                "mean_error_m": 0.02950587620629769,
+                "rms_error_m": 0.03270110479468432,
+                "maximum_error_m": 0.05973696625543467
+            },
+            {
+                "frame_index": 43,
+                "time_seconds": 1.4346143207373634,
+                "marker_count": 12,
+                "mean_error_m": 0.029958897051738667,
+                "rms_error_m": 0.032310923745601204,
+                "maximum_error_m": 0.056995129606531095
+            },
+            {
+                "frame_index": 44,
+                "time_seconds": 1.4679774444754417,
+                "marker_count": 12,
+                "mean_error_m": 0.03160350277178615,
+                "rms_error_m": 0.03378135504395243,
+                "maximum_error_m": 0.057948046683878096
+            },
+            {
+                "frame_index": 45,
+                "time_seconds": 1.50134056821352,
+                "marker_count": 12,
+                "mean_error_m": 0.030889824923173815,
+                "rms_error_m": 0.033175993384662546,
+                "maximum_error_m": 0.05751660244122622
+            },
+            {
+                "frame_index": 46,
+                "time_seconds": 1.5347036919515982,
+                "marker_count": 12,
+                "mean_error_m": 0.03220703665545296,
+                "rms_error_m": 0.03463425985446571,
+                "maximum_error_m": 0.05796065429686159
+            },
+            {
+                "frame_index": 47,
+                "time_seconds": 1.5680668156896762,
+                "marker_count": 12,
+                "mean_error_m": 0.03364038780503832,
+                "rms_error_m": 0.036605533121746164,
+                "maximum_error_m": 0.057452977554414836
+            },
+            {
+                "frame_index": 48,
+                "time_seconds": 1.6014299394277545,
+                "marker_count": 12,
+                "mean_error_m": 0.03512291896064549,
+                "rms_error_m": 0.03791126804170666,
+                "maximum_error_m": 0.05727834379921102
+            },
+            {
+                "frame_index": 49,
+                "time_seconds": 1.6347930631658327,
+                "marker_count": 12,
+                "mean_error_m": 0.03468052804926459,
+                "rms_error_m": 0.03750696665254834,
+                "maximum_error_m": 0.05751225710735372
+            },
+            {
+                "frame_index": 50,
+                "time_seconds": 1.668156186903911,
+                "marker_count": 12,
+                "mean_error_m": 0.03405631748601026,
+                "rms_error_m": 0.03655600373174708,
+                "maximum_error_m": 0.057286066640907324
+            },
+            {
+                "frame_index": 51,
+                "time_seconds": 1.7015193106419892,
+                "marker_count": 12,
+                "mean_error_m": 0.0341508216046499,
+                "rms_error_m": 0.03654304241311364,
+                "maximum_error_m": 0.05709777019291589
+            },
+            {
+                "frame_index": 52,
+                "time_seconds": 1.7348824343800675,
+                "marker_count": 12,
+                "mean_error_m": 0.03515627595513498,
+                "rms_error_m": 0.03785561826199758,
+                "maximum_error_m": 0.05846688273116213
+            },
+            {
+                "frame_index": 53,
+                "time_seconds": 1.7682455581181455,
+                "marker_count": 12,
+                "mean_error_m": 0.03509466082819467,
+                "rms_error_m": 0.037716578525587276,
+                "maximum_error_m": 0.058870992448877654
+            },
+            {
+                "frame_index": 54,
+                "time_seconds": 1.8016086818562238,
+                "marker_count": 12,
+                "mean_error_m": 0.03287267434535858,
+                "rms_error_m": 0.03528864504198832,
+                "maximum_error_m": 0.05734172342664598
+            },
+            {
+                "frame_index": 55,
+                "time_seconds": 1.834971805594302,
+                "marker_count": 12,
+                "mean_error_m": 0.03390365888898694,
+                "rms_error_m": 0.03636555644728304,
+                "maximum_error_m": 0.05930858071515499
+            },
+            {
+                "frame_index": 56,
+                "time_seconds": 1.8683349293323803,
+                "marker_count": 12,
+                "mean_error_m": 0.033584461219793325,
+                "rms_error_m": 0.03659355722874818,
+                "maximum_error_m": 0.05975983018171788
+            },
+            {
+                "frame_index": 57,
+                "time_seconds": 1.9016980530704586,
+                "marker_count": 12,
+                "mean_error_m": 0.032009551750106495,
+                "rms_error_m": 0.03505823893320673,
+                "maximum_error_m": 0.05951193516914756
+            },
+            {
+                "frame_index": 58,
+                "time_seconds": 1.9350611768085366,
+                "marker_count": 12,
+                "mean_error_m": 0.03271070392075615,
+                "rms_error_m": 0.03557510943138334,
+                "maximum_error_m": 0.05902504083767176
+            },
+            {
+                "frame_index": 59,
+                "time_seconds": 1.9684243005466149,
+                "marker_count": 12,
+                "mean_error_m": 0.03354195285879754,
+                "rms_error_m": 0.03648301942897546,
+                "maximum_error_m": 0.06121689177101073
+            },
+            {
+                "frame_index": 60,
+                "time_seconds": 2.0017874242846934,
+                "marker_count": 12,
+                "mean_error_m": 0.03321615437618545,
+                "rms_error_m": 0.03639398893475696,
+                "maximum_error_m": 0.060654992662908934
+            },
+            {
+                "frame_index": 61,
+                "time_seconds": 2.0351505480227714,
+                "marker_count": 12,
+                "mean_error_m": 0.029430307258404165,
+                "rms_error_m": 0.032771338862340946,
+                "maximum_error_m": 0.05573034111474852
+            },
+            {
+                "frame_index": 62,
+                "time_seconds": 2.0685136717608494,
+                "marker_count": 12,
+                "mean_error_m": 0.026550453380517813,
+                "rms_error_m": 0.02981276866092722,
+                "maximum_error_m": 0.0538763696773401
+            },
+            {
+                "frame_index": 63,
+                "time_seconds": 2.101876795498928,
+                "marker_count": 12,
+                "mean_error_m": 0.024556706293838857,
+                "rms_error_m": 0.027815202876061994,
+                "maximum_error_m": 0.052935546432157116
+            },
+            {
+                "frame_index": 64,
+                "time_seconds": 2.135239919237006,
+                "marker_count": 12,
+                "mean_error_m": 0.02271059944573728,
+                "rms_error_m": 0.026330296855297648,
+                "maximum_error_m": 0.05354251526797239
+            },
+            {
+                "frame_index": 65,
+                "time_seconds": 2.1686030429750844,
+                "marker_count": 12,
+                "mean_error_m": 0.02079472751379526,
+                "rms_error_m": 0.025111917059387007,
+                "maximum_error_m": 0.05530198231364415
+            },
+            {
+                "frame_index": 66,
+                "time_seconds": 2.2019661667131625,
+                "marker_count": 12,
+                "mean_error_m": 0.01920462676719706,
+                "rms_error_m": 0.024199479445602592,
+                "maximum_error_m": 0.055250573680924085
+            },
+            {
+                "frame_index": 67,
+                "time_seconds": 2.2353292904512405,
+                "marker_count": 12,
+                "mean_error_m": 0.01949596154589727,
+                "rms_error_m": 0.024130816678724607,
+                "maximum_error_m": 0.05318444491318463
+            },
+            {
+                "frame_index": 68,
+                "time_seconds": 2.268692414189319,
+                "marker_count": 12,
+                "mean_error_m": 0.0198287623800495,
+                "rms_error_m": 0.024567924295376145,
+                "maximum_error_m": 0.054702127440770444
+            },
+            {
+                "frame_index": 69,
+                "time_seconds": 2.302055537927397,
+                "marker_count": 12,
+                "mean_error_m": 0.01844068611813055,
+                "rms_error_m": 0.023114429424363432,
+                "maximum_error_m": 0.05535803188826318
+            },
+            {
+                "frame_index": 70,
+                "time_seconds": 2.3354186616654755,
+                "marker_count": 12,
+                "mean_error_m": 0.02167986004456439,
+                "rms_error_m": 0.025240886310727833,
+                "maximum_error_m": 0.046770121914147596
+            },
+            {
+                "frame_index": 71,
+                "time_seconds": 2.3687817854035536,
+                "marker_count": 12,
+                "mean_error_m": 0.023414167159547323,
+                "rms_error_m": 0.025918558553233738,
+                "maximum_error_m": 0.049866272635482274
+            },
+            {
+                "frame_index": 72,
+                "time_seconds": 2.4021449091416316,
+                "marker_count": 12,
+                "mean_error_m": 0.025547472822272533,
+                "rms_error_m": 0.027828113279172163,
+                "maximum_error_m": 0.05440286556166553
+            },
+            {
+                "frame_index": 73,
+                "time_seconds": 2.43550803287971,
+                "marker_count": 12,
+                "mean_error_m": 0.024456049860684115,
+                "rms_error_m": 0.027833042373575444,
+                "maximum_error_m": 0.05431415730248367
+            },
+            {
+                "frame_index": 74,
+                "time_seconds": 2.468871156617788,
+                "marker_count": 12,
+                "mean_error_m": 0.021087516848381213,
+                "rms_error_m": 0.0252418151031605,
+                "maximum_error_m": 0.053996032923144664
+            },
+            {
+                "frame_index": 75,
+                "time_seconds": 2.5022342803558666,
+                "marker_count": 12,
+                "mean_error_m": 0.020213204113378992,
+                "rms_error_m": 0.025362982312117744,
+                "maximum_error_m": 0.05690630412321173
+            },
+            {
+                "frame_index": 76,
+                "time_seconds": 2.5355974040939446,
+                "marker_count": 12,
+                "mean_error_m": 0.01861925709827408,
+                "rms_error_m": 0.023909337780394738,
+                "maximum_error_m": 0.056777598377555666
+            },
+            {
+                "frame_index": 77,
+                "time_seconds": 2.5689605278320227,
+                "marker_count": 12,
+                "mean_error_m": 0.021143136642464044,
+                "rms_error_m": 0.025295080849765,
+                "maximum_error_m": 0.05748691031616472
+            },
+            {
+                "frame_index": 78,
+                "time_seconds": 2.602323651570101,
+                "marker_count": 12,
+                "mean_error_m": 0.024454520759067403,
+                "rms_error_m": 0.028936846042684154,
+                "maximum_error_m": 0.0617888551392372
+            },
+            {
+                "frame_index": 79,
+                "time_seconds": 2.635686775308179,
+                "marker_count": 12,
+                "mean_error_m": 0.026411212312239113,
+                "rms_error_m": 0.030930816805392947,
+                "maximum_error_m": 0.06389888751004645
+            },
+            {
+                "frame_index": 80,
+                "time_seconds": 2.6690498990462577,
+                "marker_count": 12,
+                "mean_error_m": 0.027299517565125556,
+                "rms_error_m": 0.031161876323817003,
+                "maximum_error_m": 0.06344365679756062
+            },
+            {
+                "frame_index": 81,
+                "time_seconds": 2.7024130227843357,
+                "marker_count": 12,
+                "mean_error_m": 0.025244877682383635,
+                "rms_error_m": 0.02938411713830894,
+                "maximum_error_m": 0.058811444256389823
+            },
+            {
+                "frame_index": 82,
+                "time_seconds": 2.735776146522414,
+                "marker_count": 12,
+                "mean_error_m": 0.027498419292600006,
+                "rms_error_m": 0.031177693662682138,
+                "maximum_error_m": 0.05687385965094067
+            },
+            {
+                "frame_index": 83,
+                "time_seconds": 2.7691392702604922,
+                "marker_count": 12,
+                "mean_error_m": 0.029532892870477487,
+                "rms_error_m": 0.03280933715681603,
+                "maximum_error_m": 0.05593896795315714
+            },
+            {
+                "frame_index": 84,
+                "time_seconds": 2.8025023939985703,
+                "marker_count": 12,
+                "mean_error_m": 0.026981025417065364,
+                "rms_error_m": 0.03099246083827434,
+                "maximum_error_m": 0.05358522848053242
+            },
+            {
+                "frame_index": 85,
+                "time_seconds": 2.8358655177366487,
+                "marker_count": 12,
+                "mean_error_m": 0.031177243008288853,
+                "rms_error_m": 0.03475862557270648,
+                "maximum_error_m": 0.05706315040270539
+            },
+            {
+                "frame_index": 86,
+                "time_seconds": 2.869228641474727,
+                "marker_count": 12,
+                "mean_error_m": 0.025476458069982735,
+                "rms_error_m": 0.02941932473931106,
+                "maximum_error_m": 0.05249988411348784
+            },
+            {
+                "frame_index": 87,
+                "time_seconds": 2.9025917652128053,
+                "marker_count": 12,
+                "mean_error_m": 0.02411743886159316,
+                "rms_error_m": 0.028246960177326374,
+                "maximum_error_m": 0.05586556716005807
+            },
+            {
+                "frame_index": 88,
+                "time_seconds": 2.9359548889508833,
+                "marker_count": 12,
+                "mean_error_m": 0.024063733313463648,
+                "rms_error_m": 0.02802871801060574,
+                "maximum_error_m": 0.05499085432912311
+            },
+            {
+                "frame_index": 89,
+                "time_seconds": 2.9693180126889613,
+                "marker_count": 12,
+                "mean_error_m": 0.025443372152611773,
+                "rms_error_m": 0.029249005456574603,
+                "maximum_error_m": 0.05367071729687931
+            },
+            {
+                "frame_index": 90,
+                "time_seconds": 3.00268113642704,
+                "marker_count": 12,
+                "mean_error_m": 0.02645123171256321,
+                "rms_error_m": 0.03051337637805108,
+                "maximum_error_m": 0.05468775994153173
+            },
+            {
+                "frame_index": 91,
+                "time_seconds": 3.036044260165118,
+                "marker_count": 12,
+                "mean_error_m": 0.02765590335436427,
+                "rms_error_m": 0.03148239341739342,
+                "maximum_error_m": 0.053004938537090915
+            },
+            {
+                "frame_index": 92,
+                "time_seconds": 3.0694073839031963,
+                "marker_count": 12,
+                "mean_error_m": 0.02758076995860752,
+                "rms_error_m": 0.031763421512343355,
+                "maximum_error_m": 0.053346057255892906
+            },
+            {
+                "frame_index": 93,
+                "time_seconds": 3.1027705076412744,
+                "marker_count": 12,
+                "mean_error_m": 0.02614410132340052,
+                "rms_error_m": 0.030485264318260413,
+                "maximum_error_m": 0.05118625695980604
+            },
+            {
+                "frame_index": 94,
+                "time_seconds": 3.1361336313793524,
+                "marker_count": 12,
+                "mean_error_m": 0.026325163998532613,
+                "rms_error_m": 0.030746457392856214,
+                "maximum_error_m": 0.04942056082157638
+            },
+            {
+                "frame_index": 95,
+                "time_seconds": 3.169496755117431,
+                "marker_count": 12,
+                "mean_error_m": 0.025911211614932973,
+                "rms_error_m": 0.030085929250484325,
+                "maximum_error_m": 0.04910282090789524
+            },
+            {
+                "frame_index": 96,
+                "time_seconds": 3.202859878855509,
+                "marker_count": 12,
+                "mean_error_m": 0.026260139253191695,
+                "rms_error_m": 0.029637869168329504,
+                "maximum_error_m": 0.04790925193957614
+            },
+            {
+                "frame_index": 97,
+                "time_seconds": 3.2362230025935874,
+                "marker_count": 12,
+                "mean_error_m": 0.026672237441574556,
+                "rms_error_m": 0.030428800772410017,
+                "maximum_error_m": 0.048387212296890796
+            },
+            {
+                "frame_index": 98,
+                "time_seconds": 3.2695861263316655,
+                "marker_count": 12,
+                "mean_error_m": 0.026853211761745682,
+                "rms_error_m": 0.029920297793280287,
+                "maximum_error_m": 0.04643225250421707
+            },
+            {
+                "frame_index": 99,
+                "time_seconds": 3.3029492500697435,
+                "marker_count": 12,
+                "mean_error_m": 0.025129265706520753,
+                "rms_error_m": 0.028859212834814997,
+                "maximum_error_m": 0.04585167629000686
+            },
+            {
+                "frame_index": 100,
+                "time_seconds": 3.336312373807822,
+                "marker_count": 12,
+                "mean_error_m": 0.02523135635256907,
+                "rms_error_m": 0.028940970548957883,
+                "maximum_error_m": 0.045079298915082465
+            },
+            {
+                "frame_index": 101,
+                "time_seconds": 3.3696754975459,
+                "marker_count": 12,
+                "mean_error_m": 0.02352132547120574,
+                "rms_error_m": 0.02746841601279629,
+                "maximum_error_m": 0.04488733405661469
+            },
+            {
+                "frame_index": 102,
+                "time_seconds": 3.4030386212839785,
+                "marker_count": 12,
+                "mean_error_m": 0.023447249661755824,
+                "rms_error_m": 0.027295598445827185,
+                "maximum_error_m": 0.04696937179637095
+            },
+            {
+                "frame_index": 103,
+                "time_seconds": 3.4364017450220565,
+                "marker_count": 12,
+                "mean_error_m": 0.02432169085601368,
+                "rms_error_m": 0.0285238081646438,
+                "maximum_error_m": 0.04918296755394516
+            },
+            {
+                "frame_index": 104,
+                "time_seconds": 3.469764868760135,
+                "marker_count": 12,
+                "mean_error_m": 0.02626779642338024,
+                "rms_error_m": 0.02962488396041824,
+                "maximum_error_m": 0.05198001954801313
+            },
+            {
+                "frame_index": 105,
+                "time_seconds": 3.503127992498213,
+                "marker_count": 12,
+                "mean_error_m": 0.027221199636513597,
+                "rms_error_m": 0.029877231936756534,
+                "maximum_error_m": 0.05306187094656197
+            },
+            {
+                "frame_index": 106,
+                "time_seconds": 3.536491116236291,
+                "marker_count": 12,
+                "mean_error_m": 0.029002071016565326,
+                "rms_error_m": 0.031247860105742237,
+                "maximum_error_m": 0.05359955385816099
+            },
+            {
+                "frame_index": 107,
+                "time_seconds": 3.5698542399743696,
+                "marker_count": 12,
+                "mean_error_m": 0.029080915419790826,
+                "rms_error_m": 0.031323252663940725,
+                "maximum_error_m": 0.054880866093014326
+            },
+            {
+                "frame_index": 108,
+                "time_seconds": 3.6032173637124476,
+                "marker_count": 12,
+                "mean_error_m": 0.02995739605062434,
+                "rms_error_m": 0.031715401618649684,
+                "maximum_error_m": 0.049894233005641296
+            },
+            {
+                "frame_index": 109,
+                "time_seconds": 3.636580487450526,
+                "marker_count": 12,
+                "mean_error_m": 0.033737096862735454,
+                "rms_error_m": 0.03493601898233511,
+                "maximum_error_m": 0.05260217913338008
+            },
+            {
+                "frame_index": 110,
+                "time_seconds": 3.669943611188604,
+                "marker_count": 12,
+                "mean_error_m": 0.03179133539325166,
+                "rms_error_m": 0.03439473436235302,
+                "maximum_error_m": 0.05259879479254249
+            },
+            {
+                "frame_index": 111,
+                "time_seconds": 3.703306734926682,
+                "marker_count": 12,
+                "mean_error_m": 0.030706854097066225,
+                "rms_error_m": 0.033740532088009874,
+                "maximum_error_m": 0.05553663332146926
+            },
+            {
+                "frame_index": 112,
+                "time_seconds": 3.7366698586647606,
+                "marker_count": 12,
+                "mean_error_m": 0.03127895345871209,
+                "rms_error_m": 0.034391084898301234,
+                "maximum_error_m": 0.058325025755094344
+            },
+            {
+                "frame_index": 113,
+                "time_seconds": 3.7700329824028387,
+                "marker_count": 12,
+                "mean_error_m": 0.025690538606650177,
+                "rms_error_m": 0.02870582375345528,
+                "maximum_error_m": 0.05776322868047045
+            },
+            {
+                "frame_index": 114,
+                "time_seconds": 3.803396106140917,
+                "marker_count": 12,
+                "mean_error_m": 0.027165064462634253,
+                "rms_error_m": 0.030030359265431992,
+                "maximum_error_m": 0.06148227117193892
+            },
+            {
+                "frame_index": 115,
+                "time_seconds": 3.836759229878995,
+                "marker_count": 12,
+                "mean_error_m": 0.0248120433496087,
+                "rms_error_m": 0.029824792722701436,
+                "maximum_error_m": 0.06096479454046041
+            },
+            {
+                "frame_index": 116,
+                "time_seconds": 3.8701223536170732,
+                "marker_count": 12,
+                "mean_error_m": 0.027725550816622774,
+                "rms_error_m": 0.031009976254575144,
+                "maximum_error_m": 0.060521151090289264
+            },
+            {
+                "frame_index": 117,
+                "time_seconds": 3.9034854773551517,
+                "marker_count": 12,
+                "mean_error_m": 0.02976340472034844,
+                "rms_error_m": 0.035077652460575835,
+                "maximum_error_m": 0.0683117732123408
+            },
+            {
+                "frame_index": 118,
+                "time_seconds": 3.9368486010932298,
+                "marker_count": 12,
+                "mean_error_m": 0.028816469576431247,
+                "rms_error_m": 0.03307766623914786,
+                "maximum_error_m": 0.06327593741046934
+            },
+            {
+                "frame_index": 119,
+                "time_seconds": 3.9702117248313082,
+                "marker_count": 12,
+                "mean_error_m": 0.02735618341545547,
+                "rms_error_m": 0.030774475416567724,
+                "maximum_error_m": 0.063436146655665
+            },
+            {
+                "frame_index": 120,
+                "time_seconds": 4.003574848569387,
+                "marker_count": 12,
+                "mean_error_m": 0.02551570911863327,
+                "rms_error_m": 0.030320038703777953,
+                "maximum_error_m": 0.059130910802238215
+            },
+            {
+                "frame_index": 121,
+                "time_seconds": 4.036937972307465,
+                "marker_count": 12,
+                "mean_error_m": 0.020612399306679602,
+                "rms_error_m": 0.02546637707011296,
+                "maximum_error_m": 0.05809302367206221
+            },
+            {
+                "frame_index": 122,
+                "time_seconds": 4.070301096045543,
+                "marker_count": 12,
+                "mean_error_m": 0.02025771961187252,
+                "rms_error_m": 0.0248426346646646,
+                "maximum_error_m": 0.05765176842234454
+            },
+            {
+                "frame_index": 123,
+                "time_seconds": 4.103664219783621,
+                "marker_count": 12,
+                "mean_error_m": 0.02124798536754778,
+                "rms_error_m": 0.025631064335470535,
+                "maximum_error_m": 0.05922865565681377
+            },
+            {
+                "frame_index": 124,
+                "time_seconds": 4.137027343521699,
+                "marker_count": 12,
+                "mean_error_m": 0.01919760805002223,
+                "rms_error_m": 0.024009280244522868,
+                "maximum_error_m": 0.05848808134374353
+            },
+            {
+                "frame_index": 125,
+                "time_seconds": 4.170390467259778,
+                "marker_count": 12,
+                "mean_error_m": 0.02156408024164479,
+                "rms_error_m": 0.025498479826687275,
+                "maximum_error_m": 0.060233001728845374
+            },
+            {
+                "frame_index": 126,
+                "time_seconds": 4.203753590997856,
+                "marker_count": 12,
+                "mean_error_m": 0.0207845019864494,
+                "rms_error_m": 0.024918310608269937,
+                "maximum_error_m": 0.05998135270956095
+            },
+            {
+                "frame_index": 127,
+                "time_seconds": 4.237116714735934,
+                "marker_count": 12,
+                "mean_error_m": 0.023647744047810573,
+                "rms_error_m": 0.027450268946263005,
+                "maximum_error_m": 0.060237498687942335
+            },
+            {
+                "frame_index": 128,
+                "time_seconds": 4.270479838474012,
+                "marker_count": 12,
+                "mean_error_m": 0.02748904084386386,
+                "rms_error_m": 0.03181929999134975,
+                "maximum_error_m": 0.05514566257049765
+            },
+            {
+                "frame_index": 129,
+                "time_seconds": 4.30384296221209,
+                "marker_count": 12,
+                "mean_error_m": 0.0263872275411909,
+                "rms_error_m": 0.03014802819450976,
+                "maximum_error_m": 0.054569302339163434
+            },
+            {
+                "frame_index": 130,
+                "time_seconds": 4.337206085950169,
+                "marker_count": 12,
+                "mean_error_m": 0.02855764452429213,
+                "rms_error_m": 0.03159933934709404,
+                "maximum_error_m": 0.053375228039768206
+            },
+            {
+                "frame_index": 131,
+                "time_seconds": 4.370569209688247,
+                "marker_count": 12,
+                "mean_error_m": 0.031814234897981665,
+                "rms_error_m": 0.035079878901685575,
+                "maximum_error_m": 0.0594895593951522
+            },
+            {
+                "frame_index": 132,
+                "time_seconds": 4.403932333426325,
+                "marker_count": 12,
+                "mean_error_m": 0.031877978643643605,
+                "rms_error_m": 0.03405375038198184,
+                "maximum_error_m": 0.05882496524824785
+            },
+            {
+                "frame_index": 133,
+                "time_seconds": 4.437295457164403,
+                "marker_count": 12,
+                "mean_error_m": 0.03064905060491339,
+                "rms_error_m": 0.03264840627481509,
+                "maximum_error_m": 0.05776769626197098
+            },
+            {
+                "frame_index": 134,
+                "time_seconds": 4.470658580902481,
+                "marker_count": 12,
+                "mean_error_m": 0.030904574464741583,
+                "rms_error_m": 0.03298876565346126,
+                "maximum_error_m": 0.05693800161309615
+            },
+            {
+                "frame_index": 135,
+                "time_seconds": 4.50402170464056,
+                "marker_count": 12,
+                "mean_error_m": 0.031275393203137304,
+                "rms_error_m": 0.03389110144082647,
+                "maximum_error_m": 0.05721461394733513
+            },
+            {
+                "frame_index": 136,
+                "time_seconds": 4.537384828378638,
+                "marker_count": 12,
+                "mean_error_m": 0.03458796634873432,
+                "rms_error_m": 0.03798977761145498,
+                "maximum_error_m": 0.06202991126993098
+            },
+            {
+                "frame_index": 137,
+                "time_seconds": 4.570747952116716,
+                "marker_count": 12,
+                "mean_error_m": 0.033881080442663976,
+                "rms_error_m": 0.03638169338223548,
+                "maximum_error_m": 0.06106445636025857
+            },
+            {
+                "frame_index": 138,
+                "time_seconds": 4.604111075854794,
+                "marker_count": 12,
+                "mean_error_m": 0.03438397603489362,
+                "rms_error_m": 0.03647222907934968,
+                "maximum_error_m": 0.05984448089426971
+            },
+            {
+                "frame_index": 139,
+                "time_seconds": 4.637474199592872,
+                "marker_count": 12,
+                "mean_error_m": 0.03374382030894099,
+                "rms_error_m": 0.035844175149466334,
+                "maximum_error_m": 0.05878042611547966
+            },
+            {
+                "frame_index": 140,
+                "time_seconds": 4.670837323330951,
+                "marker_count": 12,
+                "mean_error_m": 0.0345380781560505,
+                "rms_error_m": 0.03675321718577535,
+                "maximum_error_m": 0.059345685823310464
+            },
+            {
+                "frame_index": 141,
+                "time_seconds": 4.704200447069029,
+                "marker_count": 12,
+                "mean_error_m": 0.0343996322172041,
+                "rms_error_m": 0.03657547630376854,
+                "maximum_error_m": 0.060135348451123186
+            },
+            {
+                "frame_index": 142,
+                "time_seconds": 4.737563570807107,
+                "marker_count": 12,
+                "mean_error_m": 0.032545205763287254,
+                "rms_error_m": 0.03563950424083464,
+                "maximum_error_m": 0.061696965975022784
+            },
+            {
+                "frame_index": 143,
+                "time_seconds": 4.770926694545185,
+                "marker_count": 12,
+                "mean_error_m": 0.033349038289909,
+                "rms_error_m": 0.03590473515876743,
+                "maximum_error_m": 0.060511145060469985
+            },
+            {
+                "frame_index": 144,
+                "time_seconds": 4.804289818283263,
+                "marker_count": 12,
+                "mean_error_m": 0.033854761898013376,
+                "rms_error_m": 0.03633543171225985,
+                "maximum_error_m": 0.06056419872235803
+            },
+            {
+                "frame_index": 145,
+                "time_seconds": 4.837652942021342,
+                "marker_count": 12,
+                "mean_error_m": 0.033256793469428385,
+                "rms_error_m": 0.03563366590339128,
+                "maximum_error_m": 0.06048318215415463
+            },
+            {
+                "frame_index": 146,
+                "time_seconds": 4.87101606575942,
+                "marker_count": 12,
+                "mean_error_m": 0.03410376293022747,
+                "rms_error_m": 0.036045874619662216,
+                "maximum_error_m": 0.05949517898059135
+            },
+            {
+                "frame_index": 147,
+                "time_seconds": 4.904379189497498,
+                "marker_count": 12,
+                "mean_error_m": 0.032780683596470774,
+                "rms_error_m": 0.0346322497812788,
+                "maximum_error_m": 0.061283796678182095
+            },
+            {
+                "frame_index": 148,
+                "time_seconds": 4.937742313235576,
+                "marker_count": 12,
+                "mean_error_m": 0.031223154772137444,
+                "rms_error_m": 0.033220851522018154,
+                "maximum_error_m": 0.06036877258268976
+            },
+            {
+                "frame_index": 149,
+                "time_seconds": 4.971105436973654,
+                "marker_count": 12,
+                "mean_error_m": 0.0289031931353347,
+                "rms_error_m": 0.03111802589956707,
+                "maximum_error_m": 0.05894000000385273
+            },
+            {
+                "frame_index": 150,
+                "time_seconds": 5.004468560711733,
+                "marker_count": 12,
+                "mean_error_m": 0.027658050068082096,
+                "rms_error_m": 0.031133784075619668,
+                "maximum_error_m": 0.05749280560482791
+            },
+            {
+                "frame_index": 151,
+                "time_seconds": 5.037831684449811,
+                "marker_count": 12,
+                "mean_error_m": 0.023961962948407814,
+                "rms_error_m": 0.02801386448268132,
+                "maximum_error_m": 0.0562299945862789
+            },
+            {
+                "frame_index": 152,
+                "time_seconds": 5.071194808187889,
+                "marker_count": 12,
+                "mean_error_m": 0.02017568788465441,
+                "rms_error_m": 0.02450399903276918,
+                "maximum_error_m": 0.055766505708427005
+            },
+            {
+                "frame_index": 153,
+                "time_seconds": 5.104557931925967,
+                "marker_count": 12,
+                "mean_error_m": 0.021765321106780255,
+                "rms_error_m": 0.025852265614837788,
+                "maximum_error_m": 0.05855314551515545
+            },
+            {
+                "frame_index": 154,
+                "time_seconds": 5.137921055664045,
+                "marker_count": 12,
+                "mean_error_m": 0.01911075352624571,
+                "rms_error_m": 0.024141962840867146,
+                "maximum_error_m": 0.05748456290336787
+            },
+            {
+                "frame_index": 155,
+                "time_seconds": 5.171284179402124,
+                "marker_count": 12,
+                "mean_error_m": 0.01813218069980138,
+                "rms_error_m": 0.023495637525771485,
+                "maximum_error_m": 0.05631993233512498
+            },
+            {
+                "frame_index": 156,
+                "time_seconds": 5.204647303140202,
+                "marker_count": 12,
+                "mean_error_m": 0.018955874765125443,
+                "rms_error_m": 0.023439855349077242,
+                "maximum_error_m": 0.055157405694795276
+            },
+            {
+                "frame_index": 157,
+                "time_seconds": 5.23801042687828,
+                "marker_count": 12,
+                "mean_error_m": 0.01959870873377186,
+                "rms_error_m": 0.023853852155250196,
+                "maximum_error_m": 0.05513016887009687
+            },
+            {
+                "frame_index": 158,
+                "time_seconds": 5.271373550616358,
+                "marker_count": 12,
+                "mean_error_m": 0.020451484591712202,
+                "rms_error_m": 0.024582530684255276,
+                "maximum_error_m": 0.0556614383237401
+            },
+            {
+                "frame_index": 159,
+                "time_seconds": 5.304736674354437,
+                "marker_count": 12,
+                "mean_error_m": 0.0211012193914457,
+                "rms_error_m": 0.02529919156851003,
+                "maximum_error_m": 0.050991060829455134
+            },
+            {
+                "frame_index": 160,
+                "time_seconds": 5.338099798092515,
+                "marker_count": 12,
+                "mean_error_m": 0.025477207880614552,
+                "rms_error_m": 0.028923012672046444,
+                "maximum_error_m": 0.05702220808575991
+            },
+            {
+                "frame_index": 161,
+                "time_seconds": 5.371462921830593,
+                "marker_count": 12,
+                "mean_error_m": 0.022537038998374684,
+                "rms_error_m": 0.026467562663971766,
+                "maximum_error_m": 0.05806579250713592
+            },
+            {
+                "frame_index": 162,
+                "time_seconds": 5.404826045568671,
+                "marker_count": 12,
+                "mean_error_m": 0.023661563163547044,
+                "rms_error_m": 0.02827236716275681,
+                "maximum_error_m": 0.06267012609150825
+            },
+            {
+                "frame_index": 163,
+                "time_seconds": 5.4381891693067494,
+                "marker_count": 12,
+                "mean_error_m": 0.023392935752209604,
+                "rms_error_m": 0.02764579628447522,
+                "maximum_error_m": 0.06319855760421171
+            },
+            {
+                "frame_index": 164,
+                "time_seconds": 5.471552293044828,
+                "marker_count": 12,
+                "mean_error_m": 0.02386825551240768,
+                "rms_error_m": 0.02794401101246987,
+                "maximum_error_m": 0.06252613381592222
+            },
+            {
+                "frame_index": 165,
+                "time_seconds": 5.504915416782906,
+                "marker_count": 12,
+                "mean_error_m": 0.024831960730810527,
+                "rms_error_m": 0.028694686302566566,
+                "maximum_error_m": 0.06509724895242658
+            },
+            {
+                "frame_index": 166,
+                "time_seconds": 5.5382785405209844,
+                "marker_count": 12,
+                "mean_error_m": 0.022579395516739726,
+                "rms_error_m": 0.027389965647737716,
+                "maximum_error_m": 0.06471359067437077
+            },
+            {
+                "frame_index": 167,
+                "time_seconds": 5.5716416642590625,
+                "marker_count": 12,
+                "mean_error_m": 0.023609452937742734,
+                "rms_error_m": 0.02755216183673344,
+                "maximum_error_m": 0.058299597354469296
+            },
+            {
+                "frame_index": 168,
+                "time_seconds": 5.6050047879971405,
+                "marker_count": 12,
+                "mean_error_m": 0.023719380118167797,
+                "rms_error_m": 0.028526241745710126,
+                "maximum_error_m": 0.059016453420168716
+            },
+            {
+                "frame_index": 169,
+                "time_seconds": 5.6383679117352195,
+                "marker_count": 12,
+                "mean_error_m": 0.024178252444874593,
+                "rms_error_m": 0.030565900934625197,
+                "maximum_error_m": 0.05449086287222839
+            },
+            {
+                "frame_index": 170,
+                "time_seconds": 5.6717310354732975,
+                "marker_count": 12,
+                "mean_error_m": 0.02741187897781425,
+                "rms_error_m": 0.0319235891610666,
+                "maximum_error_m": 0.0586297209984859
+            },
+            {
+                "frame_index": 171,
+                "time_seconds": 5.7050941592113755,
+                "marker_count": 12,
+                "mean_error_m": 0.027761855015854642,
+                "rms_error_m": 0.031950455852545176,
+                "maximum_error_m": 0.059633163123380496
+            },
+            {
+                "frame_index": 172,
+                "time_seconds": 5.738457282949454,
+                "marker_count": 12,
+                "mean_error_m": 0.02627591707785624,
+                "rms_error_m": 0.030211024661584453,
+                "maximum_error_m": 0.05503218238540243
+            },
+            {
+                "frame_index": 173,
+                "time_seconds": 5.771820406687532,
+                "marker_count": 12,
+                "mean_error_m": 0.028434449071836895,
+                "rms_error_m": 0.03163938870229604,
+                "maximum_error_m": 0.05742178661670964
+            },
+            {
+                "frame_index": 174,
+                "time_seconds": 5.8051835304256105,
+                "marker_count": 12,
+                "mean_error_m": 0.026227717262205283,
+                "rms_error_m": 0.030172719039727614,
+                "maximum_error_m": 0.05254177136662246
+            },
+            {
+                "frame_index": 175,
+                "time_seconds": 5.838546654163689,
+                "marker_count": 12,
+                "mean_error_m": 0.02431637916849246,
+                "rms_error_m": 0.02852714830239384,
+                "maximum_error_m": 0.052844321043860144
+            },
+            {
+                "frame_index": 176,
+                "time_seconds": 5.871909777901767,
+                "marker_count": 12,
+                "mean_error_m": 0.024827900159893928,
+                "rms_error_m": 0.028970622697151966,
+                "maximum_error_m": 0.053071453669384656
+            },
+            {
+                "frame_index": 177,
+                "time_seconds": 5.905272901639845,
+                "marker_count": 12,
+                "mean_error_m": 0.026742867306585903,
+                "rms_error_m": 0.0299788930741997,
+                "maximum_error_m": 0.05436482495884203
+            },
+            {
+                "frame_index": 178,
+                "time_seconds": 5.938636025377923,
+                "marker_count": 12,
+                "mean_error_m": 0.026412477361743153,
+                "rms_error_m": 0.029663761249002947,
+                "maximum_error_m": 0.05375170466295174
+            },
+            {
+                "frame_index": 179,
+                "time_seconds": 5.971999149116002,
+                "marker_count": 12,
+                "mean_error_m": 0.02525660186399731,
+                "rms_error_m": 0.029046489303287796,
+                "maximum_error_m": 0.05423740107303347
+            },
+            {
+                "frame_index": 180,
+                "time_seconds": 6.00536227285408,
+                "marker_count": 12,
+                "mean_error_m": 0.02317427260219554,
+                "rms_error_m": 0.02786514999852846,
+                "maximum_error_m": 0.05285020801443098
+            },
+            {
+                "frame_index": 181,
+                "time_seconds": 6.038725396592158,
+                "marker_count": 12,
+                "mean_error_m": 0.024293937440862362,
+                "rms_error_m": 0.02828564537716096,
+                "maximum_error_m": 0.04846785705831813
+            },
+            {
+                "frame_index": 182,
+                "time_seconds": 6.072088520330236,
+                "marker_count": 12,
+                "mean_error_m": 0.02350304792613885,
+                "rms_error_m": 0.02806934435030893,
+                "maximum_error_m": 0.050855063092365566
+            },
+            {
+                "frame_index": 183,
+                "time_seconds": 6.105451644068314,
+                "marker_count": 12,
+                "mean_error_m": 0.030271696380448274,
+                "rms_error_m": 0.03398978439024069,
+                "maximum_error_m": 0.04881941995600277
+            },
+            {
+                "frame_index": 184,
+                "time_seconds": 6.138814767806393,
+                "marker_count": 12,
+                "mean_error_m": 0.025452552418899845,
+                "rms_error_m": 0.02951550245919167,
+                "maximum_error_m": 0.04959593121736576
+            },
+            {
+                "frame_index": 185,
+                "time_seconds": 6.172177891544471,
+                "marker_count": 12,
+                "mean_error_m": 0.02520059505396879,
+                "rms_error_m": 0.029640777230421703,
+                "maximum_error_m": 0.04649759819513576
+            },
+            {
+                "frame_index": 186,
+                "time_seconds": 6.205541015282549,
+                "marker_count": 12,
+                "mean_error_m": 0.02459170231811342,
+                "rms_error_m": 0.02808273912389371,
+                "maximum_error_m": 0.045391063694565775
+            },
+            {
+                "frame_index": 187,
+                "time_seconds": 6.238904139020627,
+                "marker_count": 12,
+                "mean_error_m": 0.024201374081214113,
+                "rms_error_m": 0.02845080099796645,
+                "maximum_error_m": 0.04750367801993687
+            },
+            {
+                "frame_index": 188,
+                "time_seconds": 6.272267262758705,
+                "marker_count": 12,
+                "mean_error_m": 0.023596991316189475,
+                "rms_error_m": 0.027625900056610475,
+                "maximum_error_m": 0.046646383333830234
+            },
+            {
+                "frame_index": 189,
+                "time_seconds": 6.305630386496784,
+                "marker_count": 12,
+                "mean_error_m": 0.021967636322450235,
+                "rms_error_m": 0.025914759658702987,
+                "maximum_error_m": 0.045810202116399884
+            },
+            {
+                "frame_index": 190,
+                "time_seconds": 6.338993510234862,
+                "marker_count": 12,
+                "mean_error_m": 0.021338765800538586,
+                "rms_error_m": 0.02512671840835749,
+                "maximum_error_m": 0.04595427802678685
+            },
+            {
+                "frame_index": 191,
+                "time_seconds": 6.37235663397294,
+                "marker_count": 12,
+                "mean_error_m": 0.023365929634684906,
+                "rms_error_m": 0.026576124349363513,
+                "maximum_error_m": 0.04815531826708541
+            },
+            {
+                "frame_index": 192,
+                "time_seconds": 6.405719757711018,
+                "marker_count": 12,
+                "mean_error_m": 0.025683256527238237,
+                "rms_error_m": 0.0281589389904913,
+                "maximum_error_m": 0.050792947671150876
+            },
+            {
+                "frame_index": 193,
+                "time_seconds": 6.439082881449096,
+                "marker_count": 12,
+                "mean_error_m": 0.02689678069189104,
+                "rms_error_m": 0.028982148133867944,
+                "maximum_error_m": 0.04856196730922083
+            },
+            {
+                "frame_index": 194,
+                "time_seconds": 6.472446005187175,
+                "marker_count": 12,
+                "mean_error_m": 0.025810370661745876,
+                "rms_error_m": 0.028302229164699592,
+                "maximum_error_m": 0.04700158984532681
+            },
+            {
+                "frame_index": 195,
+                "time_seconds": 6.505809128925253,
+                "marker_count": 12,
+                "mean_error_m": 0.029200815670755723,
+                "rms_error_m": 0.03124022988128091,
+                "maximum_error_m": 0.052945617964724453
+            },
+            {
+                "frame_index": 196,
+                "time_seconds": 6.539172252663331,
+                "marker_count": 12,
+                "mean_error_m": 0.0269022109622508,
+                "rms_error_m": 0.03021444718984744,
+                "maximum_error_m": 0.052753066956280105
+            },
+            {
+                "frame_index": 197,
+                "time_seconds": 6.572535376401409,
+                "marker_count": 12,
+                "mean_error_m": 0.025380743261478236,
+                "rms_error_m": 0.03001839570429682,
+                "maximum_error_m": 0.06157143361056524
+            },
+            {
+                "frame_index": 198,
+                "time_seconds": 6.605898500139487,
+                "marker_count": 12,
+                "mean_error_m": 0.02439249819648086,
+                "rms_error_m": 0.02930001296835881,
+                "maximum_error_m": 0.0654520709727793
+            },
+            {
+                "frame_index": 199,
+                "time_seconds": 6.639261623877566,
+                "marker_count": 12,
+                "mean_error_m": 0.02221823443211941,
+                "rms_error_m": 0.026872497304988967,
+                "maximum_error_m": 0.06348407046441493
+            },
+            {
+                "frame_index": 200,
+                "time_seconds": 6.672624747615644,
+                "marker_count": 12,
+                "mean_error_m": 0.02312970334621714,
+                "rms_error_m": 0.027557560767124276,
+                "maximum_error_m": 0.06517028742626928
+            },
+            {
+                "frame_index": 201,
+                "time_seconds": 6.705987871353722,
+                "marker_count": 12,
+                "mean_error_m": 0.026464975757650815,
+                "rms_error_m": 0.029859110463693106,
+                "maximum_error_m": 0.06582448947930422
+            },
+            {
+                "frame_index": 202,
+                "time_seconds": 6.7393509950918,
+                "marker_count": 12,
+                "mean_error_m": 0.02546443014474702,
+                "rms_error_m": 0.02949116178140518,
+                "maximum_error_m": 0.06560106212563133
+            },
+            {
+                "frame_index": 203,
+                "time_seconds": 6.772714118829879,
+                "marker_count": 12,
+                "mean_error_m": 0.024666727724115146,
+                "rms_error_m": 0.029348129522259025,
+                "maximum_error_m": 0.0672985391895249
+            },
+            {
+                "frame_index": 204,
+                "time_seconds": 6.806077242567957,
+                "marker_count": 12,
+                "mean_error_m": 0.02423353616231369,
+                "rms_error_m": 0.029341524360456873,
+                "maximum_error_m": 0.06886044604670699
+            },
+            {
+                "frame_index": 205,
+                "time_seconds": 6.839440366306035,
+                "marker_count": 12,
+                "mean_error_m": 0.026417841266452424,
+                "rms_error_m": 0.031026897003180193,
+                "maximum_error_m": 0.06793507048300562
+            },
+            {
+                "frame_index": 206,
+                "time_seconds": 6.872803490044113,
+                "marker_count": 12,
+                "mean_error_m": 0.028835421782739793,
+                "rms_error_m": 0.03369862343613581,
+                "maximum_error_m": 0.06853101126027393
+            },
+            {
+                "frame_index": 207,
+                "time_seconds": 6.906166613782191,
+                "marker_count": 12,
+                "mean_error_m": 0.03254590881295809,
+                "rms_error_m": 0.03687092754132512,
+                "maximum_error_m": 0.07133154117632959
+            },
+            {
+                "frame_index": 208,
+                "time_seconds": 6.93952973752027,
+                "marker_count": 12,
+                "mean_error_m": 0.028617142923146238,
+                "rms_error_m": 0.0317060240234405,
+                "maximum_error_m": 0.06551986765488368
+            },
+            {
+                "frame_index": 209,
+                "time_seconds": 6.972892861258348,
+                "marker_count": 12,
+                "mean_error_m": 0.02525046497359001,
+                "rms_error_m": 0.02799980063042456,
+                "maximum_error_m": 0.05670437050011115
+            },
+            {
+                "frame_index": 210,
+                "time_seconds": 7.006255984996426,
+                "marker_count": 12,
+                "mean_error_m": 0.02287969961060751,
+                "rms_error_m": 0.0260393528048814,
+                "maximum_error_m": 0.050980766616416276
+            },
+            {
+                "frame_index": 211,
+                "time_seconds": 7.039619108734504,
+                "marker_count": 12,
+                "mean_error_m": 0.0191570752373282,
+                "rms_error_m": 0.023567875449970327,
+                "maximum_error_m": 0.048743925623804904
+            },
+            {
+                "frame_index": 212,
+                "time_seconds": 7.072982232472582,
+                "marker_count": 12,
+                "mean_error_m": 0.016792076794895715,
+                "rms_error_m": 0.02199492480635103,
+                "maximum_error_m": 0.0517162552750699
+            },
+            {
+                "frame_index": 213,
+                "time_seconds": 7.106345356210661,
+                "marker_count": 12,
+                "mean_error_m": 0.018312667767086073,
+                "rms_error_m": 0.02293606649290248,
+                "maximum_error_m": 0.05402916260019835
+            },
+            {
+                "frame_index": 214,
+                "time_seconds": 7.139708479948739,
+                "marker_count": 12,
+                "mean_error_m": 0.021185364270483783,
+                "rms_error_m": 0.025447638011962623,
+                "maximum_error_m": 0.05784902789218541
+            },
+            {
+                "frame_index": 215,
+                "time_seconds": 7.173071603686817,
+                "marker_count": 12,
+                "mean_error_m": 0.026194553668926434,
+                "rms_error_m": 0.029773375237053343,
+                "maximum_error_m": 0.06208345069416373
+            },
+            {
+                "frame_index": 216,
+                "time_seconds": 7.206434727424895,
+                "marker_count": 12,
+                "mean_error_m": 0.025064866158968788,
+                "rms_error_m": 0.028715319225648298,
+                "maximum_error_m": 0.06033939031192415
+            },
+            {
+                "frame_index": 217,
+                "time_seconds": 7.239797851162973,
+                "marker_count": 12,
+                "mean_error_m": 0.02936105707793733,
+                "rms_error_m": 0.03333650898831976,
+                "maximum_error_m": 0.05784472274512387
+            },
+            {
+                "frame_index": 218,
+                "time_seconds": 7.273160974901052,
+                "marker_count": 12,
+                "mean_error_m": 0.03212417400984418,
+                "rms_error_m": 0.03691851407340223,
+                "maximum_error_m": 0.06500883321250282
+            },
+            {
+                "frame_index": 219,
+                "time_seconds": 7.30652409863913,
+                "marker_count": 12,
+                "mean_error_m": 0.04179443379566916,
+                "rms_error_m": 0.04811935436645942,
+                "maximum_error_m": 0.09909069516965413
+            },
+            {
+                "frame_index": 220,
+                "time_seconds": 7.339887222377208,
+                "marker_count": 12,
+                "mean_error_m": 0.033097061435959994,
+                "rms_error_m": 0.037715649443321855,
+                "maximum_error_m": 0.06188212502439103
+            },
+            {
+                "frame_index": 221,
+                "time_seconds": 7.373250346115286,
+                "marker_count": 12,
+                "mean_error_m": 0.03448198780680357,
+                "rms_error_m": 0.037672052527427745,
+                "maximum_error_m": 0.0535554541048684
+            },
+            {
+                "frame_index": 222,
+                "time_seconds": 7.406613469853364,
+                "marker_count": 12,
+                "mean_error_m": 0.033921687593659794,
+                "rms_error_m": 0.03613136690674077,
+                "maximum_error_m": 0.05188459130936121
+            },
+            {
+                "frame_index": 223,
+                "time_seconds": 7.439976593591443,
+                "marker_count": 12,
+                "mean_error_m": 0.034684739561091096,
+                "rms_error_m": 0.037808627715695584,
+                "maximum_error_m": 0.05806667876624225
+            },
+            {
+                "frame_index": 224,
+                "time_seconds": 7.473339717329521,
+                "marker_count": 12,
+                "mean_error_m": 0.03423796459009435,
+                "rms_error_m": 0.03701868272811221,
+                "maximum_error_m": 0.05170019094487192
+            },
+            {
+                "frame_index": 225,
+                "time_seconds": 7.506702841067599,
+                "marker_count": 12,
+                "mean_error_m": 0.03681801747831789,
+                "rms_error_m": 0.039388949190168256,
+                "maximum_error_m": 0.05682444648826923
+            },
+            {
+                "frame_index": 226,
+                "time_seconds": 7.540065964805677,
+                "marker_count": 12,
+                "mean_error_m": 0.03715496494133499,
+                "rms_error_m": 0.03931499972602984,
+                "maximum_error_m": 0.05728757531470953
+            },
+            {
+                "frame_index": 227,
+                "time_seconds": 7.573429088543755,
+                "marker_count": 12,
+                "mean_error_m": 0.036136988209466224,
+                "rms_error_m": 0.038821895526018606,
+                "maximum_error_m": 0.056457046856736755
+            },
+            {
+                "frame_index": 228,
+                "time_seconds": 7.606792212281834,
+                "marker_count": 12,
+                "mean_error_m": 0.03725553166424083,
+                "rms_error_m": 0.039724926667747955,
+                "maximum_error_m": 0.057926008152735776
+            },
+            {
+                "frame_index": 229,
+                "time_seconds": 7.640155336019912,
+                "marker_count": 12,
+                "mean_error_m": 0.03578785928309065,
+                "rms_error_m": 0.03808108139914979,
+                "maximum_error_m": 0.055804619919306464
+            },
+            {
+                "frame_index": 230,
+                "time_seconds": 7.67351845975799,
+                "marker_count": 12,
+                "mean_error_m": 0.035735054282524,
+                "rms_error_m": 0.03809794659198303,
+                "maximum_error_m": 0.06070526404246416
+            },
+            {
+                "frame_index": 231,
+                "time_seconds": 7.7068815834960684,
+                "marker_count": 12,
+                "mean_error_m": 0.031791986668432866,
+                "rms_error_m": 0.03463252593798918,
+                "maximum_error_m": 0.06003702527434185
+            },
+            {
+                "frame_index": 232,
+                "time_seconds": 7.7402447072341465,
+                "marker_count": 12,
+                "mean_error_m": 0.031069789997532887,
+                "rms_error_m": 0.033799289614109565,
+                "maximum_error_m": 0.05806275660333961
+            },
+            {
+                "frame_index": 233,
+                "time_seconds": 7.773607830972225,
+                "marker_count": 12,
+                "mean_error_m": 0.03335767992733467,
+                "rms_error_m": 0.03586844503560824,
+                "maximum_error_m": 0.0584054542642416
+            },
+            {
+                "frame_index": 234,
+                "time_seconds": 7.8069709547103034,
+                "marker_count": 12,
+                "mean_error_m": 0.03270848273789859,
+                "rms_error_m": 0.03515159633705348,
+                "maximum_error_m": 0.05310971419371187
+            },
+            {
+                "frame_index": 235,
+                "time_seconds": 7.8403340784483815,
+                "marker_count": 12,
+                "mean_error_m": 0.0325310217988876,
+                "rms_error_m": 0.03550146349798667,
+                "maximum_error_m": 0.05714329657214629
+            },
+            {
+                "frame_index": 236,
+                "time_seconds": 7.8736972021864595,
+                "marker_count": 12,
+                "mean_error_m": 0.03196199553642589,
+                "rms_error_m": 0.03652937307912535,
+                "maximum_error_m": 0.0689165120261851
+            },
+            {
+                "frame_index": 237,
+                "time_seconds": 7.907060325924538,
+                "marker_count": 12,
+                "mean_error_m": 0.021242199524032685,
+                "rms_error_m": 0.02555338426685239,
+                "maximum_error_m": 0.05449618469865896
+            },
+            {
+                "frame_index": 238,
+                "time_seconds": 7.9404234496626165,
+                "marker_count": 12,
+                "mean_error_m": 0.020038401166234142,
+                "rms_error_m": 0.025230177789233973,
+                "maximum_error_m": 0.058519861879361285
+            },
+            {
+                "frame_index": 239,
+                "time_seconds": 7.9737865734006945,
+                "marker_count": 12,
+                "mean_error_m": 0.01888661478736318,
+                "rms_error_m": 0.024285000270512815,
+                "maximum_error_m": 0.06033182234290453
+            },
+            {
+                "frame_index": 240,
+                "time_seconds": 8.007149697138773,
+                "marker_count": 12,
+                "mean_error_m": 0.018102984387657086,
+                "rms_error_m": 0.02370309494569346,
+                "maximum_error_m": 0.057637248785995375
+            },
+            {
+                "frame_index": 241,
+                "time_seconds": 8.04051282087685,
+                "marker_count": 12,
+                "mean_error_m": 0.018994983478510093,
+                "rms_error_m": 0.023979632446218757,
+                "maximum_error_m": 0.04977166799583294
+            },
+            {
+                "frame_index": 242,
+                "time_seconds": 8.07387594461493,
+                "marker_count": 12,
+                "mean_error_m": 0.018538661105605942,
+                "rms_error_m": 0.02336809646393008,
+                "maximum_error_m": 0.055867947398164704
+            },
+            {
+                "frame_index": 243,
+                "time_seconds": 8.107239068353007,
+                "marker_count": 12,
+                "mean_error_m": 0.020338622083326412,
+                "rms_error_m": 0.025350959463431404,
+                "maximum_error_m": 0.05948454420707953
+            },
+            {
+                "frame_index": 244,
+                "time_seconds": 8.140602192091086,
+                "marker_count": 12,
+                "mean_error_m": 0.021266233384525032,
+                "rms_error_m": 0.02544682726038336,
+                "maximum_error_m": 0.05876390074788399
+            },
+            {
+                "frame_index": 245,
+                "time_seconds": 8.173965315829165,
+                "marker_count": 12,
+                "mean_error_m": 0.023750602955473158,
+                "rms_error_m": 0.02832232781378313,
+                "maximum_error_m": 0.05787837222198623
+            },
+            {
+                "frame_index": 246,
+                "time_seconds": 8.207328439567242,
+                "marker_count": 12,
+                "mean_error_m": 0.02339728644328698,
+                "rms_error_m": 0.028211225242029656,
+                "maximum_error_m": 0.06201579717626123
+            },
+            {
+                "frame_index": 247,
+                "time_seconds": 8.24069156330532,
+                "marker_count": 12,
+                "mean_error_m": 0.024420419553726022,
+                "rms_error_m": 0.029794224970041427,
+                "maximum_error_m": 0.06751459971557464
+            },
+            {
+                "frame_index": 248,
+                "time_seconds": 8.274054687043398,
+                "marker_count": 12,
+                "mean_error_m": 0.02796685745840871,
+                "rms_error_m": 0.03312203534881543,
+                "maximum_error_m": 0.06942040993795426
+            },
+            {
+                "frame_index": 249,
+                "time_seconds": 8.307417810781477,
+                "marker_count": 12,
+                "mean_error_m": 0.02581416718308603,
+                "rms_error_m": 0.030473981665147157,
+                "maximum_error_m": 0.06840758383500825
+            },
+            {
+                "frame_index": 250,
+                "time_seconds": 8.340780934519556,
+                "marker_count": 12,
+                "mean_error_m": 0.024755106721054854,
+                "rms_error_m": 0.029519207731811135,
+                "maximum_error_m": 0.06580750463936412
+            },
+            {
+                "frame_index": 251,
+                "time_seconds": 8.374144058257633,
+                "marker_count": 12,
+                "mean_error_m": 0.022554464652428188,
+                "rms_error_m": 0.027497286631874833,
+                "maximum_error_m": 0.06528703300132946
+            },
+            {
+                "frame_index": 252,
+                "time_seconds": 8.407507181995712,
+                "marker_count": 12,
+                "mean_error_m": 0.020123665663282202,
+                "rms_error_m": 0.025329111850046694,
+                "maximum_error_m": 0.06289947488990584
+            },
+            {
+                "frame_index": 253,
+                "time_seconds": 8.440870305733789,
+                "marker_count": 12,
+                "mean_error_m": 0.02203801844967533,
+                "rms_error_m": 0.026947878919861782,
+                "maximum_error_m": 0.06136335666500807
+            },
+            {
+                "frame_index": 254,
+                "time_seconds": 8.474233429471868,
+                "marker_count": 12,
+                "mean_error_m": 0.022970081263181393,
+                "rms_error_m": 0.027363109129567655,
+                "maximum_error_m": 0.057606869170889495
+            },
+            {
+                "frame_index": 255,
+                "time_seconds": 8.507596553209947,
+                "marker_count": 12,
+                "mean_error_m": 0.024259832358364933,
+                "rms_error_m": 0.029755308701212412,
+                "maximum_error_m": 0.056088985512057606
+            },
+            {
+                "frame_index": 256,
+                "time_seconds": 8.540959676948024,
+                "marker_count": 12,
+                "mean_error_m": 0.023004538952487302,
+                "rms_error_m": 0.02907973597613925,
+                "maximum_error_m": 0.05715290854149292
+            },
+            {
+                "frame_index": 257,
+                "time_seconds": 8.574322800686103,
+                "marker_count": 12,
+                "mean_error_m": 0.023847058519845657,
+                "rms_error_m": 0.029306435885447842,
+                "maximum_error_m": 0.055061624572558365
+            },
+            {
+                "frame_index": 258,
+                "time_seconds": 8.60768592442418,
+                "marker_count": 12,
+                "mean_error_m": 0.024312234289120122,
+                "rms_error_m": 0.029636931437819487,
+                "maximum_error_m": 0.05390726096276624
+            },
+            {
+                "frame_index": 259,
+                "time_seconds": 8.641049048162259,
+                "marker_count": 12,
+                "mean_error_m": 0.023214253953281028,
+                "rms_error_m": 0.028631687199016705,
+                "maximum_error_m": 0.05395002242376046
+            },
+            {
+                "frame_index": 260,
+                "time_seconds": 8.674412171900338,
+                "marker_count": 12,
+                "mean_error_m": 0.02358798504550039,
+                "rms_error_m": 0.028524599289944868,
+                "maximum_error_m": 0.05504701847484935
+            },
+            {
+                "frame_index": 261,
+                "time_seconds": 8.707775295638415,
+                "marker_count": 12,
+                "mean_error_m": 0.02654425788121542,
+                "rms_error_m": 0.030708005162143726,
+                "maximum_error_m": 0.052780120821789324
+            },
+            {
+                "frame_index": 262,
+                "time_seconds": 8.741138419376494,
+                "marker_count": 12,
+                "mean_error_m": 0.025177937593457943,
+                "rms_error_m": 0.029466019877665277,
+                "maximum_error_m": 0.05409114653791125
+            },
+            {
+                "frame_index": 263,
+                "time_seconds": 8.774501543114571,
+                "marker_count": 12,
+                "mean_error_m": 0.024300516461200992,
+                "rms_error_m": 0.028871042046456276,
+                "maximum_error_m": 0.05324348841563138
+            },
+            {
+                "frame_index": 264,
+                "time_seconds": 8.80786466685265,
+                "marker_count": 12,
+                "mean_error_m": 0.02623032260071631,
+                "rms_error_m": 0.03006761402940592,
+                "maximum_error_m": 0.052860831606629154
+            },
+            {
+                "frame_index": 265,
+                "time_seconds": 8.841227790590729,
+                "marker_count": 12,
+                "mean_error_m": 0.02510714784749922,
+                "rms_error_m": 0.029434419793475827,
+                "maximum_error_m": 0.05409787655229973
+            },
+            {
+                "frame_index": 266,
+                "time_seconds": 8.874590914328806,
+                "marker_count": 12,
+                "mean_error_m": 0.025587279024847517,
+                "rms_error_m": 0.02949255125043276,
+                "maximum_error_m": 0.05588655979466287
+            },
+            {
+                "frame_index": 267,
+                "time_seconds": 8.907954038066885,
+                "marker_count": 12,
+                "mean_error_m": 0.027779567885947366,
+                "rms_error_m": 0.031268572066389395,
+                "maximum_error_m": 0.05646900456523573
+            },
+            {
+                "frame_index": 268,
+                "time_seconds": 8.941317161804962,
+                "marker_count": 12,
+                "mean_error_m": 0.028234193941480693,
+                "rms_error_m": 0.03177031179731445,
+                "maximum_error_m": 0.05571702919058528
+            },
+            {
+                "frame_index": 269,
+                "time_seconds": 8.974680285543041,
+                "marker_count": 12,
+                "mean_error_m": 0.028472288547173135,
+                "rms_error_m": 0.032052633839595945,
+                "maximum_error_m": 0.05609009920040601
+            },
+            {
+                "frame_index": 270,
+                "time_seconds": 9.00804340928112,
+                "marker_count": 12,
+                "mean_error_m": 0.028775338841213822,
+                "rms_error_m": 0.032224647507328674,
+                "maximum_error_m": 0.055078526150997696
+            },
+            {
+                "frame_index": 271,
+                "time_seconds": 9.041406533019197,
+                "marker_count": 12,
+                "mean_error_m": 0.027731602749749784,
+                "rms_error_m": 0.031108421986157354,
+                "maximum_error_m": 0.052865204984393496
+            },
+            {
+                "frame_index": 272,
+                "time_seconds": 9.074769656757276,
+                "marker_count": 12,
+                "mean_error_m": 0.02692166091368822,
+                "rms_error_m": 0.03034591319460587,
+                "maximum_error_m": 0.05361708556896246
+            },
+            {
+                "frame_index": 273,
+                "time_seconds": 9.108132780495353,
+                "marker_count": 12,
+                "mean_error_m": 0.027162912224713995,
+                "rms_error_m": 0.03009331982932504,
+                "maximum_error_m": 0.04828349683570294
+            },
+            {
+                "frame_index": 274,
+                "time_seconds": 9.141495904233432,
+                "marker_count": 12,
+                "mean_error_m": 0.025822287801855016,
+                "rms_error_m": 0.028890256392274986,
+                "maximum_error_m": 0.04728921944510136
+            },
+            {
+                "frame_index": 275,
+                "time_seconds": 9.174859027971511,
+                "marker_count": 12,
+                "mean_error_m": 0.026789944683346112,
+                "rms_error_m": 0.029865389976779382,
+                "maximum_error_m": 0.05238771835309552
+            },
+            {
+                "frame_index": 276,
+                "time_seconds": 9.208222151709588,
+                "marker_count": 12,
+                "mean_error_m": 0.02547553185911086,
+                "rms_error_m": 0.02852370138188579,
+                "maximum_error_m": 0.04879229703735574
+            },
+            {
+                "frame_index": 277,
+                "time_seconds": 9.241585275447667,
+                "marker_count": 12,
+                "mean_error_m": 0.02669867580337687,
+                "rms_error_m": 0.0294281684790949,
+                "maximum_error_m": 0.05244521778304182
+            },
+            {
+                "frame_index": 278,
+                "time_seconds": 9.274948399185744,
+                "marker_count": 12,
+                "mean_error_m": 0.024431131705039032,
+                "rms_error_m": 0.02810250120735609,
+                "maximum_error_m": 0.050784545591302806
+            },
+            {
+                "frame_index": 279,
+                "time_seconds": 9.308311522923823,
+                "marker_count": 12,
+                "mean_error_m": 0.025271576280904522,
+                "rms_error_m": 0.029874962334212652,
+                "maximum_error_m": 0.06044939730655236
+            },
+            {
+                "frame_index": 280,
+                "time_seconds": 9.341674646661902,
+                "marker_count": 12,
+                "mean_error_m": 0.022643094657618577,
+                "rms_error_m": 0.027788809124423518,
+                "maximum_error_m": 0.0607099646193658
+            },
+            {
+                "frame_index": 281,
+                "time_seconds": 9.37503777039998,
+                "marker_count": 12,
+                "mean_error_m": 0.043826208398363514,
+                "rms_error_m": 0.05685640742835409,
+                "maximum_error_m": 0.1377175137261149
+            }
+        ],
+        "csv_path": "E:\\Machine Learning\\Projects\\tala-backend\\results\\kinematic_reconstruction\\marker_fitting_errors.csv"
+    },
+    "limitations": [
+        "MediaPipe world landmarks are estimated and are not camera-calibrated motion capture.",
+        "Pose scale and body segment scale factors are estimated from monocular landmarks; segment proportions may be biased by pose estimation errors.",
+        "Pelvis camera-depth translation is not observable from hip-centered world landmarks and is held at zero.",
+        "Virtual wrist markers are attached to the model hand origins; the model wrist flexion and deviation coordinates are locked.",
+        "Markers with no samples above the confidence threshold are omitted; motion of an unobserved limb cannot be recovered reliably.",
+        "Single-camera depth ambiguity can affect pelvis and limb rotations.",
+        "Marker fit is kinematic only; no inverse dynamics or joint loads are computed."
+    ],
+    "output_files": {
+        "motion": "E:\\Machine Learning\\Projects\\tala-backend\\results\\kinematic_reconstruction\\opensim_motion.mot",
+        "scaled_model": "E:\\Machine Learning\\Projects\\tala-backend\\results\\kinematic_reconstruction\\scaled_model.osim",
+        "mapped_coordinates": "E:\\Machine Learning\\Projects\\tala-backend\\results\\kinematic_reconstruction\\mapped_coordinates.csv",
+        "marker_fitting_errors": "E:\\Machine Learning\\Projects\\tala-backend\\results\\kinematic_reconstruction\\marker_fitting_errors.csv",
+        "marker_targets": "E:\\Machine Learning\\Projects\\tala-backend\\results\\kinematic_reconstruction\\pose_targets.trc",
+        "report": "E:\\Machine Learning\\Projects\\tala-backend\\results\\kinematic_reconstruction\\ik_report.json"
+    }
+}

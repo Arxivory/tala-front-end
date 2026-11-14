@@ -1,0 +1,17 @@
+{
+  "stage": "phase3_3_pose_extraction",
+  "status": "completed",
+  "processed_frames": 282,
+  "detected_frames": 282,
+  "detection_rate": 1.0,
+  "landmark_rows": 9306,
+  "unique_landmarks": 33,
+  "frames_without_detection": 0,
+  "limitations": [
+    "Single-camera pose estimation.",
+    "Estimated world coordinates are not calibrated motion capture.",
+    "No independent ground-truth pose measurements.",
+    "Front-oblique perspective may introduce depth ambiguity.",
+    "Pose detection does not establish biomechanical validity."
+  ]
+}

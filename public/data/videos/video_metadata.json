@@ -1,0 +1,16 @@
+{
+  "input_video": "E:\\Machine Learning\\Projects\\tala-backend\\data\\raw\\squat_segment.mp4",
+  "provenance": "public_video_pilot",
+  "source": "Friends of NASA Facebook Reel",
+  "original_segment_start_seconds": 47.0,
+  "original_segment_end_seconds": 57.0,
+  "fps": 29.973212575975715,
+  "width": 720,
+  "height": 1280,
+  "reported_frame_count": 282,
+  "processed_frame_count": 282,
+  "duration_seconds": 9.408400894138058,
+  "processing_timestamp_utc": "2026-11-13T13:18:59.923695+00:00",
+  "pose_model": "E:\\Machine Learning\\Projects\\tala-backend\\models\\pose_landmarker\\pose_landmarker_full.task",
+  "coordinate_note": "Normalized image landmarks and model-estimated world landmarks. World coordinates are not camera-calibrated measurements."
+}

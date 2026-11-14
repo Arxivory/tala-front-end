@@ -1,0 +1,218 @@
+{
+    "exercise": "squat",
+    "input_file": "results\\gravity_analysis\\gravity_energy_timeseries.csv",
+    "sample_count": 282,
+    "segmentation": {
+        "exercise": "squat",
+        "signal_name": "com_y_m",
+        "segments": [
+            {
+                "phase": "ascent",
+                "direction": "increasing",
+                "start_index": 0,
+                "end_index": 55,
+                "start_frame": 0,
+                "end_frame": 55,
+                "start_time": 0.0,
+                "end_time": 1.8349718056,
+                "duration_seconds": 1.8349718056,
+                "start_value": 1.0854645313,
+                "end_value": 1.5671175491
+            },
+            {
+                "phase": "descent",
+                "direction": "decreasing",
+                "start_index": 55,
+                "end_index": 99,
+                "start_frame": 55,
+                "end_frame": 99,
+                "start_time": 1.8349718056,
+                "end_time": 3.3029492501,
+                "duration_seconds": 1.4679774445000002,
+                "start_value": 1.5671175491,
+                "end_value": 1.0799300067
+            },
+            {
+                "phase": "ascent",
+                "direction": "increasing",
+                "start_index": 99,
+                "end_index": 132,
+                "start_frame": 99,
+                "end_frame": 132,
+                "start_time": 3.3029492501,
+                "end_time": 4.4039323334,
+                "duration_seconds": 1.1009830833,
+                "start_value": 1.0799300067,
+                "end_value": 1.4585666743
+            },
+            {
+                "phase": "descent",
+                "direction": "decreasing",
+                "start_index": 132,
+                "end_index": 185,
+                "start_frame": 132,
+                "end_frame": 185,
+                "start_time": 4.4039323334,
+                "end_time": 6.1721778915,
+                "duration_seconds": 1.7682455580999994,
+                "start_value": 1.4585666743,
+                "end_value": 0.9514474822
+            },
+            {
+                "phase": "ascent",
+                "direction": "increasing",
+                "start_index": 185,
+                "end_index": 218,
+                "start_frame": 185,
+                "end_frame": 218,
+                "start_time": 6.1721778915,
+                "end_time": 7.2731609749,
+                "duration_seconds": 1.1009830834,
+                "start_value": 0.9514474822,
+                "end_value": 1.3628597516
+            },
+            {
+                "phase": "descent",
+                "direction": "decreasing",
+                "start_index": 218,
+                "end_index": 268,
+                "start_frame": 218,
+                "end_frame": 268,
+                "start_time": 7.2731609749,
+                "end_time": 8.9413171618,
+                "duration_seconds": 1.668156186900001,
+                "start_value": 1.3628597516,
+                "end_value": 0.8916649102
+            },
+            {
+                "phase": "ascent",
+                "direction": "increasing",
+                "start_index": 268,
+                "end_index": 281,
+                "start_frame": 268,
+                "end_frame": 281,
+                "start_time": 8.9413171618,
+                "end_time": 9.3750377704,
+                "duration_seconds": 0.43372060859999984,
+                "start_value": 0.8916649102,
+                "end_value": 1.0509439528
+            }
+        ],
+        "turning_points": [
+            {
+                "index": 0,
+                "frame_index": 0,
+                "time": 0.0,
+                "value": 1.0854645313,
+                "kind": "endpoint"
+            },
+            {
+                "index": 55,
+                "frame_index": 55,
+                "time": 1.8349718056,
+                "value": 1.5671175491,
+                "kind": "high"
+            },
+            {
+                "index": 99,
+                "frame_index": 99,
+                "time": 3.3029492501,
+                "value": 1.0799300067,
+                "kind": "low"
+            },
+            {
+                "index": 132,
+                "frame_index": 132,
+                "time": 4.4039323334,
+                "value": 1.4585666743,
+                "kind": "high"
+            },
+            {
+                "index": 185,
+                "frame_index": 185,
+                "time": 6.1721778915,
+                "value": 0.9514474822,
+                "kind": "low"
+            },
+            {
+                "index": 218,
+                "frame_index": 218,
+                "time": 7.2731609749,
+                "value": 1.3628597516,
+                "kind": "high"
+            },
+            {
+                "index": 268,
+                "frame_index": 268,
+                "time": 8.9413171618,
+                "value": 0.8916649102,
+                "kind": "low"
+            },
+            {
+                "index": 281,
+                "frame_index": 281,
+                "time": 9.3750377704,
+                "value": 1.0509439528,
+                "kind": "endpoint"
+            }
+        ],
+        "signal_min": 0.8916649102,
+        "signal_max": 1.5671175491,
+        "signal_range": 0.6754526389,
+        "sample_count": 282
+    },
+    "repetitions": {
+        "exercise": "squat",
+        "repetition_count": 2,
+        "status": "available",
+        "cycle_start_extreme": "high",
+        "tolerance": 0.15,
+        "repetitions": [
+            {
+                "repetition_number": 1,
+                "start_frame": 55,
+                "end_frame": 132,
+                "start_time": 1.8349718056,
+                "end_time": 4.4039323334,
+                "duration_seconds": 2.5689605278000003,
+                "start_extreme": "high",
+                "middle_extreme": "low",
+                "end_extreme": "high"
+            },
+            {
+                "repetition_number": 2,
+                "start_frame": 132,
+                "end_frame": 218,
+                "start_time": 4.4039323334,
+                "end_time": 7.2731609749,
+                "duration_seconds": 2.8692286414999995,
+                "start_extreme": "high",
+                "middle_extreme": "low",
+                "end_extreme": "high"
+            }
+        ]
+    },
+    "completeness": {
+        "exercise": "squat",
+        "status": "incomplete",
+        "is_complete": false,
+        "cycle_start_extreme": "high",
+        "expected_extreme_value": 1.5692437691,
+        "observed_start_value": 1.0771612651,
+        "observed_end_value": 1.0686423959,
+        "signal_min": 0.8850734549,
+        "signal_max": 1.5692437691,
+        "signal_range": 0.6841703142000001,
+        "tolerance": 0.15,
+        "allowed_distance": 0.10262554713000001,
+        "starts_at_expected_extreme": false,
+        "ends_at_expected_extreme": false,
+        "reason": "The recording does not sufficiently capture the expected starting posture and the expected ending posture."
+    },
+    "limitations": [
+        "Exercise type is supplied by the caller, not recognized automatically.",
+        "Phase segmentation uses one numerical movement signal.",
+        "Completeness is estimated from relative endpoint positions.",
+        "This analysis does not validate the underlying OpenSim reconstruction."
+    ]
+}
