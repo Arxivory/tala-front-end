@@ -236,12 +236,6 @@ function ProfileMenu() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <Dialog open={switchOpen} onOpenChange={setSwitchOpen}>
-          <DialogTrigger asChild>
-            <DropdownMenuItem className="gap-2" onSelect={(e) => e.preventDefault()}>
-              <UserRoundCog className="size-4" aria-hidden="true" />
-              Switch crew member
-            </DropdownMenuItem>
-          </DialogTrigger>
           <DialogContent className="max-w-sm">
             <DialogHeader>
               <DialogTitle className="font-display text-strong">Switch crew member</DialogTitle>
@@ -278,17 +272,9 @@ function ProfileMenu() {
         </Dialog>
         <DropdownMenuItem
           className="gap-2"
-          onClick={() => setRole(role === "cmo" ? "astronaut" : "cmo")}
-        >
-          <UserRoundCog className="size-4" aria-hidden="true" />
-          View as {role === "cmo" ? "Astronaut" : "CMO"}
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="gap-2"
           onClick={() => {
             signOut();
-            router.navigate({ to: "/signin" });
+            router.navigate({ to: "/" });
           }}
         >
           <LogOut className="size-4" aria-hidden="true" />

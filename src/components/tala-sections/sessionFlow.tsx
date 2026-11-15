@@ -95,7 +95,7 @@ export default function SessionFlow() {
             pose-estimation mirror.
           </p>
         </div>
-        <DemoTag label="Precomputed research sample" />
+        <DemoTag label="Video Credits from NASA Jonny Kim on Facebook Reel" />
       </header>
 
       <ol aria-label="Session steps" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

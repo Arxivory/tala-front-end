@@ -151,7 +151,7 @@ export default function BodyMapSection() {
             review the reconstructed joint-coordinate observations.
           </p>
         </div>
-        <DemoTag label="Precomputed research sample" />
+        <DemoTag label="Video Credits from NASA Jonny Kim on Facebook Reels" />
       </header>
 
       <section className="grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">

@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/tala/Logo";
+import { Mascot } from "@/components/tala/newLogo";
 import { DemoTag } from "@/components/tala/DemoTag";
 import { pageHead } from "@/lib/head";
 import { useApp } from "@/lib/app-state";
@@ -27,7 +27,7 @@ function SignIn() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="w-full max-w-sm rounded-3xl border border-border bg-card p-8 shadow-soft">
-        <Logo size={44} />
+        <Mascot size={44} />
         <h1 className="mt-8 font-display text-xl font-bold text-strong">Sign in</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Data stays on this device until a ground link is available.
@@ -40,7 +40,7 @@ function SignIn() {
               name="crewId"
               autoComplete="username"
               className="h-11 rounded-2xl border border-input bg-background px-4 text-sm text-strong placeholder:text-muted-foreground"
-              placeholder="e.g. ARIVERA"
+              placeholder="e.g. ASTRO"
             />
           </div>
           <div className="flex flex-col gap-1.5">

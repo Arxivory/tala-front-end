@@ -65,40 +65,40 @@ function requireTextList(value: unknown, label: string): string[] {
 
 export function parseGravityAnalysis(value: unknown): GravityAnalysisData {
   const root = requireRecord(value, "the output object");
-  const assessment = requireRecord(root.assessment, "the assessment");
-  const context = requireRecord(assessment.gravity_context, "the gravity context");
-  const metrics = requireRecord(context.metrics, "the whole-body metrics");
-  const environments = requireRecord(context.environments, "the gravity environments");
+  const assessment = requireRecord(root["assessment"], "the assessment");
+  const context = requireRecord(assessment["gravity_context"], "the gravity context");
+  const metrics = requireRecord(context["metrics"], "the whole-body metrics");
+  const environments = requireRecord(context["environments"], "the gravity environments");
   const scenarios = SCENARIOS.map(({ key, regime, environment }) => {
     const scenario = requireRecord(environments[key], `${environment} scenario`);
-    const scenarioMetrics = requireRecord(scenario.metrics, `${environment} metrics`);
+    const scenarioMetrics = requireRecord(scenario["metrics"], `${environment} metrics`);
 
     return {
       regime,
       environment,
       gravityMetersPerSecondSquared: requireNumber(
-        scenarioMetrics.gravity_m_per_s2,
+        scenarioMetrics["gravity_m_per_s2"],
         `${environment} gravity`,
       ),
       energyDifferenceJ: requireNumber(
-        scenarioMetrics.energy_difference_to_return_to_initial_height_j,
+        scenarioMetrics["energy_difference_to_return_to_initial_height_j"],
         `${environment} potential-energy difference`,
       ),
     };
   });
 
-  const interpretation = requireTextList(context.interpretation, "interpretation notes");
-  const limitations = requireTextList(context.limitations, "limitations");
+  const interpretation = requireTextList(context["interpretation"], "interpretation notes");
+  const limitations = requireTextList(context["limitations"], "limitations");
   if (interpretation.length === 0 || limitations.length === 0) {
     throw new Error("Gravity analysis data must include interpretation and limitation notes.");
   }
 
   return {
-    method: requireText(context.method, "the calculation method"),
-    verticalAxis: requireText(context.vertical_axis, "the vertical-axis definition"),
-    modeledBodyMassKg: requireNumber(metrics.total_body_mass_kg, "modeled body mass"),
+    method: requireText(context["method"], "the calculation method"),
+    verticalAxis: requireText(context["vertical_axis"], "the vertical-axis definition"),
+    modeledBodyMassKg: requireNumber(metrics["total_body_mass_kg"], "modeled body mass"),
     centerOfMassHeightExcursionMeters: requireNumber(
-      metrics.com_height_excursion_m,
+      metrics["com_height_excursion_m"],
       "center-of-mass height excursion",
     ),
     energyMetric:

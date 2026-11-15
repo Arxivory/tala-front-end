@@ -233,8 +233,7 @@ function Landing() {
               </Button>
             </div>
             <p className="mt-6 text-xs text-muted-foreground">
-              Images provide context for spaceflight, exercise research, and mission support; they
-              do not depict TALA's analysis output.
+              All Images in this page are credited to NASA.
             </p>
           </div>
 
@@ -525,11 +524,8 @@ function Landing() {
               labeled illustrative data. No live camera processing or clinical monitoring.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Button asChild size="lg">
-                <Link to="/app">Enter the prototype</Link>
-              </Button>
               <Button size="lg" variant="outline" onClick={() => setDemoOpen(true)}>
-                About this demo
+                Enter demo
               </Button>
             </div>
           </div>

@@ -3,7 +3,7 @@ import type { CrewMember } from "./types";
 export const crew: CrewMember[] = [
   {
     id: "alex",
-    name: "Alex Rivera",
+    name: "Astro",
     role: "astronaut",
     title: "Mission Specialist",
     heightCm: 176,
