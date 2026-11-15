@@ -219,15 +219,24 @@ function Landing() {
               </Button>
               <Button asChild size="lg">
                 <a
+                  href="https://github.com/Arxivory/tala"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  See Backend Research Project
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <a href="/paper/tala_research_paper.pdf">Research Paper</a>
+              </Button>
+              <Button asChild size="lg">
+                <a
                   href="https://github.com/Arxivory/tala-front-end"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  See Source Code
+                  See MVP Source Code
                 </a>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <a href="#trust">Research foundations</a>
               </Button>
             </div>
             <p className="mt-6 text-xs text-muted-foreground">

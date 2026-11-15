@@ -1,24 +1,16 @@
-# Build Together
+# TALA — Frontend MVP Prototype
 
-Hello! Please read the instructions and let's build together!
+TALA (Twin-based Astronaut Life Analytics) is an interactive frontend MVP prototype demonstrating the proposed user experience of the TALA astronaut exercise-monitoring platform.
 
-This project was built with [Lovable](https://lovable.dev).
+This prototype uses **precomputed and representative data** derived from the separate [TALA Backend Research Repository](https://github.com/Arxivory/tala). It demonstrates the intended presentation of movement analysis, daily wellness check-ins, historical trends, and NASA literature-grounded insights.
 
-## Build with Lovable
+The frontend is deployed and accessible as a demonstration of the proposed platform. Its displayed results are not generated through a live frontend-to-backend integration; backend computations and research outputs are prepared separately and represented in the prototype.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/497e5bf5-9b49-4a23-b91f-df0051acb74c).
+**Important:** This is a research demonstration prototype, not a clinically validated health-monitoring or diagnostic application.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+### Project Relationship
 
-## Development
+- **Frontend:** Interactive MVP prototype with precomputed demonstration data.
+- **Backend:** Separate research repository implementing the computer-vision, OpenSim kinematic reconstruction, movement analysis, gravity analysis, assessment, and NASA literature-grounded RAG pipeline.
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+For the underlying methodology, implementation, and research results, refer to the TALA Backend Research Repository.
