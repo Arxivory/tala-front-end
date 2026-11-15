@@ -389,7 +389,6 @@ export function AppShell({ children }: { children: ReactNode }) {
                 Demo
               </span>
             ) : null}
-            <NotificationsMenu />
             <ProfileMenu />
           </div>
         </header>
