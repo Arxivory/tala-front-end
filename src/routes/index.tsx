@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import heroPhoto from "@/assets/astronaut-space-photo.jpg";
-import missionControlPhoto from "@/assets/mission-control.jpg";
+import missionControlPhoto from "@/assets/astronaut-space-photo.jpg";
 import cameraPhoto from "@/assets/astro-exercise.jpg";
 import clinicPhoto from "@/assets/astronaut-exercise-photo.jpg";
 import surgeonPhoto from "@/assets/astronaut-health.jpg";
@@ -35,13 +35,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "TALA is an exploratory prototype combining computer-vision movement analysis, OpenSim-based biomechanical research, gravity scenarios, and NASA-literature-grounded AI.",
+          "TALA connects astronaut exercise movement analysis, biomechanical modeling, gravity scenarios, longitudinal insights, and NASA-literature-grounded explanations.",
       },
       { property: "og:title", content: "TALA — Twin-based Astronaut Life Analytics" },
       {
         property: "og:description",
         content:
-          "Explore a record-to-insights research workflow with precomputed results, illustrative frontend data, and transparent limitations.",
+          "Explore a connected approach to astronaut movement and wellness intelligence, combining computer vision, biomechanics, gravity context, and mission-relevant research.",
       },
     ],
   }),
@@ -51,90 +51,90 @@ export const Route = createFileRoute("/")({
 const problems = [
   {
     icon: <IconCamera size={22} />,
-    title: "Video needs movement context",
-    body: "An exercise clip alone does not explain how a person moved or what estimated coordinates mean.",
+    title: "Exercise video needs movement context",
+    body: "Video can capture a movement, but making its patterns easier to interpret requires structured analysis and relevant context.",
   },
   {
     icon: <IconGravity size={22} />,
-    title: "Mission conditions shape analysis",
-    body: "Gravity scenarios and modeling assumptions should be explicit when researchers compare reconstructed movement.",
+    title: "Mission conditions shape movement",
+    body: "Movement takes place in environments with different gravity conditions, which matter when researchers interpret exercise.",
   },
   {
     icon: <IconChat size={22} />,
-    title: "Research evidence is distributed",
-    body: "Movement estimates and mission-relevant literature can be difficult to interpret together.",
+    title: "Movement and evidence are disconnected",
+    body: "Exercise observations and mission-relevant research often sit in separate tools, making it harder to see how they relate.",
   },
   {
     icon: <IconChart size={22} />,
-    title: "Demo data needs clear labels",
-    body: "Precomputed results and illustrative trends should be distinguished from live astronaut records.",
+    title: "Insights need a shared view",
+    body: "Movement patterns, personal context, and supporting evidence are more useful when they can be explored together.",
   },
 ];
 
 const flow = [
-  { icon: <IconCamera size={20} />, label: "Movement video", note: "Research input" },
-  { icon: <IconTwin size={20} />, label: "Computer vision", note: "Pose estimates" },
+  { icon: <IconCamera size={20} />, label: "Exercise recording", note: "Movement input" },
+  { icon: <IconTwin size={20} />, label: "Computer vision", note: "Movement landmarks" },
   {
     icon: <IconPulse size={20} />,
     label: "OpenSim analysis",
-    note: "Reconstruction & biomechanics",
+    note: "Reconstruction and biomechanics",
   },
   {
     icon: <IconChat size={20} />,
-    label: "NASA literature AI",
-    note: "Source-referenced explanations",
+    label: "Research insights",
+    note: "NASA source-referenced explanations",
   },
 ];
 
 const differentiators = [
   {
-    them: "Movement video and biomechanical analysis reviewed separately",
-    us: "TALA research explores computer-vision pose estimates alongside OpenSim reconstruction.",
+    them: "Exercise video reviewed without structured movement analysis",
+    us: "TALA brings computer-vision movement estimates into a biomechanical review workflow.",
   },
   {
-    them: "Gravity assumptions separated from movement results",
-    us: "Gravity-dependent research compares modeled scenarios with their assumptions made explicit.",
+    them: "Movement interpreted without mission gravity context",
+    us: "Compare modeled movement across gravity environments with the assumptions made clear.",
   },
   {
-    them: "Movement results and evidence lookup kept in different tools",
-    us: "A NASA-literature-grounded RAG prototype provides contextual explanations with references.",
+    them: "Movement insights disconnected from supporting research",
+    us: "Explore movement findings alongside NASA-literature-grounded explanations and references.",
   },
   {
-    them: "Research outputs and illustrative frontend data easy to confuse",
-    us: "The prototype labels precomputed research results separately from illustrative history.",
+    them: "Movement observations reviewed without longitudinal context",
+    us: "Bring movement history and wellness check-ins into a shared review experience.",
   },
 ];
 
 const capabilities = [
   {
     icon: <IconCamera size={22} />,
-    title: "Computer-vision pose estimation",
-    body: "Pose estimates from research video; the browser does not capture or analyze live camera footage.",
+    title: "Video-based movement analysis",
+    body: "Extracts pose estimates from exercise recordings to support review of movement patterns.",
   },
   {
     icon: <IconTwin size={22} />,
     title: "OpenSim-based reconstruction",
-    body: "Research outputs and an approximate skeletal visualization make reconstructed movement easier to explore.",
+    body: "Maps movement into a skeletal and kinematic representation for interactive exploration.",
   },
   {
     icon: <IconPulse size={22} />,
     title: "Biomechanical analysis",
-    body: "Movement estimates from the research workflow, not clinical evaluations or validated health measurements.",
+    body: "Summarizes model-derived movement measures to make motion patterns easier to interpret.",
   },
   {
     icon: <IconGravity size={22} />,
-    title: "Gravity-scenario research",
-    body: "Explore modeled movement quantities under different gravity assumptions; these do not measure effort or adaptation.",
+    title: "Gravity-scenario analysis",
+    body: "Compare the same reconstructed movement under microgravity, lunar, Mars, and Earth conditions.",
   },
   {
     icon: <IconChat size={22} />,
     title: "Evidence-grounded AI assistance",
-    body: "A NASA-document RAG prototype offers contextual explanations with source references.",
+    body: "Connects questions with NASA standards, technical guidance, and research reports through source-referenced explanations.",
   },
   {
     icon: <IconChart size={22} />,
     title: "Movement and wellness trends",
-    body: "Frontend views combine precomputed research output with separately labeled illustrative history.",
+    body: "Brings movement history and wellness check-ins together to support longitudinal review.",
   },
 ];
 
@@ -143,33 +143,32 @@ const personas = [
     photo: cameraPhoto,
     alt: "Astronaut exercising on a resistance device aboard the International Space Station",
     title: "Crew and exercise participants",
-    where: "Crew-facing exploration",
-    body: "Review a precomputed movement analysis and self-reported check-in; the prototype does not provide live monitoring.",
+    where: "Crew movement review",
+    body: "Review recorded exercise sessions, movement summaries, and personal check-ins in one place.",
   },
   {
     photo: surgeonPhoto,
     alt: "Research participant performing a barbell squat in a biomechanics laboratory",
     title: "Mission-support and research teams",
-    where: "Research review",
-    body: "Explore movement outputs, modeling context, and illustrative trends while keeping the data sources distinct.",
+    where: "Mission-support insights",
+    body: "Explore movement patterns, gravity context, and longitudinal trends to support research review.",
   },
   {
     photo: clinicPhoto,
     alt: "Research participant supported by a harness during movement testing in a laboratory",
-    title: "Research and clinical reviewers",
-    where: "Evidence exploration",
-    body: "Review NASA-literature-grounded explanations and example outputs; TALA is not a diagnosis or clinical decision tool.",
+    title: "Research and human-performance teams",
+    where: "Evidence-informed research",
+    body: "Connect movement observations with NASA-literature-grounded explanations and the assumptions behind them.",
   },
 ];
 
 const stats = [
-  { value: "1", label: "Precomputed squat research sample represented in this frontend" },
-  { value: "2", label: "Repetitions detected in the sample clip, which has incomplete endpoints" },
-  { value: "3", label: "Bilateral joint-coordinate families shown: hip, knee, and ankle" },
+  { value: "1", label: "Connected workflow from exercise recording to movement insights" },
+  { value: "3", label: "Movement regions explored: hip, knee, and ankle" },
+  { value: "4", label: "Gravity environments compared: microgravity, Moon, Mars, and Earth" },
   {
-    value: "4",
-    label:
-      "Research areas explored: computer vision, OpenSim, gravity analysis, and NASA-document RAG",
+    value: "6",
+    label: "NASA knowledge sources spanning standards, technical guidance, and research",
   },
 ];
 
@@ -183,16 +182,16 @@ function Landing() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
           <Wordmark size={32} />
           <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
-            <a href="#problem" className="transition-colors hover:text-foreground">Problem</a>
+            <a href="#problem" className="transition-colors hover:text-foreground">Why TALA</a>
             <a href="#solution" className="transition-colors hover:text-foreground">
-              Approach
+              How it works
             </a>
             <a href="#capabilities" className="transition-colors hover:text-foreground">Capabilities</a>
             <a href="#audience" className="transition-colors hover:text-foreground">Who it's for</a>
           </nav>
           <div className="flex items-center gap-2">
             <Button size="sm" onClick={() => setDemoOpen(true)}>
-              Open Demo
+              Explore TALA
             </Button>
           </div>
         </div>
@@ -204,20 +203,19 @@ function Landing() {
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-16 lg:grid-cols-[1.05fr_1fr] lg:pb-28 lg:pt-24">
           <div>
             <h1 className="text-display mt-6 text-[2.75rem] font-semibold sm:text-6xl">
-              Astronaut movement and wellness intelligence.
+              A clearer view of astronaut movement and wellness.
             </h1>
             <p className="mt-3 font-display text-sm font-medium tracking-[0.12em] text-muted-foreground uppercase">
               Twin-based Astronaut Life Analytics
             </p>
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-muted-foreground">
-              TALA is an exploratory prototype combining computer-vision movement analysis,
-              biomechanical research, and NASA-literature-grounded AI to make astronaut exercise
-              data easier to explore. Frontend results are precomputed or illustrative; this is not
-              live camera analysis or clinical monitoring.
+              TALA connects exercise movement analysis, biomechanical modeling, gravity scenarios,
+              and NASA-literature-grounded insights to help make astronaut movement easier to
+              understand.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button size="lg" onClick={() => setDemoOpen(true)}>
-                Open Demo
+                Explore TALA
               </Button>
               <Button asChild size="lg">
                 <a
@@ -229,7 +227,7 @@ function Landing() {
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <a href="#trust">Research &amp; limitations</a>
+                <a href="#trust">Research foundations</a>
               </Button>
             </div>
             <p className="mt-6 text-xs text-muted-foreground">
@@ -253,8 +251,8 @@ function Landing() {
       <section id="problem" className="mx-auto max-w-6xl px-5 py-24">
         <SectionHeading
           eyebrow="The problem"
-          title="Movement data needs context"
-          support="Future exploration research needs clear ways to review movement observations, modeling assumptions, and supporting evidence without confusing estimates with health conclusions."
+          title="Astronaut movement is complex to interpret"
+          support="Exercise observations, mission conditions, and relevant research all shape how movement should be understood."
         />
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.35fr_1fr]">
           <div className="grid gap-4 sm:grid-cols-2">
@@ -287,21 +285,19 @@ function Landing() {
           <div>
             <SectionHeading
               eyebrow="Why it matters"
-              title="Make movement research easier to interpret"
-              support="Transparent tools can help researchers explore exercise movement, biomechanical estimates, and evidence while respecting the limits of each."
+              title="Make movement insights easier to use"
+              support="A connected view can help teams explore exercise movement alongside biomechanical context and relevant evidence."
             />
             <p className="mt-6 text-[15px] leading-relaxed text-muted-foreground">
-              TALA explores a workflow that connects video-derived pose estimates, OpenSim-based
-              reconstruction, gravity-scenario research, and source-referenced explanations. The
-              frontend uses one precomputed squat sample and separately labeled illustrative
-              history. It does not evaluate bone status, injury, or readiness and is not a clinical
-              system.
+              TALA brings video-derived pose estimates, OpenSim-based reconstruction,
+              gravity-scenario analysis, and source-referenced explanations into one movement
+              review experience.
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <div className="card-soft p-5">
                 <p className="num-lg text-2xl">1</p>
                 <p className="mt-2 text-xs text-muted-foreground">
-                  Precomputed squat research sample represented in this frontend
+                  Connected movement-review workflow
                 </p>
               </div>
               <div className="card-soft p-5">
@@ -327,15 +323,14 @@ function Landing() {
       <section id="solution" className="mx-auto max-w-6xl px-5 py-24">
         <SectionHeading
           eyebrow="The solution"
-          title="An exploratory record-to-insights workflow"
-          support="TALA brings together computer vision, biomechanical modeling, gravity scenarios, and NASA-literature-grounded AI in a research prototype."
+          title="From exercise recording to movement insights"
+          support="TALA connects movement analysis, biomechanical modeling, gravity context, and NASA-literature-grounded explanations."
           align="center"
         />
         <p className="mx-auto mt-6 max-w-3xl text-center text-[15px] leading-relaxed text-muted-foreground">
-          The research workflow explores pose estimation from video, OpenSim reconstruction and
-          biomechanical analysis, modeled gravity scenarios, and retrieval-augmented explanations
-          grounded in NASA documents. The frontend displays precomputed research results and
-          illustrative data; it does not process a live camera feed or provide clinical guidance.
+          Exercise recordings are translated into pose estimates and OpenSim-based movement
+          reconstructions. Gravity scenarios add mission context, while NASA-literature-grounded
+          explanations help connect movement observations with relevant research.
         </p>
 
         <div className="mt-14 overflow-x-auto px-6 py-6">
@@ -367,8 +362,8 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <SectionHeading
             eyebrow="What makes this different"
-            title="A connected research workflow"
-            support="TALA explores how movement analysis, biomechanical modeling, gravity assumptions, and evidence lookup can be reviewed together."
+            title="One view across movement and mission context"
+            support="Bring movement analysis, biomechanical modeling, gravity scenarios, and evidence together for a more complete review."
           />
           <div className="mt-12 space-y-3">
             {differentiators.map((d) => (
@@ -397,8 +392,8 @@ function Landing() {
       <section id="capabilities" className="mx-auto max-w-6xl px-5 py-24">
         <SectionHeading
           eyebrow="Key capabilities"
-          title="What the platform does"
-          support="Six research and prototype capabilities across movement analysis, interpretation, and review; some frontend content is precomputed or illustrative."
+          title="A connected set of movement capabilities"
+          support="Explore the tools that connect exercise recordings with movement analysis, mission context, and research insights."
         />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {capabilities.map((c) => (
@@ -418,8 +413,8 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <SectionHeading
             eyebrow="Who it's for"
-            title="People who may use or review TALA"
-            support="TALA is an exploratory prototype for crew-facing movement review, mission-support exploration, and research audiences—not operational medical software."
+            title="Designed for the people behind human spaceflight"
+            support="TALA brings together crew, mission-support, and research perspectives on astronaut movement and wellness."
           />
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {personas.map((p) => (
@@ -448,7 +443,7 @@ function Landing() {
               <Link to="/app/trends">Explore Movement Trends</Link>
             </Button>
             <Button asChild variant="secondary">
-              <Link to="/app/assistant">Explore Evidence Assistant</Link>
+              <Link to="/app/assistant">Explore Research Assistant</Link>
             </Button>
           </div>
         </div>
@@ -458,8 +453,8 @@ function Landing() {
       <section className="mx-auto max-w-6xl px-5 py-24">
         <SectionHeading
           eyebrow="Impact"
-          title="What the prototype currently shows"
-          support="A small set of transparent sample outputs and research components, not operational performance claims."
+          title="A broader view of astronaut movement"
+          support="Connect recorded exercise, biomechanical context, gravity environments, and research evidence."
           align="center"
         />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -487,24 +482,22 @@ function Landing() {
             <IconShield size={22} />
           </span>
           <h2 className="text-display mt-6 text-3xl font-semibold sm:text-4xl">
-            Research-grounded and explicit about limits
+            Built around movement science and spaceflight research
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
-            TALA is an exploratory prototype combining research in computer vision, OpenSim,
-            gravity-dependent analysis, and NASA-document retrieval-augmented generation. This
-            frontend displays precomputed research results alongside separately labeled illustrative
-            data; it is not live monitoring or a validated astronaut health system. Estimates do not
-            diagnose, assess injury, or indicate bone status.
+            TALA connects computer-vision movement analysis, OpenSim-based reconstruction,
+            gravity-dependent research, and NASA-document-grounded explanations to support a more
+            connected view of astronaut exercise and wellness.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Pill className="bg-background/85">
-              <IconUser size={14} /> Exploratory research prototype
+              <IconUser size={14} /> Crew-centered movement insights
             </Pill>
             <Pill className="bg-background/85">
-              <IconBone size={14} /> No bone-status or diagnosis claims
+              <IconBone size={14} /> Biomechanics-informed analysis
             </Pill>
             <Pill className="bg-background/85">
-              <IconSync size={14} /> Precomputed and illustrative data labeled
+              <IconSync size={14} /> Connected research workflow
             </Pill>
           </div>
         </div>
@@ -517,15 +510,18 @@ function Landing() {
           <div className="relative">
             <Mascot size={56} className="mx-auto" />
             <h2 className="text-display mt-5 text-3xl font-semibold sm:text-4xl">
-              Explore TALA's prototype
+              Explore TALA's Prototype
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-[15px] text-muted-foreground">
-              Explore the record-to-insights experience with precomputed analysis and separately
-              labeled illustrative data. No live camera processing or clinical monitoring.
+              Explore TALA's connected movement and wellness workflow, from exercise recording and
+              biomechanical analysis to gravity scenarios, trends, and evidence-grounded
+              explanations. This experience uses precomputed research outputs and illustrative
+              frontend data; it is not connected to a live backend, real-time camera analysis, or
+              clinical monitoring.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Button size="lg" variant="outline" onClick={() => setDemoOpen(true)}>
-                Enter demo
+                Explore workspace
               </Button>
             </div>
           </div>
@@ -537,8 +533,8 @@ function Landing() {
           <div>
             <Wordmark withTagline size={34} />
             <p className="mt-4 max-w-xs text-xs leading-relaxed text-muted-foreground">
-              A NASA Space Apps exploratory prototype. The frontend uses precomputed research
-              results and illustrative data; it is not a live monitoring or clinical system.
+              A research-informed approach to astronaut movement, exercise, and wellness for future
+              space exploration.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-10 text-sm sm:grid-cols-3">
@@ -575,8 +571,7 @@ function Landing() {
           </div>
         </div>
         <div className="border-t border-border-soft px-5 py-5 text-center text-[11px] text-muted-foreground">
-          © 2026 TALA — Twin-based Astronaut Life Analytics. Exploratory prototype; not endorsed by
-          NASA.
+          © 2026 TALA — Twin-based Astronaut Life Analytics. Not endorsed by NASA.
         </div>
       </footer>
 
@@ -584,17 +579,15 @@ function Landing() {
         <DialogContent className="rounded-3xl sm:max-w-md">
           <DialogHeader>
             <Mascot size={44} />
-            <DialogTitle className="text-display pt-2 text-xl">
-              Explore the working prototype
-            </DialogTitle>
+            <DialogTitle className="text-display pt-2 text-xl">Explore TALA</DialogTitle>
             <DialogDescription className="text-sm leading-relaxed">
-              This button does not submit a demo request. Open the prototype to explore its
-              precomputed research output, movement mirror, check-in, and illustrative trends.
+              Explore the connected workspace for movement review, gravity scenarios, wellness
+              check-ins, trends, and research-grounded explanations.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-wrap gap-2 pt-2">
             <Button asChild>
-              <Link to="/app">Open the prototype</Link>
+              <Link to="/app">Open workspace</Link>
             </Button>
           </div>
         </DialogContent>

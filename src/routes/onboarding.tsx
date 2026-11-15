@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/tala/Logo";
+import { Mascot } from "@/components/tala/newLogo";
 import { TalaAvatar } from "@/components/tala/TalaAvatar";
 import { pageHead } from "@/lib/head";
 
@@ -17,7 +17,7 @@ function Onboarding() {
   const navigate = useNavigate();
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-background px-4 text-center">
-      <Logo size={44} />
+      <Mascot size={44} />
       <TalaAvatar size={72} />
       <div className="max-w-md">
         <h1 className="font-display text-2xl font-bold text-strong">Onboarding</h1>
