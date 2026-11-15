@@ -4,24 +4,59 @@ import { Link } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
 import { ConfidenceBadge, DemoTag, MetricCard, StatusPill } from "@/components/tala";
+import {
+  BODY_MOTION_INSIGHTS,
+  findMovementPhase,
+  getRangeColorRatio,
+  parseMovementPhases,
+  type MovementPhaseSegment,
+} from "@/data/body-map-insights";
 import { researchDemoAssessment } from "@/data/research-demo-assessment";
-import { createOpenSimViewer, type OpenSimViewerStatus } from "./opensimViewer";
+import {
+  createOpenSimViewer,
+  type OpenSimViewerFrame,
+  type OpenSimViewerHandle,
+  type OpenSimViewerStatus,
+} from "./opensimViewer";
 
 type VideoView = "pose" | "original";
+const MOVEMENT_ANALYSIS_URL = "/data/movement-analysis/movement_analysis.json";
 
 export default function BodyMapSection() {
   const [videoView, setVideoView] = useState<VideoView>("pose");
   const [viewerStatus, setViewerStatus] = useState<OpenSimViewerStatus>({ state: "loading" });
+  const [selectedBodyName, setSelectedBodyName] = useState<string | null>(null);
+  const [motionFrame, setMotionFrame] = useState<OpenSimViewerFrame | null>(null);
+  const [heatmapEnabled, setHeatmapEnabled] = useState(false);
+  const [movementPhases, setMovementPhases] = useState<MovementPhaseSegment[]>([]);
+  const [phaseError, setPhaseError] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
   const [motionDuration, setMotionDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackError, setPlaybackError] = useState<string | null>(null);
   const viewerHostRef = useRef<HTMLDivElement>(null);
+  const viewerRef = useRef<OpenSimViewerHandle | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const timelineDuration = Math.min(videoDuration, motionDuration);
   const activeVideo =
     videoView === "pose" ? researchDemoAssessment.poseVideo : researchDemoAssessment.originalVideo;
+  const selectedInsight = BODY_MOTION_INSIGHTS.find(
+    (insight) => insight.bodyName === selectedBodyName,
+  );
+  const currentPhase = motionFrame
+    ? findMovementPhase(movementPhases, motionFrame.timeSeconds)
+    : undefined;
+
+  const toggleHeatmap = () => {
+    const nextEnabled = !heatmapEnabled;
+    setHeatmapEnabled(nextEnabled);
+    viewerRef.current?.setHeatmapEnabled(nextEnabled);
+  };
+
+  const selectBody = (bodyName: string) => {
+    viewerRef.current?.setSelectedBody(bodyName || null);
+  };
 
   useEffect(() => {
     const container = viewerHostRef.current;
@@ -30,19 +65,46 @@ export default function BodyMapSection() {
     try {
       const viewer = createOpenSimViewer(
         container,
-        (status) => {
-          setViewerStatus(status);
-          setMotionDuration(status.state === "ready" ? status.durationSeconds : 0);
+        {
+          onStatus: (status) => {
+            setViewerStatus(status);
+            setMotionDuration(status.state === "ready" ? status.durationSeconds : 0);
+          },
+          onBodySelect: setSelectedBodyName,
+          onFrame: setMotionFrame,
         },
         () => videoRef.current?.currentTime ?? 0,
       );
-      return () => viewer.dispose();
+      viewerRef.current = viewer;
+      return () => {
+        viewerRef.current = null;
+        viewer.dispose();
+      };
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Unable to initialize the OpenSim viewer.";
       const errorTimer = window.setTimeout(() => setViewerStatus({ state: "error", message }), 0);
       return () => window.clearTimeout(errorTimer);
     }
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    void fetch(MOVEMENT_ANALYSIS_URL, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to load movement phases (${response.status}).`);
+        }
+        return response.json() as Promise<unknown>;
+      })
+      .then((analysis) => setMovementPhases(parseMovementPhases(analysis)))
+      .catch((error: unknown) => {
+        if (controller.signal.aborted) return;
+        setPhaseError(
+          error instanceof Error ? error.message : "Unable to load squat phase information.",
+        );
+      });
+    return () => controller.abort();
   }, []);
 
   const selectVideoView = (view: VideoView) => {
@@ -79,7 +141,7 @@ export default function BodyMapSection() {
   };
 
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
+    <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-3 py-6 sm:px-4 lg:px-6">
       <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-medium text-muted-foreground">Body Map</p>
@@ -92,7 +154,7 @@ export default function BodyMapSection() {
         <DemoTag label="Precomputed research sample" />
       </header>
 
-      <section className="grid gap-6 xl:grid-cols-2">
+      <section className="grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <div className="rounded-3xl border border-primary-300/40 bg-card p-5 shadow-soft sm:p-7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
@@ -180,14 +242,127 @@ export default function BodyMapSection() {
                 VTP geometry driven by OpenSim MOT coordinates
               </p>
             </div>
-            <DemoTag label="Approximate MOT-driven mirror" />
+            <div className="flex flex-wrap items-center gap-2">
+              <Button
+                type="button"
+                variant={heatmapEnabled ? "default" : "outline"}
+                className="rounded-full"
+                aria-pressed={heatmapEnabled}
+                disabled={viewerStatus.state !== "ready"}
+                onClick={toggleHeatmap}
+              >
+                Relative motion heatmap {heatmapEnabled ? "on" : "off"}
+              </Button>
+              <DemoTag label="Approximate MOT-driven mirror" />
+            </div>
           </div>
-          <div
-            ref={viewerHostRef}
-            className="mt-5 h-[420px] overflow-hidden rounded-2xl border border-primary-300/50 bg-[#f7f4fa]"
-            role="application"
-            aria-label="Approximate OpenSim motion mirror. Drag to orbit and use the scroll wheel to zoom."
-          />
+          <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_15rem]">
+            <div
+              ref={viewerHostRef}
+              className="h-[420px] overflow-hidden rounded-2xl border border-primary-300/50 bg-[#f7f4fa]"
+              role="application"
+              aria-label="Approximate OpenSim motion mirror. Click a body part to inspect it. Drag to orbit and use the scroll wheel to zoom."
+            />
+            <aside
+              className="flex h-[420px] flex-col overflow-y-auto rounded-2xl border border-primary-300/40 bg-raised p-4"
+              aria-label="Selected body part information"
+            >
+              <h3 className="font-display text-base font-bold text-strong">Movement detail</h3>
+              <label htmlFor="body-map-segment" className="mt-3 text-xs font-medium text-strong">
+                Select a body part
+              </label>
+              <select
+                id="body-map-segment"
+                className="mt-1 rounded-xl border border-primary-300/50 bg-card px-3 py-2 text-sm text-body"
+                value={selectedBodyName ?? ""}
+                disabled={viewerStatus.state !== "ready"}
+                onChange={(event) => selectBody(event.currentTarget.value)}
+              >
+                <option value="">Choose a part or click the model</option>
+                {BODY_MOTION_INSIGHTS.map((insight) => (
+                  <option key={insight.bodyName} value={insight.bodyName}>
+                    {insight.label}
+                  </option>
+                ))}
+              </select>
+
+              {heatmapEnabled ? (
+                <div className="mt-3 rounded-xl border border-primary-300/30 bg-card p-3">
+                  <p className="text-xs font-medium text-strong">Within this recording</p>
+                  <div
+                    className="mt-2 h-3 rounded-full"
+                    style={{ background: "linear-gradient(90deg, #f6bfd7, #ffb17a)" }}
+                    role="img"
+                    aria-label="Color scale from lower to higher estimated angle in this recording"
+                  />
+                  <div className="mt-1 flex justify-between gap-2 text-[10px] text-muted-foreground">
+                    <span>Lower recorded angle</span>
+                    <span>Higher recorded angle</span>
+                  </div>
+                  <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+                    Each part uses its own estimated coordinate range. Colors are not comparable
+                    between parts.
+                  </p>
+                </div>
+              ) : null}
+
+              <div className="mt-3 rounded-xl border border-primary-300/30 bg-card p-3">
+                <p className="text-xs font-semibold text-strong">Current squat phase</p>
+                <p className="mt-1 text-sm text-body">
+                  {currentPhase === "ascent"
+                    ? "Rising"
+                    : currentPhase === "descent"
+                      ? "Lowering"
+                      : "Not available"}
+                </p>
+                {phaseError ? (
+                  <p role="alert" className="mt-1 text-xs text-status-anomaly-text">
+                    {phaseError}
+                  </p>
+                ) : null}
+              </div>
+
+              {selectedInsight ? (
+                <div className="mt-3 space-y-3">
+                  <div>
+                    <h4 className="font-display text-sm font-bold text-strong">
+                      {selectedInsight.label}
+                    </h4>
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                      {selectedInsight.description}
+                    </p>
+                  </div>
+                  {selectedInsight.unavailableNote ? (
+                    <div className="rounded-xl border border-dashed border-primary-300/50 p-3">
+                      <StatusPill status="no-data" size="small" />
+                      <p className="mt-2 text-xs leading-relaxed text-body">
+                        {selectedInsight.unavailableNote}
+                      </p>
+                    </div>
+                  ) : (
+                    selectedInsight.coordinates.map((coordinate) => (
+                      <CoordinateInsight
+                        key={coordinate.name}
+                        label={coordinate.label}
+                        coordinateName={coordinate.name}
+                        frame={motionFrame}
+                      />
+                    ))
+                  )}
+                </div>
+              ) : (
+                <p className="mt-3 rounded-xl border border-dashed border-primary-300/50 p-3 text-xs leading-relaxed text-muted-foreground">
+                  Click a modeled part, or choose one above, to see its estimated movement for the
+                  current frame.
+                </p>
+              )}
+
+              <p className="mt-auto pt-3 text-[11px] leading-relaxed text-muted-foreground">
+                Estimates describe this recording only. They are not clinical measurements,
+                diagnoses, or exercise safety guidance.
+              </p>
+            </aside>
+          </div>
           <p aria-live="polite" className="mt-3 min-h-5 text-sm text-muted-foreground">
             {viewerStatus.state === "loading"
               ? "Loading OpenSim model, VTP geometry, and MOT coordinates…"
@@ -340,6 +515,68 @@ export default function BodyMapSection() {
       </div>
     </main>
   );
+}
+
+function CoordinateInsight({
+  label,
+  coordinateName,
+  frame,
+}: {
+  label: string;
+  coordinateName: string;
+  frame: OpenSimViewerFrame | null;
+}) {
+  const value = frame?.coordinates.get(coordinateName);
+  const range = frame?.coordinateRanges.get(coordinateName);
+  if (value === undefined || !range || !frame?.angularCoordinates.has(coordinateName)) {
+    return (
+      <div className="rounded-xl border border-dashed border-primary-300/50 p-3">
+        <p className="text-xs font-medium text-strong">{label}</p>
+        <div className="mt-2">
+          <StatusPill status="no-data" size="small" />
+        </div>
+        <p className="mt-2 text-xs text-muted-foreground">
+          No estimated angle is available for this frame.
+        </p>
+      </div>
+    );
+  }
+
+  const toDegrees = (coordinate: number) =>
+    frame.inDegrees ? coordinate : (coordinate * 180) / Math.PI;
+  const valueDegrees = toDegrees(value);
+  const minimumDegrees = toDegrees(range.minimum);
+  const maximumDegrees = toDegrees(range.maximum);
+  const ratio = getRangeColorRatio(value, range.minimum, range.maximum);
+
+  return (
+    <div className="rounded-xl border border-primary-300/30 p-3">
+      <p className="text-xs font-medium text-strong">{label}</p>
+      <p className="mt-1 text-lg font-semibold tabular-nums text-strong">
+        {valueDegrees.toFixed(1)}°
+      </p>
+      <p className="text-[11px] leading-relaxed text-muted-foreground">
+        Estimated angle at this frame
+      </p>
+      <p className="mt-2 text-xs leading-relaxed text-body">
+        This recording: {minimumDegrees.toFixed(1)}° to {maximumDegrees.toFixed(1)}°
+      </p>
+      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+        {describeRelativePosition(ratio)}
+      </p>
+      <div className="mt-2 flex flex-wrap items-center gap-1.5">
+        <StatusPill status="neutral" size="small" />
+        <ConfidenceBadge level="low" />
+      </div>
+    </div>
+  );
+}
+
+function describeRelativePosition(ratio: number | undefined) {
+  if (ratio === undefined) return "No variation appears in the supplied motion samples.";
+  if (ratio < 0.33) return "Near the lower end of this recording's estimated range.";
+  if (ratio > 0.67) return "Near the higher end of this recording's estimated range.";
+  return "Around the middle of this recording's estimated range.";
 }
 
 function SummaryRow({ label, value }: { label: string; value: string }) {

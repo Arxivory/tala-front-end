@@ -18,6 +18,7 @@ export const researchDemoAssessment = {
   frameCount: 282,
   samplingRateHz: 29.97,
   repetitionsDetected: 2,
+  repetitionDurationsSeconds: [2.5689605278, 2.8692286415],
   completeness: "incomplete",
   reconstructionStatus: "limited",
   rmsFittingErrorMeters: 0.030645953647046163,

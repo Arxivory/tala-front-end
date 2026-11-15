@@ -1,492 +1,1294 @@
-import React, { useState } from 'react';
+import { useMemo, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import {
-  Sparkles,
-  Dumbbell,
-  User,
-  TrendingUp,
-  CheckCircle2,
-  Cloud,
-  Settings,
-  Sun,
-  Moon,
-  Bell,
-  ChevronRight,
-  ShieldCheck,
   Activity,
-  Calendar,
-  Filter,
-  Download,
-  Info,
-  Layers,
-  ChevronDown,
-  ArrowUpRight,
-  SlidersHorizontal,
-  Table,
   BarChart3,
+  CalendarDays,
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+  Clock3,
+  Info,
+  LineChart as LineChartIcon,
+  Video,
+} from "lucide-react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Line,
   LineChart,
-  Check,
-  AlertTriangle
-} from 'lucide-react';
+  ReferenceArea,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
-export default function TrendsSection() {
-  // Navigation & Dark Mode State
-  const [activeTab, setActiveTab] = useState('Overview'); // 'Overview' | 'Sites' | 'Sessions'
-  const [isDarkMode, setIsDarkMode] = useState(false);
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  ConfidenceBadge,
+  DemoTag,
+  MetricCard,
+  StatusPill,
+  ViewAsTableToggle,
+} from "@/components/tala";
+import {
+  getBaselineSummary,
+  getSessionSummary,
+  getTrendSessions,
+  researchTrendSession,
+  TRENDS_REFERENCE_DATE,
+  type BaselineSummary,
+  type MovementMetric,
+  type TrendDateRange,
+  type TrendSession,
+  type TrendSource,
+} from "@/data/trends";
 
-  // Top Controls Filter State
-  const [dateRange, setDateRange] = useState('30d');
-  const [exerciseFilter, setExerciseFilter] = useState('All');
-  const [regimeFilter, setRegimeFilter] = useState('All');
-  const [compareRef, setCompareRef] = useState(true);
+type TrendTab = "overview" | "movement" | "sessions";
+type TrendView = "chart" | "table";
+type ValueMode = "measurement" | "deviation";
 
-  // Sessions Table Sorting State
-  const [sortField, setSortField] = useState('date');
-  const [sortDirection, setSortDirection] = useState('desc');
+interface TrendPoint {
+  sessionId: string;
+  source: string;
+  date: string;
+  shortDate: string;
+  value: number;
+  deviation: number | null;
+}
 
-  // Theme Design Tokens
-  const theme = {
-    bgBase: isDarkMode ? '#14111C' : '#FFFBFC',
-    bgSurface: isDarkMode ? '#1D1929' : '#FFFFFF',
-    bgRaised: isDarkMode ? '#272236' : '#FAF3F7',
-    primary100: isDarkMode ? '#3A2536' : '#FDEBF2',
-    primary300: '#F7C6D9',
-    primary500: '#E58FB0',
-    primary700: isDarkMode ? '#F2C0D3' : '#B35A82',
-    textStrong: isDarkMode ? '#F4EEFA' : '#3B2A4A',
-    textBody: isDarkMode ? '#D8CFE4' : '#5A4A6A',
-    textMuted: isDarkMode ? '#9E93B0' : '#8A7C99',
-    optimal: '#7CC9A0',
-    caution: '#E8BC68',
-    anomaly: '#E58A7F',
-  };
+interface TooltipPoint {
+  sessionId: string;
+  source: string;
+  date: string;
+}
 
-  const headingFont = `'Quicksand', 'Nunito', system-ui, -apple-system, sans-serif`;
-  const bodyFont = `'Inter', 'Source Sans 3', system-ui, sans-serif`;
+interface TrendTooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    value?: number | string;
+    color?: string;
+    payload?: TooltipPoint;
+  }>;
+  unit: string;
+}
 
-  // Sample Sessions Dataset
-  const sessionsData = [
-    { id: 'SES-042', date: '2026-11-08', exercise: 'Squat', regime: '0.16g Lunar', load: '140 kg', adequacy: 88, safetyMargin: '1.45 kN', formScore: 96, status: 'optimal', flags: 0 },
-    { id: 'SES-041', date: '2026-11-07', exercise: 'Deadlift', regime: '0.16g Lunar', load: '160 kg', adequacy: 92, safetyMargin: '1.32 kN', formScore: 94, status: 'optimal', flags: 0 },
-    { id: 'SES-040', date: '2026-11-06', exercise: 'Heel Raise', regime: '0.16g Lunar', load: '110 kg', adequacy: 76, safetyMargin: '1.80 kN', formScore: 91, status: 'caution', flags: 1 },
-    { id: 'SES-039', date: '2026-11-05', exercise: 'Squat', regime: '0.38g Mars', load: '135 kg', adequacy: 84, safetyMargin: '1.50 kN', formScore: 98, status: 'optimal', flags: 0 },
-    { id: 'SES-038', date: '2026-11-04', exercise: 'Deadlift', regime: '0g LEO', load: '150 kg', adequacy: 82, safetyMargin: '1.28 kN', formScore: 89, status: 'caution', flags: 1 },
-    { id: 'SES-037', date: '2026-11-03', exercise: 'Squat', regime: '0.16g Lunar', load: '145 kg', adequacy: 90, safetyMargin: '1.40 kN', formScore: 97, status: 'optimal', flags: 0 },
-    { id: 'SES-036', date: '2026-11-02', exercise: 'Heel Raise', regime: '0.16g Lunar', load: '115 kg', adequacy: 80, safetyMargin: '1.75 kN', formScore: 93, status: 'optimal', flags: 0 },
-    { id: 'SES-035', date: '2026-11-01', exercise: 'Squat', regime: '0.16g Lunar', load: '150 kg', adequacy: 95, safetyMargin: '1.18 kN', formScore: 85, status: 'caution', flags: 2 },
-  ];
+const DATE_RANGES: { id: TrendDateRange; label: string }[] = [
+  { id: "7d", label: "7 days" },
+  { id: "30d", label: "30 days" },
+  { id: "90d", label: "90 days" },
+  { id: "all", label: "All" },
+];
 
-  // Sites Small-Multiple Grid Dataset
-  const sitesGridData = [
-    { site: 'Proximal Femur', metric: 'Strain (mε)', current: '1.82 mε', target: '1.60 - 2.10 mε', trend: [65, 70, 78, 82, 85, 88, 86, 88], status: 'optimal' },
-    { site: 'L4/L5 Lumbar Spine', metric: 'Compression (kN)', current: '1.42 kN', target: '< 3.40 kN', trend: [40, 50, 65, 75, 88, 92, 84, 80], status: 'caution' },
-    { site: 'Hip Joint Complex', metric: 'Moment (N·m)', current: '142 N·m', target: '110 - 160 N·m', trend: [50, 60, 72, 80, 88, 94, 93, 94], status: 'optimal' },
-    { site: 'Knee Joint', metric: 'Extension Torque (N·m)', current: '118 N·m', target: '90 - 140 N·m', trend: [60, 68, 75, 80, 84, 85, 84, 85], status: 'optimal' },
-    { site: 'Ankle / Calcaneus', metric: 'Plantar Torque (N·m)', current: '72 N·m', target: '80 - 110 N·m', trend: [80, 76, 72, 70, 74, 76, 74, 75], status: 'caution' },
-  ];
+const TABS: { id: TrendTab; label: string; icon: typeof BarChart3 }[] = [
+  { id: "overview", label: "Overview", icon: BarChart3 },
+  { id: "movement", label: "Movement trends", icon: LineChartIcon },
+  { id: "sessions", label: "Sessions", icon: CalendarDays },
+];
+
+const METRICS: { id: MovementMetric; label: string; fullLabel: string }[] = [
+  { id: "hip", label: "Hip", fullLabel: "Hip coordinate excursion" },
+  { id: "knee", label: "Knee", fullLabel: "Knee coordinate excursion" },
+  { id: "ankle", label: "Ankle", fullLabel: "Ankle coordinate excursion" },
+];
+
+const METRIC_COLORS: Record<MovementMetric, string> = {
+  hip: "var(--chart-1)",
+  knee: "var(--chart-2)",
+  ankle: "var(--chart-3)",
+};
+
+const TABS_CLASS =
+  "inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+
+function formatDate(value: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${value}T00:00:00Z`));
+}
+
+function formatNumber(value: number, decimals = 1) {
+  return value.toLocaleString("en-US", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+}
+
+function formatSigned(value: number) {
+  const sign = value > 0 ? "+" : value < 0 ? "−" : "";
+  return `${sign}${formatNumber(Math.abs(value))}`;
+}
+
+function displayDate(session: TrendSession) {
+  if (session.date) return formatDate(session.date);
+  return session.processedOn
+    ? `Recording date unavailable · processed ${formatDate(session.processedOn)}`
+    : "Date unavailable";
+}
+
+function toTrendPoints(
+  sessions: readonly TrendSession[],
+  metric: MovementMetric,
+  baseline: BaselineSummary,
+): TrendPoint[] {
+  return [...sessions]
+    .sort((a, b) => (a.date ?? a.processedOn ?? "").localeCompare(b.date ?? b.processedOn ?? ""))
+    .flatMap((session) => {
+      const date = session.date ?? session.processedOn;
+      if (!date) return [];
+      const value = session.coordinateExcursionsDeg[metric];
+      return [
+        {
+          sessionId: session.id,
+          source: session.source,
+          date,
+          shortDate: formatDate(date).replace(/, \d{4}$/, ""),
+          value,
+          deviation: baseline.mean ? value - baseline.mean[metric] : null,
+        },
+      ];
+    });
+}
+
+function TrendTooltip({ active, payload, unit }: TrendTooltipProps) {
+  const item = payload?.[0];
+  const point = item?.payload;
+  if (!active || !item || !point || typeof item.value !== "number") return null;
 
   return (
-    <div 
-      className="flex h-screen w-full overflow-hidden select-none transition-colors duration-300" 
-      style={{ backgroundColor: theme.bgBase, color: theme.textBody, fontFamily: bodyFont }}
-    >
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap');
-        .tnum { font-feature-settings: 'tnum'; font-variant-numeric: tabular-nums; }
-      `}</style>
+    <div className="rounded-xl border border-border bg-popover px-3 py-2 text-sm text-popover-foreground shadow-soft">
+      <p className="font-semibold">{point.date ? formatDate(point.date) : "Date unavailable"}</p>
+      <p className="mt-1 tabular-nums">
+        {formatNumber(item.value)} {unit}
+      </p>
+      <p className="text-xs text-muted-foreground">
+        {point.sessionId} ·{" "}
+        {point.source === "illustrative" ? "Illustrative demo data" : "Research output"}
+      </p>
+    </div>
+  );
+}
 
-      {/* MAIN VIEWPORT */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+function SessionCalendar({
+  sessions,
+  onSelect,
+}: {
+  sessions: readonly TrendSession[];
+  onSelect: (session: TrendSession) => void;
+}) {
+  const availableDates = sessions.flatMap((session) => (session.date ? [session.date] : []));
+  const anchorDate = availableDates.length
+    ? new Date(`${availableDates[availableDates.length - 1]}T00:00:00Z`)
+    : new Date(`${TRENDS_REFERENCE_DATE}T00:00:00Z`);
+  const [monthOffset, setMonthOffset] = useState(0);
+  const monthDate = new Date(
+    Date.UTC(anchorDate.getUTCFullYear(), anchorDate.getUTCMonth() + monthOffset, 1),
+  );
+  const year = monthDate.getUTCFullYear();
+  const month = monthDate.getUTCMonth();
+  const canGoForward =
+    year < anchorDate.getUTCFullYear() ||
+    (year === anchorDate.getUTCFullYear() && month < anchorDate.getUTCMonth());
+  const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+  const mondayOffset = (new Date(Date.UTC(year, month, 1)).getUTCDay() + 6) % 7;
+  const cells = Math.ceil((mondayOffset + daysInMonth) / 7) * 7;
+  const sessionsByDate = new Map<string, TrendSession[]>();
 
-        {/* TRENDS MAIN CONTENT */}
-        <main className="flex-1 p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6">
-          
-          {/* Section Header & Export */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <span className="text-[13px] uppercase tracking-wider font-semibold" style={{ color: theme.textMuted }}>Longitudinal Analytics</span>
-              <h1 className="text-[28px] font-bold mt-0.5" style={{ fontFamily: headingFont, color: theme.textStrong }}>Trends & Mechanical Loading Index</h1>
-              <p className="text-[16px]" style={{ color: theme.textMuted }}>Time-integrated loading stimulus and technique consistency across mission phases.</p>
-            </div>
+  for (const session of sessions) {
+    if (!session.date) continue;
+    const sameDay = sessionsByDate.get(session.date) ?? [];
+    sameDay.push(session);
+    sessionsByDate.set(session.date, sameDay);
+  }
 
+  const monthLabel = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(monthDate);
+
+  return (
+    <section className="rounded-3xl border border-primary-300/40 bg-card p-5 shadow-soft sm:p-6">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="font-display text-xl font-bold text-strong">Session activity</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {monthLabel}. Neutral markers show recorded demo activity, not health status.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <DemoTag label="Illustrative history" />
+          <button
+            type="button"
+            className="flex size-10 items-center justify-center rounded-full border border-border text-body hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            aria-label="Previous month"
+            onClick={() => setMonthOffset((offset) => offset - 1)}
+          >
+            <ChevronLeft className="size-4" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className="flex size-10 items-center justify-center rounded-full border border-border text-body hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-40"
+            aria-label="Next month"
+            disabled={!canGoForward}
+            onClick={() => setMonthOffset((offset) => offset + 1)}
+          >
+            <ChevronRight className="size-4" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+      <div className="mt-5 grid grid-cols-7 gap-1.5 sm:gap-2">
+        {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+          <span key={day} className="pb-1 text-center text-xs font-medium text-muted-foreground">
+            {day}
+          </span>
+        ))}
+        {Array.from({ length: cells }, (_, cellIndex) => {
+          const day = cellIndex - mondayOffset + 1;
+          if (day < 1 || day > daysInMonth) {
+            return <span key={`blank-${cellIndex}`} aria-hidden="true" className="min-h-12" />;
+          }
+          const date = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+          const daySessions = sessionsByDate.get(date) ?? [];
+          const label = `${formatDate(date)}: ${
+            daySessions.length
+              ? `${daySessions.length} illustrative session${daySessions.length === 1 ? "" : "s"}`
+              : "no session recorded"
+          }`;
+
+          return (
             <button
-              onClick={() => alert("Exporting longitudinal loading analytics packet (CSV/PDF)...")}
-              className="px-5 py-2.5 rounded-full font-bold text-[14px] shadow-sm flex items-center justify-center gap-2 border border-pink-200 dark:border-purple-800 transition-all hover:bg-pink-50 dark:hover:bg-purple-900/30"
-              style={{ backgroundColor: theme.primary300, color: theme.textStrong, fontFamily: headingFont }}
+              key={date}
+              type="button"
+              onClick={() => daySessions[0] && onSelect(daySessions[0])}
+              disabled={!daySessions.length}
+              aria-label={label}
+              title={label}
+              className={`flex min-h-12 flex-col items-center justify-center rounded-xl border text-sm tabular-nums transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                daySessions.length
+                  ? "border-primary-300/60 bg-primary-100/70 font-semibold text-strong hover:bg-primary-100"
+                  : "border-border bg-muted/40 text-muted-foreground"
+              }`}
             >
-              <Download className="w-4 h-4" />
-              <span>Export Analytics (CSV/PDF)</span>
+              <span>{day}</span>
+              {daySessions.length ? (
+                <span className="mt-0.5 text-[10px] leading-none">
+                  {daySessions.length} session{daySessions.length === 1 ? "" : "s"}
+                </span>
+              ) : null}
             </button>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function EmptyChart({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex min-h-56 flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-border bg-muted/30 px-5 text-center">
+      <Info className="size-5 text-muted-foreground" aria-hidden="true" />
+      <p className="max-w-lg text-sm text-muted-foreground">{children}</p>
+    </div>
+  );
+}
+
+function ResearchDisclosure({ compact = false }: { compact?: boolean }) {
+  const estimates = researchTrendSession.movementEstimates ?? [];
+  return (
+    <section className="rounded-3xl border border-primary-300/40 bg-card p-5 shadow-soft sm:p-6">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <Video className="size-4 text-primary-700" aria-hidden="true" />
+            <h2 className="font-display text-xl font-bold text-strong">Research recording</h2>
           </div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            One precomputed public-video squat analysis, kept separate from illustrative history.
+          </p>
+        </div>
+        <DemoTag label="Research output · not astronaut history" />
+      </div>
 
-          {/* 1. TOP CONTROLS BAR */}
-          <div className="p-4 rounded-[24px] shadow-sm border border-pink-100/60 dark:border-purple-950 space-y-4" style={{ backgroundColor: theme.bgSurface }}>
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              
-              {/* Filter Group: Date, Exercise, Regime */}
-              <div className="flex flex-wrap items-center gap-3">
-                {/* Date Range Selector */}
-                <div className="flex items-center bg-gray-100 dark:bg-purple-900/40 p-1 rounded-full text-[13px] font-semibold">
-                  {['7d', '30d', '90d', 'Mission'].map((r) => (
-                    <button
-                      key={r}
-                      onClick={() => setDateRange(r)}
-                      className={`px-3 py-1 rounded-full transition-all tnum ${
-                        dateRange === r ? 'shadow-xs font-bold' : 'opacity-70 hover:opacity-100'
-                      }`}
-                      style={{
-                        fontFamily: headingFont,
-                        backgroundColor: dateRange === r ? theme.bgSurface : 'transparent',
-                        color: dateRange === r ? theme.textStrong : theme.textMuted,
-                      }}
-                    >
-                      {r}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Exercise Filter Dropdown */}
-                <select
-                  value={exerciseFilter}
-                  onChange={(e) => setExerciseFilter(e.target.value)}
-                  className="px-3.5 py-1.5 rounded-full text-[13px] font-semibold border border-pink-200 dark:border-purple-800 bg-transparent"
-                  style={{ color: theme.textStrong, fontFamily: headingFont }}
-                >
-                  <option value="All">All Exercises</option>
-                  <option value="Squat">Squat</option>
-                  <option value="Deadlift">Deadlift</option>
-                  <option value="Heel Raise">Heel Raise</option>
-                </select>
-
-                {/* Gravity Regime Filter */}
-                <select
-                  value={regimeFilter}
-                  onChange={(e) => setRegimeFilter(e.target.value)}
-                  className="px-3.5 py-1.5 rounded-full text-[13px] font-semibold border border-pink-200 dark:border-purple-800 bg-transparent"
-                  style={{ color: theme.textStrong, fontFamily: headingFont }}
-                >
-                  <option value="All">All Regimes</option>
-                  <option value="0g">0g (LEO)</option>
-                  <option value="0.16g">0.16g (Lunar)</option>
-                  <option value="0.38g">0.38g (Mars)</option>
-                </select>
-              </div>
-
-              {/* Compare Toggle */}
-              <div className="flex items-center gap-2">
-                <label className="text-[13px] font-semibold cursor-pointer" style={{ color: theme.textStrong, fontFamily: headingFont }}>
-                  Compare to 1g Reference
-                </label>
-                <button
-                  onClick={() => setCompareRef(!compareRef)}
-                  className={`w-11 h-6 rounded-full transition-colors flex items-center p-1 ${
-                    compareRef ? 'bg-pink-400' : 'bg-gray-300 dark:bg-purple-900'
-                  }`}
-                >
-                  <div className={`w-4 h-4 rounded-full bg-white transform transition-transform ${compareRef ? 'translate-x-5' : 'translate-x-0'}`}></div>
-                </button>
-              </div>
-
-            </div>
+      <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <MetricCard
+          title="Repetitions detected"
+          value={researchTrendSession.repetitions}
+          unit="reps"
+          status="neutral"
+          confidence="low"
+          footnote="Detected movement cycles"
+        />
+        <MetricCard
+          title="Recording duration"
+          value={formatNumber(researchTrendSession.recordingDurationSeconds)}
+          unit="s"
+          status="neutral"
+          confidence="low"
+          footnote="Source clip duration"
+        />
+        <MetricCard
+          title="Average repetition duration"
+          value={formatNumber(researchTrendSession.averageRepetitionDurationSeconds)}
+          unit="s / rep"
+          status="neutral"
+          confidence="low"
+          footnote="Mean of two detected cycles"
+        />
+        <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
+          <p className="text-sm font-medium text-muted-foreground">Reconstruction quality</p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <StatusPill status="caution" size="small" />
+            <ConfidenceBadge level="low" />
           </div>
+          <p className="mt-3 text-sm font-semibold text-strong">Limited</p>
+          <p className="mt-1 text-xs text-muted-foreground">Recording endpoints are incomplete.</p>
+        </div>
+      </div>
 
-          {/* 2. TABBED VIEW NAVIGATION */}
-          <div className="flex items-center gap-2 border-b border-pink-100 dark:border-purple-950 pb-2">
-            {[
-              { id: 'Overview', label: 'Overview', icon: BarChart3 },
-              { id: 'Sites', label: 'Sites Grid', icon: Layers },
-              { id: 'Sessions', label: 'Sessions Log', icon: Table },
-            ].map((t) => {
-              const TabIcon = t.icon;
-              const isTabActive = activeTab === t.id;
-              return (
-                <button
-                  key={t.id}
-                  onClick={() => setActiveTab(t.id)}
-                  className={`px-5 py-2.5 rounded-full font-bold text-[14px] transition-all flex items-center gap-2 ${
-                    isTabActive ? 'shadow-2xs' : 'opacity-70 hover:opacity-100'
-                  }`}
-                  style={{
-                    backgroundColor: isTabActive ? (isDarkMode ? '#2B2340' : '#FDEBF2') : 'transparent',
-                    color: isTabActive ? theme.textStrong : theme.textMuted,
-                    fontFamily: headingFont,
-                  }}
-                >
-                  <TabIcon className="w-4 h-4" style={{ color: isTabActive ? theme.primary500 : theme.textMuted }} />
-                  <span>{t.label}</span>
-                </button>
-              );
-            })}
+      {!compact ? (
+        <>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <MetricCard
+              title="Ascent phase segments"
+              value={researchTrendSession.phaseSegments?.ascent ?? "—"}
+              unit="segments"
+              status="neutral"
+              confidence="low"
+              footnote="Estimated from the supplied movement signal"
+            />
+            <MetricCard
+              title="Descent phase segments"
+              value={researchTrendSession.phaseSegments?.descent ?? "—"}
+              unit="segments"
+              status="neutral"
+              confidence="low"
+              footnote="Estimated from the supplied movement signal"
+            />
           </div>
-
-          {/* 3. TAB 1: OVERVIEW TAB PANELS */}
-          {activeTab === 'Overview' && (
-            <div className="space-y-6 animate-fade-in">
-              
-              {/* Mechanical Loading Index Daily Bar Chart Panel */}
-              <div className="p-6 rounded-[24px] shadow-sm border border-pink-100/60 dark:border-purple-950 space-y-4" style={{ backgroundColor: theme.bgSurface }}>
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            {estimates.map((estimate) => (
+              <div key={estimate.id} className="rounded-2xl border border-border bg-muted/20 p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="font-semibold text-strong">{estimate.label}</h3>
+                  <div className="flex flex-col items-end gap-1">
+                    <StatusPill status={estimate.status} size="small" />
+                    <ConfidenceBadge level={estimate.confidence} />
+                  </div>
+                </div>
+                <dl className="mt-3 grid grid-cols-2 gap-3 text-sm">
                   <div>
-                    <h2 className="font-bold text-[20px]" style={{ fontFamily: headingFont, color: theme.textStrong }}>Mechanical Loading Index (MLI)</h2>
-                    <p className="text-[13px]" style={{ color: theme.textMuted }}>Daily time-integrated stimulus relative to astronaut 1g reference session.</p>
+                    <dt className="text-muted-foreground">Right</dt>
+                    <dd className="mt-0.5 font-semibold tabular-nums text-strong">
+                      {formatNumber(estimate.rightExcursionDeg)}°
+                    </dd>
                   </div>
-
-                  {/* Explicit Disclaimer Chip */}
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-50 dark:bg-purple-900/30 border border-pink-100 dark:border-purple-800 text-[13px] font-medium" style={{ color: theme.primary700 }}>
-                    <Info className="w-3.5 h-3.5 flex-shrink-0" />
-                    <span>A measure of stimulus delivered. It does not measure or predict bone status.</span>
-                  </div>
-                </div>
-
-                {/* Daily Bar Chart Visualization */}
-                <div className="h-56 w-full flex items-end gap-2 pt-8 px-2 border-b border-pink-100 dark:border-purple-950 relative">
-                  {/* 100% Target Reference Line */}
-                  <div className="absolute inset-x-0 bottom-24 border-b-2 border-dashed border-emerald-500/40 pointer-events-none flex items-center justify-between px-2">
-                    <span className="text-[13px] text-emerald-600 font-bold bg-white dark:bg-purple-950 px-1 rounded">100% Target Stimulus Line</span>
-                  </div>
-
-                  {[65, 72, 80, 85, 90, 88, 92, 84, 86, 95, 100, 94, 88, 85, 92, 98, 105, 92, 86, 88, 90, 94, 96, 92, 88, 84, 90, 92, 88, 84].map((val, idx) => (
-                    <div key={idx} className="flex-1 flex flex-col items-center h-full justify-end group relative">
-                      <div 
-                        className="w-full rounded-t-md transition-all duration-300 group-hover:brightness-110"
-                        style={{ height: `${val}%`, backgroundColor: val >= 90 ? '#7CC9A0' : '#E8BC68' }}
-                      ></div>
-                      {/* Tooltip on Hover */}
-                      <div className="absolute -top-8 hidden group-hover:flex flex-col items-center bg-gray-900 text-white text-[13px] px-2 py-1 rounded shadow-md z-10 whitespace-nowrap tnum">
-                        <span>Day {idx + 1}: {val}% MLI</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between text-[13px]" style={{ color: theme.textMuted }}>
-                  <span>30 Days Ago</span>
-                  <span>Today (Day 42)</span>
-                </div>
-              </div>
-
-              {/* Femoral Strain & Safety Margin Dual Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                
-                {/* Femoral Strain vs Reference Line Chart (8 Cols) */}
-                <div className="lg:col-span-8 p-6 rounded-[24px] shadow-sm border border-pink-100/60 dark:border-purple-950 flex flex-col justify-between" style={{ backgroundColor: theme.bgSurface }}>
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <h2 className="font-bold text-[20px]" style={{ fontFamily: headingFont, color: theme.textStrong }}>Femoral Strain vs Reference</h2>
-                      <p className="text-[13px]" style={{ color: theme.textMuted }}>Microstrain values derived from Tier 2 neural surrogate models.</p>
-                    </div>
-                    <span className="text-[13px] font-semibold text-emerald-600 dark:text-emerald-400 tnum">80 - 110% Target Band</span>
-                  </div>
-
-                  <div className="h-44 w-full flex items-end gap-1.5 pt-6 px-2 border-b border-pink-100 dark:border-purple-950 relative">
-                    <div className="absolute inset-x-0 bottom-14 top-8 bg-emerald-500/5 rounded-xl border border-dashed border-emerald-500/20 pointer-events-none"></div>
-
-                    {[70, 75, 80, 84, 88, 86, 85, 88, 87, 89, 92, 90, 88, 85, 86, 90, 94, 91, 88, 86, 88, 90, 92, 89, 87, 85, 88, 90, 88, 86].map((val, idx) => (
-                      <div key={idx} className="flex-1 flex flex-col items-center h-full justify-end">
-                        <div className="w-2 h-2 rounded-full bg-pink-400 mb-1"></div>
-                        <div className="w-0.5 bg-pink-200 dark:bg-purple-800 w-full" style={{ height: `${val}%` }}></div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between pt-3 text-[13px]" style={{ color: theme.textMuted }}>
-                    <span>Day 1 Baseline</span>
-                    <span>Session Trend (30 Days)</span>
-                  </div>
-                </div>
-
-                {/* Safety Margin & Form Stability Mini Cards (4 Cols) */}
-                <div className="lg:col-span-4 space-y-6">
-                  {/* Safety Margin Mini Panel */}
-                  <div className="p-6 rounded-[24px] shadow-sm border border-pink-100/60 dark:border-purple-950 flex flex-col justify-between" style={{ backgroundColor: theme.bgSurface }}>
-                    <div className="flex items-center justify-between">
-                      <span className="text-[13px] uppercase tracking-wider font-semibold" style={{ color: theme.textMuted }}>Min Upper Bound Margin</span>
-                      <span className="px-2.5 py-0.5 rounded-full text-[13px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Optimal</span>
-                    </div>
-                    <div className="my-4">
-                      <span className="text-[36px] font-bold leading-none tnum" style={{ fontFamily: headingFont, color: theme.textStrong }}>1.45 kN</span>
-                      <p className="text-[13px] mt-1" style={{ color: theme.textMuted }}>Lumbar compression upper limit: 3.40 kN</p>
-                    </div>
-                    <div className="w-full bg-pink-50 dark:bg-purple-950 h-2 rounded-full overflow-hidden">
-                      <div className="bg-emerald-400 h-full rounded-full" style={{ width: '65%' }}></div>
-                    </div>
-                  </div>
-
-                  {/* Technique Consistency Mini Panel */}
-                  <div className="p-6 rounded-[24px] shadow-sm border border-pink-100/60 dark:border-purple-950 flex flex-col justify-between" style={{ backgroundColor: theme.bgSurface }}>
-                    <div className="flex items-center justify-between">
-                      <span className="text-[13px] uppercase tracking-wider font-semibold" style={{ color: theme.textMuted }}>Technique Consistency</span>
-                      <span className="px-2.5 py-0.5 rounded-full text-[13px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Precise</span>
-                    </div>
-                    <div className="my-4 flex items-center justify-between">
-                      <div>
-                        <span className="text-[36px] font-bold leading-none tnum" style={{ fontFamily: headingFont, color: theme.textStrong }}>96%</span>
-                        <p className="text-[13px] mt-1" style={{ color: theme.textMuted }}>Form stability score</p>
-                      </div>
-                      <Activity className="w-8 h-8 text-pink-400" />
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Session Heat Calendar Panel (30-day month grid) */}
-              <div className="p-6 rounded-[24px] shadow-sm border border-pink-100/60 dark:border-purple-950 space-y-4" style={{ backgroundColor: theme.bgSurface }}>
-                <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="font-bold text-[20px]" style={{ fontFamily: headingFont, color: theme.textStrong }}>Session Consistency Heat Calendar</h2>
-                    <p className="text-[13px]" style={{ color: theme.textMuted }}>30-day month grid color coded by session status.</p>
+                    <dt className="text-muted-foreground">Left</dt>
+                    <dd className="mt-0.5 font-semibold tabular-nums text-strong">
+                      {formatNumber(estimate.leftExcursionDeg)}°
+                    </dd>
                   </div>
-                  <div className="flex items-center gap-4 text-[13px]">
-                    <div className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-emerald-400"></span><span>Optimal</span></div>
-                    <div className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-amber-400"></span><span>Caution</span></div>
-                    <div className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-coral-400" style={{ backgroundColor: theme.anomaly }}></span><span>Anomaly</span></div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-7 gap-2 pt-2 text-center">
-                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => (
-                    <span key={d} className="text-[13px] font-bold" style={{ color: theme.textMuted, fontFamily: headingFont }}>{d}</span>
-                  ))}
-                  {Array.from({ length: 30 }).map((_, i) => {
-                    const status = i === 5 || i === 18 ? 'caution' : 'optimal';
-                    return (
-                      <div 
-                        key={i}
-                        className="h-12 rounded-xl flex flex-col items-center justify-center p-1 cursor-pointer transition-transform hover:scale-105 border border-pink-50 dark:border-purple-950"
-                        style={{
-                          backgroundColor: status === 'optimal' ? (isDarkMode ? '#1F3A2B' : '#E8F5E9') : (isDarkMode ? '#3E321F' : '#FFF8E1'),
-                        }}
-                      >
-                        <span className="text-[13px] font-bold tnum" style={{ fontFamily: headingFont, color: theme.textStrong }}>{i + 1}</span>
-                        <span className="w-2 h-2 rounded-full mt-1" style={{ backgroundColor: status === 'optimal' ? '#7CC9A0' : '#E8BC68' }}></span>
-                      </div>
-                    );
-                  })}
-                </div>
+                </dl>
+                <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                  Coordinate excursion estimate; not a clinical range-of-motion assessment.
+                </p>
               </div>
+            ))}
+          </div>
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-muted/30 p-4">
+            <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground">
+              A single recording cannot establish a personal baseline or a longitudinal trend. The
+              recording starts and ends mid-movement; these estimates do not represent a health
+              finding.
+            </p>
+            <Button asChild variant="outline" className="rounded-full">
+              <Link to="/app/body">Open movement mirror</Link>
+            </Button>
+          </div>
+        </>
+      ) : (
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-muted/30 p-4">
+          <p className="text-sm text-muted-foreground">
+            This research result is not included in the illustrative counts or baseline.
+          </p>
+          <Button asChild variant="outline" className="rounded-full">
+            <Link to="/app/body">Open movement mirror</Link>
+          </Button>
+        </div>
+      )}
+    </section>
+  );
+}
 
-            </div>
-          )}
+export default function TrendsSection() {
+  const [activeTab, setActiveTab] = useState<TrendTab>("overview");
+  const [source, setSource] = useState<TrendSource>("illustrative");
+  const [dateRange, setDateRange] = useState<TrendDateRange>("30d");
+  const [exerciseFilter, setExerciseFilter] = useState("all");
+  const [selectedMetric, setSelectedMetric] = useState<MovementMetric>("knee");
+  const [valueMode, setValueMode] = useState<ValueMode>("measurement");
+  const [activityView, setActivityView] = useState<TrendView>("chart");
+  const [durationView, setDurationView] = useState<TrendView>("chart");
+  const [movementView, setMovementView] = useState<TrendView>("chart");
+  const [selectedSession, setSelectedSession] = useState<TrendSession | null>(null);
 
-          {/* 4. TAB 2: SITES TAB (Small-multiple grid) */}
-          {activeTab === 'Sites' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
-              {sitesGridData.map((item, idx) => (
-                <div key={idx} className="p-6 rounded-[24px] shadow-sm border border-pink-100/60 dark:border-purple-950 space-y-4 flex flex-col justify-between" style={{ backgroundColor: theme.bgSurface }}>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <span className="text-[13px] uppercase tracking-wider font-semibold" style={{ color: theme.textMuted }}>Anatomical Site</span>
-                      <h3 className="font-bold text-[20px] mt-0.5" style={{ fontFamily: headingFont, color: theme.textStrong }}>{item.site}</h3>
-                    </div>
-                    <span 
-                      className="px-2.5 py-0.5 rounded-full text-[13px] font-bold"
-                      style={{
-                        backgroundColor: item.status === 'caution' ? '#FEF3C7' : '#E1F5FE',
-                        color: item.status === 'caution' ? '#D97706' : '#0288D1',
-                        fontFamily: headingFont
-                      }}
-                    >
-                      {item.status === 'caution' ? 'Caution' : 'Optimal'}
-                    </span>
-                  </div>
+  const baseline = getBaselineSummary(source);
+  const filteredSessions = useMemo(
+    () =>
+      getTrendSessions(source, dateRange).filter(
+        (session) => exerciseFilter === "all" || session.exercise === exerciseFilter,
+      ),
+    [dateRange, exerciseFilter, source],
+  );
+  const summary = getSessionSummary(filteredSessions);
+  const movementPoints = toTrendPoints(filteredSessions, selectedMetric, baseline);
+  const selectedMetricLabel =
+    METRICS.find((metric) => metric.id === selectedMetric)?.fullLabel ?? "Coordinate excursion";
+  const hasDemoHistory = source === "illustrative";
+  const baselineStatus =
+    baseline.state === "established"
+      ? "Established"
+      : baseline.state === "provisional"
+        ? "Provisional"
+        : "Insufficient history";
 
-                  <div>
-                    <p className="text-[13px]" style={{ color: theme.textMuted }}>{item.metric}</p>
-                    <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-[28px] font-bold tnum" style={{ fontFamily: headingFont, color: theme.textStrong }}>{item.current}</span>
-                      <span className="text-[13px]" style={{ color: theme.textMuted }}>Target: {item.target}</span>
-                    </div>
-                  </div>
+  const activityPoints = [...filteredSessions]
+    .sort((a, b) => (a.date ?? a.processedOn ?? "").localeCompare(b.date ?? b.processedOn ?? ""))
+    .map((session) => ({
+      ...session,
+      date: session.date ?? session.processedOn ?? "",
+      shortDate: formatDate(session.date ?? session.processedOn ?? TRENDS_REFERENCE_DATE).replace(
+        /, \d{4}$/,
+        "",
+      ),
+      sessionId: session.id,
+      source: session.source,
+    }));
 
-                  {/* Mini Sparkline Chart */}
-                  <div className="h-16 w-full flex items-end gap-1.5 p-2 rounded-xl bg-pink-50/50 dark:bg-purple-900/20 border border-pink-100 dark:border-purple-950">
-                    {item.trend.map((val, tIdx) => (
-                      <div key={tIdx} className="flex-1 rounded-t-sm" style={{ height: `${val}%`, backgroundColor: item.status === 'caution' ? '#E8BC68' : '#7CC9A0' }}></div>
-                    ))}
-                  </div>
+  const durationPoints = activityPoints.map((session) => ({
+    ...session,
+    value: session.averageRepetitionDurationSeconds,
+  }));
+  const baselineMean = baseline.mean?.[selectedMetric] ?? null;
+  const baselineRange = baseline.range?.[selectedMetric] ?? null;
+  const movementColor = METRIC_COLORS[selectedMetric];
+  const latestKneePoint = toTrendPoints(filteredSessions, "knee", baseline).at(-1);
+  const latestKneeDeviation =
+    hasDemoHistory && baseline.mean && latestKneePoint
+      ? latestKneePoint.value - baseline.mean.knee
+      : null;
 
-                  <button 
-                    onClick={() => alert(`Opening detailed view for ${item.site}`)}
-                    className="w-full py-2.5 rounded-xl font-semibold text-[13px] border border-pink-200 dark:border-purple-800 hover:bg-pink-50 dark:hover:bg-purple-900/30 flex items-center justify-center gap-1.5"
-                    style={{ color: theme.textStrong, fontFamily: headingFont }}
-                  >
-                    <span>Inspect Site Profile</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
+  return (
+    <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-3 py-6 sm:px-4 lg:px-6">
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="text-sm font-medium text-muted-foreground">
+            Longitudinal movement monitoring
+          </p>
+          <h1 className="mt-1 font-display text-3xl font-bold text-strong">
+            Trends &amp; baselines
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            Review recorded movement observations across compatible sessions. A personal movement
+            reference is not a healthy reference standard.
+          </p>
+        </div>
+        <DemoTag
+          label={hasDemoHistory ? "Illustrative prototype data" : "Precomputed research data"}
+        />
+      </header>
+
+      <section
+        aria-label="Trend filters"
+        className="flex flex-col gap-4 rounded-3xl border border-primary-300/40 bg-card p-4 shadow-soft sm:p-5"
+      >
+        <div className="flex flex-wrap items-end gap-4">
+          <fieldset>
+            <legend className="mb-1.5 text-xs font-medium text-muted-foreground">
+              Data source
+            </legend>
+            <div className="flex flex-wrap gap-2">
+              {(
+                [
+                  ["illustrative", "Illustrative history"],
+                  ["research", "Research output"],
+                ] as const
+              ).map(([id, label]) => (
+                <Button
+                  key={id}
+                  type="button"
+                  size="sm"
+                  variant={source === id ? "default" : "outline"}
+                  className="min-h-10 rounded-full"
+                  aria-pressed={source === id}
+                  onClick={() => setSource(id)}
+                >
+                  {label}
+                </Button>
               ))}
             </div>
-          )}
+          </fieldset>
 
-          {/* 5. TAB 3: SESSIONS TAB (Sortable table) */}
-          {activeTab === 'Sessions' && (
-            <div className="p-6 rounded-[24px] shadow-sm border border-pink-100/60 dark:border-purple-950 overflow-hidden animate-fade-in" style={{ backgroundColor: theme.bgSurface }}>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="border-b border-pink-100 dark:border-purple-950 text-[13px] font-semibold" style={{ color: theme.textMuted, fontFamily: headingFont }}>
-                      <th className="py-3 px-4">Session ID</th>
-                      <th className="py-3 px-4">Date</th>
-                      <th className="py-3 px-4">Exercise</th>
-                      <th className="py-3 px-4">Regime</th>
-                      <th className="py-3 px-4">Peak Load</th>
-                      <th className="py-3 px-4">Loading Adequacy %</th>
-                      <th className="py-3 px-4">Safety Margin</th>
-                      <th className="py-3 px-4">Form Score</th>
-                      <th className="py-3 px-4">Status</th>
-                      <th className="py-3 px-4 text-right">Flags</th>
+          <fieldset>
+            <legend className="mb-1.5 text-xs font-medium text-muted-foreground">Date range</legend>
+            <div className="flex flex-wrap gap-1 rounded-full bg-muted p-1">
+              {DATE_RANGES.map(({ id, label }) => (
+                <button
+                  key={id}
+                  type="button"
+                  className={`min-h-9 rounded-full px-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                    dateRange === id
+                      ? "bg-card font-semibold text-strong shadow-sm"
+                      : "text-muted-foreground hover:text-strong"
+                  }`}
+                  aria-pressed={dateRange === id}
+                  onClick={() => setDateRange(id)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+
+          <div className="min-w-40">
+            <label
+              htmlFor="trend-exercise"
+              className="mb-1.5 block text-xs font-medium text-muted-foreground"
+            >
+              Exercise
+            </label>
+            <select
+              id="trend-exercise"
+              value={exerciseFilter}
+              onChange={(event) => setExerciseFilter(event.target.value)}
+              className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <option value="all">All exercises</option>
+              <option value="Squat">Squat</option>
+            </select>
+          </div>
+        </div>
+        <p className="flex items-start gap-2 border-t border-border pt-3 text-xs leading-relaxed text-muted-foreground">
+          <Info className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+          {hasDemoHistory
+            ? "Illustrative history is shown on its own. Its baseline is calculated only from compatible illustrative squat sessions."
+            : "This research output is shown on its own. Its processing date is not a supplied recording date and it is not included in demo history."}
+        </p>
+      </section>
+
+      <nav
+        aria-label="Trends sections"
+        className="flex flex-wrap gap-2 border-b border-border pb-3"
+      >
+        {TABS.map(({ id, label, icon: Icon }) => (
+          <button
+            key={id}
+            type="button"
+            className={`${TABS_CLASS} ${
+              activeTab === id
+                ? "bg-primary-100 text-strong"
+                : "text-muted-foreground hover:bg-muted hover:text-strong"
+            }`}
+            aria-current={activeTab === id ? "page" : undefined}
+            onClick={() => setActiveTab(id)}
+          >
+            <Icon className="size-4" aria-hidden="true" />
+            {label}
+          </button>
+        ))}
+      </nav>
+
+      {activeTab === "overview" && hasDemoHistory ? (
+        <div className="space-y-6">
+          <section
+            aria-label="Illustrative movement summary"
+            className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+          >
+            <MetricCard
+              title="Sessions recorded"
+              value={summary.sessionCount}
+              unit="sessions"
+              footnote="Illustrative records in selected range"
+            />
+            <MetricCard
+              title="Repetitions detected"
+              value={summary.repetitions}
+              unit="reps"
+              footnote="Illustrative records in selected range"
+            />
+            <MetricCard
+              title="Average repetition duration"
+              value={
+                summary.averageRepetitionDurationSeconds === null
+                  ? "—"
+                  : formatNumber(summary.averageRepetitionDurationSeconds)
+              }
+              unit={summary.averageRepetitionDurationSeconds === null ? "" : "s / rep"}
+              footnote="Weighted by repetitions in each illustrative record"
+            />
+            <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
+              <p className="text-sm font-medium text-muted-foreground">Baseline status</p>
+              <p className="mt-2 font-display text-2xl font-bold text-strong">{baselineStatus}</p>
+              <span className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/50 px-2 py-0.5 text-xs font-medium text-body">
+                <Info className="size-3.5" aria-hidden="true" />
+                {baselineStatus}
+              </span>
+              <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                {baseline.compatibleSessionCount} compatible demo sessions. Prototype rule: fewer
+                than 3 is insufficient, 3–5 provisional, and 6 or more established.
+              </p>
+            </div>
+          </section>
+
+          <div className="grid gap-6 xl:grid-cols-2">
+            <section className="rounded-3xl border border-primary-300/40 bg-card p-5 shadow-soft sm:p-6">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h2 className="font-display text-xl font-bold text-strong">
+                    Repetitions per session
+                  </h2>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Activity count by illustrative session · repetitions
+                  </p>
+                </div>
+                <div className="flex flex-col items-end gap-2">
+                  <DemoTag label="Illustrative demo data" />
+                  <ViewAsTableToggle
+                    open={activityView === "table"}
+                    onToggle={() =>
+                      setActivityView((view) => (view === "chart" ? "table" : "chart"))
+                    }
+                  />
+                </div>
+              </div>
+              {activityPoints.length === 0 ? (
+                <div className="mt-5">
+                  <EmptyChart>No illustrative sessions match these filters.</EmptyChart>
+                </div>
+              ) : activityView === "table" ? (
+                <div className="mt-5 overflow-x-auto">
+                  <table className="w-full text-left text-sm">
+                    <caption className="sr-only">Repetitions per illustrative session</caption>
+                    <thead className="text-xs text-muted-foreground">
+                      <tr className="border-b border-border">
+                        <th className="px-3 py-2">Date</th>
+                        <th className="px-3 py-2">Session</th>
+                        <th className="px-3 py-2 text-right">Repetitions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {activityPoints.map((point) => (
+                        <tr key={point.id} className="border-b border-border/70">
+                          <td className="px-3 py-2">{displayDate(point)}</td>
+                          <td className="px-3 py-2">{point.id}</td>
+                          <td className="px-3 py-2 text-right font-medium tabular-nums">
+                            {point.repetitions} reps
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div
+                  className="mt-5 h-64"
+                  role="img"
+                  aria-label="Bar chart of repetitions per illustrative squat session. Values are demonstration data, not astronaut records."
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={activityPoints}
+                      margin={{ top: 8, right: 8, bottom: 4, left: -18 }}
+                    >
+                      <CartesianGrid
+                        stroke="var(--border)"
+                        strokeDasharray="3 3"
+                        vertical={false}
+                      />
+                      <XAxis
+                        dataKey="shortDate"
+                        tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
+                      />
+                      <YAxis
+                        allowDecimals={false}
+                        tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
+                        axisLine={false}
+                        tickLine={false}
+                      />
+                      <Tooltip content={<TrendTooltip unit="reps" />} />
+                      <Bar
+                        dataKey="repetitions"
+                        name="Repetitions"
+                        fill="var(--chart-1)"
+                        radius={[6, 6, 0, 0]}
+                      />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              )}
+            </section>
+
+            <section className="rounded-3xl border border-primary-300/40 bg-card p-5 shadow-soft sm:p-6">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h2 className="font-display text-xl font-bold text-strong">
+                    Repetition duration
+                  </h2>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Average duration by session · seconds per repetition
+                  </p>
+                </div>
+                <div className="flex flex-col items-end gap-2">
+                  <DemoTag label="Illustrative demo data" />
+                  <ViewAsTableToggle
+                    open={durationView === "table"}
+                    onToggle={() =>
+                      setDurationView((view) => (view === "chart" ? "table" : "chart"))
+                    }
+                  />
+                </div>
+              </div>
+              {durationPoints.length === 0 ? (
+                <div className="mt-5">
+                  <EmptyChart>No illustrative sessions match these filters.</EmptyChart>
+                </div>
+              ) : durationView === "table" ? (
+                <div className="mt-5 overflow-x-auto">
+                  <table className="w-full text-left text-sm">
+                    <caption className="sr-only">
+                      Average repetition duration per illustrative session
+                    </caption>
+                    <thead className="text-xs text-muted-foreground">
+                      <tr className="border-b border-border">
+                        <th className="px-3 py-2">Date</th>
+                        <th className="px-3 py-2">Session</th>
+                        <th className="px-3 py-2 text-right">Mean duration</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {durationPoints.map((point) => (
+                        <tr key={point.id} className="border-b border-border/70">
+                          <td className="px-3 py-2">{displayDate(point)}</td>
+                          <td className="px-3 py-2">{point.id}</td>
+                          <td className="px-3 py-2 text-right font-medium tabular-nums">
+                            {formatNumber(point.value)} s / rep
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div
+                  className="mt-5 h-64"
+                  role="img"
+                  aria-label="Line chart of average repetition duration in seconds per repetition across illustrative squat sessions."
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                      data={durationPoints}
+                      margin={{ top: 8, right: 8, bottom: 4, left: -18 }}
+                    >
+                      <CartesianGrid
+                        stroke="var(--border)"
+                        strokeDasharray="3 3"
+                        vertical={false}
+                      />
+                      <XAxis
+                        dataKey="shortDate"
+                        tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
+                      />
+                      <YAxis
+                        domain={["auto", "auto"]}
+                        tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
+                        axisLine={false}
+                        tickLine={false}
+                        tickFormatter={(value: number) => value.toFixed(1)}
+                      />
+                      <Tooltip content={<TrendTooltip unit="s / rep" />} />
+                      <Line
+                        dataKey="value"
+                        name="Average duration"
+                        type="monotone"
+                        stroke="var(--chart-2)"
+                        strokeWidth={2.5}
+                        dot={{ r: 4, fill: "var(--chart-2)" }}
+                        activeDot={{ r: 6 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              )}
+            </section>
+          </div>
+
+          <section className="rounded-3xl border border-primary-300/40 bg-card p-5 shadow-soft sm:p-6">
+            <div className="flex items-start gap-3">
+              <Activity className="mt-0.5 size-5 shrink-0 text-primary-700" aria-hidden="true" />
+              <div>
+                <h2 className="font-display text-lg font-bold text-strong">Movement observation</h2>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                  {latestKneeDeviation !== null
+                    ? `The latest illustrative knee coordinate excursion is ${formatSigned(latestKneeDeviation)}° relative to the demo reference average. This is a movement-pattern observation, not a health outcome.`
+                    : baseline.mean === null
+                      ? "More compatible illustrative squat sessions are needed to compare movement observations with a demo reference."
+                      : "No illustrative session in the selected date range is available for comparison with the demo reference."}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <ResearchDisclosure compact />
+        </div>
+      ) : null}
+
+      {activeTab === "overview" && !hasDemoHistory ? (
+        <div className="space-y-6">
+          {filteredSessions.length ? (
+            <ResearchDisclosure />
+          ) : (
+            <section className="rounded-3xl border border-primary-300/40 bg-card p-6 shadow-soft">
+              <EmptyChart>
+                No research output falls within the selected processing-date range.
+              </EmptyChart>
+            </section>
+          )}
+          <section className="rounded-3xl border border-border bg-muted/30 p-5">
+            <div className="flex items-start gap-3">
+              <Info className="mt-0.5 size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                The recording date was not supplied. Date-range filtering for this source uses the
+                research processing date only. One research output is insufficient for a personal
+                baseline or longitudinal comparison.
+              </p>
+            </div>
+          </section>
+        </div>
+      ) : null}
+
+      {activeTab === "movement" && hasDemoHistory ? (
+        <div className="space-y-6">
+          <section className="rounded-3xl border border-primary-300/40 bg-card p-5 shadow-soft sm:p-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h2 className="font-display text-xl font-bold text-strong">
+                  Joint-coordinate trends
+                </h2>
+                <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                  Compare the same squat coordinate-excursion definition across illustrative
+                  sessions. Differences are observations, not automatic improvement, deterioration,
+                  or warnings.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-end gap-3">
+                <fieldset>
+                  <legend className="mb-1.5 text-xs font-medium text-muted-foreground">
+                    Movement metric
+                  </legend>
+                  <select
+                    value={selectedMetric}
+                    onChange={(event) => setSelectedMetric(event.target.value as MovementMetric)}
+                    className="h-10 min-w-48 rounded-xl border border-input bg-background px-3 text-sm text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    aria-label="Movement metric"
+                  >
+                    {METRICS.map((metric) => (
+                      <option key={metric.id} value={metric.id}>
+                        {metric.fullLabel}
+                      </option>
+                    ))}
+                  </select>
+                </fieldset>
+                <fieldset>
+                  <legend className="mb-1.5 text-xs font-medium text-muted-foreground">
+                    Display
+                  </legend>
+                  <div className="flex gap-1 rounded-full bg-muted p-1">
+                    {(
+                      [
+                        ["measurement", "Measured"],
+                        ["deviation", "Difference"],
+                      ] as const
+                    ).map(([mode, label]) => (
+                      <button
+                        key={mode}
+                        type="button"
+                        className={`min-h-8 rounded-full px-3 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                          valueMode === mode
+                            ? "bg-card font-semibold text-strong shadow-sm"
+                            : "text-muted-foreground hover:text-strong"
+                        }`}
+                        aria-pressed={valueMode === mode}
+                        onClick={() => setValueMode(mode)}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
+                <div className="flex flex-col items-end gap-2">
+                  <DemoTag label="Illustrative demo data" />
+                  <ViewAsTableToggle
+                    open={movementView === "table"}
+                    onToggle={() =>
+                      setMovementView((view) => (view === "chart" ? "table" : "chart"))
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+              {valueMode === "measurement"
+                ? baselineRange
+                  ? `Pastel band: min–max range from the first ${baseline.referenceSessionCount} compatible demo reference sessions. Coordinate excursion is not a clinical range-of-motion assessment.`
+                  : "A reference range is unavailable until sufficient compatible sessions exist."
+                : baselineMean === null
+                  ? "A reference difference is unavailable until sufficient compatible sessions exist."
+                  : `Difference is the selected session's estimate minus the average of the first ${baseline.referenceSessionCount} compatible demo reference sessions. Units: degrees.`}
+            </p>
+
+            {movementPoints.length === 0 ? (
+              <div className="mt-5">
+                <EmptyChart>No illustrative sessions match these filters.</EmptyChart>
+              </div>
+            ) : movementView === "table" ? (
+              <div className="mt-5 overflow-x-auto">
+                <table className="w-full text-left text-sm">
+                  <caption className="sr-only">
+                    {selectedMetricLabel} across illustrative sessions
+                  </caption>
+                  <thead className="text-xs text-muted-foreground">
+                    <tr className="border-b border-border">
+                      <th className="px-3 py-2">Date</th>
+                      <th className="px-3 py-2">Session</th>
+                      <th className="px-3 py-2 text-right">
+                        {valueMode === "measurement"
+                          ? "Coordinate excursion"
+                          : "Difference from demo reference"}
+                      </th>
+                      {baselineMean !== null ? (
+                        <th className="px-3 py-2 text-right">Reference average</th>
+                      ) : null}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-pink-50 dark:divide-purple-950 text-[14px]">
-                    {sessionsData.map((s) => (
-                      <tr key={s.id} className="hover:bg-pink-50/50 dark:hover:bg-purple-900/20 transition-colors">
-                        <td className="py-3.5 px-4 font-bold tnum" style={{ color: theme.textStrong, fontFamily: headingFont }}>{s.id}</td>
-                        <td className="py-3.5 px-4 text-[13px] tnum" style={{ color: theme.textMuted }}>{s.date}</td>
-                        <td className="py-3.5 px-4 font-semibold" style={{ color: theme.textStrong }}>{s.exercise}</td>
-                        <td className="py-3.5 px-4 text-[13px]" style={{ color: theme.textMuted }}>{s.regime}</td>
-                        <td className="py-3.5 px-4 font-bold tnum" style={{ color: theme.textStrong }}>{s.load}</td>
-                        <td className="py-3.5 px-4 font-bold text-emerald-600 tnum">{s.adequacy}%</td>
-                        <td className="py-3.5 px-4 text-[13px] tnum" style={{ color: theme.textMuted }}>{s.safetyMargin}</td>
-                        <td className="py-3.5 px-4 font-bold tnum" style={{ color: theme.textStrong }}>{s.formScore}%</td>
-                        <td className="py-3.5 px-4">
-                          <span 
-                            className="px-2.5 py-0.5 rounded-full text-[13px] font-bold"
-                            style={{
-                              backgroundColor: s.status === 'caution' ? '#FEF3C7' : '#E1F5FE',
-                              color: s.status === 'caution' ? '#D97706' : '#0288D1',
-                              fontFamily: headingFont
-                            }}
-                          >
-                            {s.status === 'caution' ? 'Caution' : 'Optimal'}
-                          </span>
+                  <tbody>
+                    {movementPoints.map((point) => (
+                      <tr key={point.sessionId} className="border-b border-border/70">
+                        <td className="px-3 py-2">{formatDate(point.date)}</td>
+                        <td className="px-3 py-2">{point.sessionId}</td>
+                        <td className="px-3 py-2 text-right font-medium tabular-nums">
+                          {valueMode === "measurement"
+                            ? `${formatNumber(point.value)}°`
+                            : point.deviation === null
+                              ? "—"
+                              : `${formatSigned(point.deviation)}°`}
                         </td>
-                        <td className="py-3.5 px-4 text-right font-bold tnum" style={{ color: s.flags > 0 ? theme.anomaly : theme.textMuted }}>
-                          {s.flags}
-                        </td>
+                        {baselineMean !== null ? (
+                          <td className="px-3 py-2 text-right tabular-nums">
+                            {formatNumber(baselineMean)}°
+                          </td>
+                        ) : null}
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            </div>
-          )}
+            ) : (
+              <div
+                className="mt-5 h-80"
+                role="img"
+                aria-label={`${selectedMetricLabel} by session in degrees. ${valueMode === "measurement" ? "The shaded band shows the illustrative reference-session range." : "The zero line is the illustrative reference average."}`}
+              >
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    data={movementPoints}
+                    margin={{ top: 12, right: 16, bottom: 4, left: -10 }}
+                  >
+                    <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" vertical={false} />
+                    <XAxis
+                      dataKey="shortDate"
+                      tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
+                    />
+                    <YAxis
+                      domain={valueMode === "deviation" ? ["auto", "auto"] : ["auto", "auto"]}
+                      tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
+                      axisLine={false}
+                      tickLine={false}
+                      tickFormatter={(value: number) => value.toFixed(0)}
+                    />
+                    {valueMode === "measurement" && baselineRange ? (
+                      <ReferenceArea
+                        y1={baselineRange.min}
+                        y2={baselineRange.max}
+                        fill="var(--primary-300)"
+                        fillOpacity={0.28}
+                        ifOverflow="extendDomain"
+                      />
+                    ) : null}
+                    {valueMode === "deviation" && baselineMean !== null ? (
+                      <ReferenceLine y={0} stroke="var(--muted-foreground)" strokeDasharray="4 4" />
+                    ) : null}
+                    <Tooltip content={<TrendTooltip unit="°" />} />
+                    <Line
+                      dataKey={valueMode === "measurement" ? "value" : "deviation"}
+                      name={valueMode === "measurement" ? selectedMetricLabel : "Difference"}
+                      type="monotone"
+                      stroke={movementColor}
+                      strokeWidth={2.5}
+                      connectNulls={false}
+                      dot={{ r: 4, fill: movementColor }}
+                      activeDot={{ r: 6 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            )}
+          </section>
 
-          {/* CLAIM BOUNDARY FOOTNOTE */}
-          <div className="p-4 rounded-[20px] border border-pink-100/60 dark:border-purple-950 flex items-center justify-between" style={{ backgroundColor: theme.bgSurface }}>
-            <div className="flex items-center gap-3">
-              <Info className="w-5 h-5 text-purple-500 flex-shrink-0" />
-              <p className="text-[13px]" style={{ color: theme.textMuted }}>
-                Shows mechanical loading, not bone density. TALA is an edge-accelerated biomechanical digital twin and decision support tool.
+          <section className="rounded-3xl border border-border bg-muted/30 p-5">
+            <div className="flex items-start gap-3">
+              <Info className="mt-0.5 size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Illustrative values are not astronaut records. A personal movement reference is
+                derived only from compatible demo squat sessions and is not a healthy reference
+                standard. The reference band shows the observed range of its designated demo
+                sessions; it is not a clinical threshold.
               </p>
             </div>
-            <span className="text-[13px] font-semibold px-3 py-1 rounded-full bg-pink-100 dark:bg-purple-900 text-pink-700 dark:text-pink-300">
-              Claim Boundary Safe
-            </span>
-          </div>
+          </section>
+        </div>
+      ) : null}
 
-        </main>
-      </div>
+      {activeTab === "movement" && !hasDemoHistory ? (
+        <div className="space-y-6">
+          <ResearchDisclosure />
+          <section className="rounded-3xl border border-border bg-muted/30 p-5">
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Only one research recording is available. The left/right coordinate estimates are
+              shown above, but this source has insufficient compatible sessions for a trend line or
+              a personal baseline. Select Illustrative history to explore clearly labeled demo
+              comparisons.
+            </p>
+          </section>
+        </div>
+      ) : null}
 
+      {activeTab === "sessions" ? (
+        <div className="space-y-6">
+          {hasDemoHistory ? (
+            <SessionCalendar sessions={filteredSessions} onSelect={setSelectedSession} />
+          ) : (
+            <section className="rounded-3xl border border-border bg-muted/30 p-5">
+              <div className="flex items-start gap-3">
+                <Clock3
+                  className="mt-0.5 size-5 shrink-0 text-muted-foreground"
+                  aria-hidden="true"
+                />
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  The research recording has a processing date but no supplied capture date, so it
+                  is not placed on the activity calendar.
+                </p>
+              </div>
+            </section>
+          )}
+
+          <section className="overflow-hidden rounded-3xl border border-primary-300/40 bg-card shadow-soft">
+            <div className="flex flex-wrap items-start justify-between gap-3 p-5 sm:p-6">
+              <div>
+                <h2 className="font-display text-xl font-bold text-strong">Session history</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {hasDemoHistory
+                    ? "Select a row for its illustrative summary. These records have no matching video or 3D reconstruction."
+                    : "Processing date is shown separately because the recording date was not supplied."}
+                </p>
+              </div>
+              {hasDemoHistory ? (
+                <DemoTag label="Illustrative demo records" />
+              ) : (
+                <DemoTag label="Research output" />
+              )}
+            </div>
+            {filteredSessions.length === 0 ? (
+              <div className="px-5 pb-6 sm:px-6">
+                <EmptyChart>No sessions match the selected source and filters.</EmptyChart>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[860px] text-left text-sm">
+                  <caption className="sr-only">
+                    Session history for the selected data source
+                  </caption>
+                  <thead className="border-y border-border bg-muted/50 text-xs font-medium text-muted-foreground">
+                    <tr>
+                      <th className="px-4 py-3">Session ID</th>
+                      <th className="px-4 py-3">Date</th>
+                      <th className="px-4 py-3">Exercise</th>
+                      <th className="px-4 py-3 text-right">Repetitions</th>
+                      <th className="px-4 py-3 text-right">Recording duration</th>
+                      <th className="px-4 py-3">Reconstruction</th>
+                      <th className="px-4 py-3">Quality</th>
+                      <th className="px-4 py-3">Source</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[...filteredSessions]
+                      .sort((a, b) =>
+                        (b.date ?? b.processedOn ?? "").localeCompare(
+                          a.date ?? a.processedOn ?? "",
+                        ),
+                      )
+                      .map((session) => (
+                        <tr
+                          key={session.id}
+                          className="border-b border-border/70 transition-colors hover:bg-muted/40"
+                        >
+                          <td className="px-4 py-3 font-semibold tabular-nums text-strong">
+                            <button
+                              type="button"
+                              className="rounded-sm text-left underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                              onClick={() => setSelectedSession(session)}
+                            >
+                              {session.id}
+                            </button>
+                          </td>
+                          <td className="max-w-64 px-4 py-3 text-muted-foreground">
+                            {displayDate(session)}
+                          </td>
+                          <td className="px-4 py-3">{session.exercise}</td>
+                          <td className="px-4 py-3 text-right tabular-nums">
+                            {session.repetitions} reps
+                          </td>
+                          <td className="px-4 py-3 text-right tabular-nums">
+                            {formatNumber(session.recordingDurationSeconds)} s
+                          </td>
+                          <td className="px-4 py-3">
+                            {session.source === "research" ? (
+                              <div className="flex flex-col items-start gap-1">
+                                <span>{session.reconstructionStatus}</span>
+                                <StatusPill status={session.status ?? "neutral"} size="small" />
+                              </div>
+                            ) : (
+                              <span className="text-muted-foreground">
+                                {session.reconstructionStatus}
+                              </span>
+                            )}
+                          </td>
+                          <td className="px-4 py-3">
+                            {session.source === "research" ? (
+                              <div className="flex flex-col items-start gap-1">
+                                <span>{session.reconstructionQuality}</span>
+                                <ConfidenceBadge level={session.confidence ?? "low"} />
+                              </div>
+                            ) : (
+                              <span className="text-muted-foreground">Illustrative</span>
+                            )}
+                          </td>
+                          <td className="px-4 py-3">
+                            <DemoTag
+                              label={session.source === "research" ? "Research" : "Illustrative"}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </section>
+        </div>
+      ) : null}
+
+      <footer className="flex items-start gap-3 rounded-2xl border border-border bg-muted/30 p-4">
+        <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          TALA shows reconstructed movement observations, not a diagnosis. Coordinate excursions are
+          not clinical range-of-motion assessments. Demo history is illustrative; the research
+          sample is one incomplete public-video analysis. Neither is evidence of astronaut health or
+          a validated personal baseline.
+        </p>
+      </footer>
+
+      <Dialog
+        open={selectedSession !== null}
+        onOpenChange={(open) => {
+          if (!open) setSelectedSession(null);
+        }}
+      >
+        <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="font-display text-2xl text-strong">
+              {selectedSession ? `Session ${selectedSession.id}` : "Session detail"}
+            </DialogTitle>
+            <DialogDescription>
+              {selectedSession
+                ? `${selectedSession.exercise} · ${displayDate(selectedSession)}`
+                : "Session details"}
+            </DialogDescription>
+          </DialogHeader>
+          {selectedSession ? (
+            selectedSession.source === "research" ? (
+              <div className="space-y-4">
+                <ResearchDisclosure />
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm text-muted-foreground">
+                    This session is illustrative and has no corresponding source video or 3D
+                    reconstruction.
+                  </p>
+                  <DemoTag label="Demo placeholder" />
+                </div>
+                <dl className="grid gap-3 sm:grid-cols-2">
+                  <DetailValue label="Repetitions" value={`${selectedSession.repetitions} reps`} />
+                  <DetailValue
+                    label="Recording duration"
+                    value={`${formatNumber(selectedSession.recordingDurationSeconds)} s`}
+                  />
+                  <DetailValue
+                    label="Average repetition duration"
+                    value={`${formatNumber(selectedSession.averageRepetitionDurationSeconds)} s / rep`}
+                  />
+                  {METRICS.map((metric) => (
+                    <DetailValue
+                      key={metric.id}
+                      label={`${metric.fullLabel} (illustrative)`}
+                      value={`${formatNumber(selectedSession.coordinateExcursionsDeg[metric.id])}°`}
+                    />
+                  ))}
+                </dl>
+                <p className="text-xs leading-relaxed text-muted-foreground">
+                  Illustrative values do not represent an astronaut or a clinical movement
+                  assessment.
+                </p>
+              </div>
+            )
+          ) : null}
+        </DialogContent>
+      </Dialog>
+    </main>
+  );
+}
+
+function DetailValue({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-2xl border border-border bg-muted/30 p-4">
+      <dt className="text-sm text-muted-foreground">{label}</dt>
+      <dd className="mt-1 font-semibold tabular-nums text-strong">{value}</dd>
     </div>
   );
 }

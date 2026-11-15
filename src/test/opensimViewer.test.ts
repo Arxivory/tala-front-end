@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import * as THREE from "three";
 
 import {
-  createRootPositionAnchor,
+  anchorRootHorizontalPosition,
+  createRootHorizontalPositionAnchor,
   evaluateOpenSimJointTransform,
   parseOpenSimModel,
   parseOpenSimMot,
@@ -94,7 +96,7 @@ describe("OpenSim model parser", () => {
     }
   });
 
-  it("holds the root pelvis translation at its initial MOT position", async () => {
+  it("anchors pelvis horizontal drift while preserving MOT-driven vertical movement", async () => {
     const [modelText, motionText] = await Promise.all([
       readFile(
         resolve(process.cwd(), "public", "data", "opensim-models", "scaled_model.osim"),
@@ -111,7 +113,7 @@ describe("OpenSim model parser", () => {
       (joint) => joint.parentBody === "ground" && joint.childBody === "pelvis",
     );
     if (!rootJoint) throw new Error("The supplied model is missing its ground-to-pelvis joint.");
-    const positionAnchor = createRootPositionAnchor(model, motion);
+    const positionAnchor = createRootHorizontalPositionAnchor(model, motion);
     const firstFrame = sampleOpenSimMot(motion, motion.startTime);
     const lastFrame = sampleOpenSimMot(motion, motion.endTime);
 
@@ -127,24 +129,31 @@ describe("OpenSim model parser", () => {
       motion.inDegrees,
       model.angularCoordinates,
     );
-    firstTransform.setPosition(positionAnchor);
-    lastTransform.setPosition(positionAnchor);
+    const firstVerticalPosition = firstTransform.elements[13]!;
+    const lastVerticalPosition = lastTransform.elements[13]!;
+    anchorRootHorizontalPosition(firstTransform, positionAnchor);
+    anchorRootHorizontalPosition(lastTransform, positionAnchor);
 
-    expect(firstTransform.elements.slice(12, 15)).toEqual([
-      positionAnchor.x,
-      positionAnchor.y,
-      positionAnchor.z,
-    ]);
-    expect(lastTransform.elements.slice(12, 15)).toEqual([
-      positionAnchor.x,
-      positionAnchor.y,
-      positionAnchor.z,
-    ]);
+    expect(firstTransform.elements[12]).toBe(positionAnchor.x);
+    expect(lastTransform.elements[12]).toBe(positionAnchor.x);
+    expect(firstTransform.elements[14]).toBe(positionAnchor.z);
+    expect(lastTransform.elements[14]).toBe(positionAnchor.z);
+    expect(firstTransform.elements[13]).toBe(firstVerticalPosition);
+    expect(lastTransform.elements[13]).toBe(lastVerticalPosition);
+    expect(Math.abs(firstVerticalPosition - lastVerticalPosition)).toBeGreaterThan(1e-5);
     expect(
       firstTransform.elements
         .slice(0, 12)
         .some((value, index) => Math.abs(value - lastTransform.elements[index]!) > 1e-5),
     ).toBe(true);
+
+    const exampleTransform = new THREE.Matrix4().makeTranslation(3, 4, 5);
+    anchorRootHorizontalPosition(exampleTransform, positionAnchor);
+    expect(exampleTransform.elements.slice(12, 15)).toEqual([
+      positionAnchor.x,
+      4,
+      positionAnchor.z,
+    ]);
   });
 });
 

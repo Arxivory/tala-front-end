@@ -160,7 +160,9 @@ Build /app/session as a transparent record-to-insights demo, not a real-time wor
 Build /app/body as a movement mirror for the selected research recording.
 
 - Show the supplied original squat video and provide a toggle to the CV pose-estimation render at /data/videos/visualizations/pose_overlay.mp4.
-- Render selected supplied OpenSim VTP geometry in a separate Three.js module, with OrbitControls and a simple grid floor. Use geometry scales and joint-frame definitions from `scaled_model.osim`, drive the transforms from `opensim_motion.mot`, and synchronize scrubbing/playback with the selected video.
+- Render selected supplied OpenSim VTP geometry in a separate Three.js module, with OrbitControls and a simple grid floor. Use geometry scales and joint-frame definitions from `scaled_model.osim`, drive the transforms from `opensim_motion.mot`, anchor the pelvis's initial horizontal position while preserving its vertical squat motion, and synchronize scrubbing/playback with the selected video.
+- Add an optional relative-motion heatmap toggle: neutral geometry when off; pastel pink-to-orange when on, normalized separately to each segment's estimated coordinate range in this recording. The colors describe relative estimated angle only, never severity, injury risk, or safety.
+- Allow users to select a modeled body part by clicking its geometry or using an accessible selector. Show current-frame coordinate estimates, the per-recording range, the available squat phase, and any missing/assumed-data limitation in plain language.
 - Label the mirror as approximate, not a validated biomechanical simulation. Keep the browser rendering distinct from authoritative OpenSim simulation results.
 - Present precomputed hip, knee and ankle coordinate excursion estimates in degrees, with status and confidence labels and a visible note that these are not clinical range-of-motion measurements.
 - Include the recording completeness and reconstruction-quality limitations. Do not fabricate joint-load values, safety thresholds, diagnoses, or physiological conclusions.
@@ -168,26 +170,35 @@ Build /app/body as a movement mirror for the selected research recording.
 
 ---
 
-## Prompt 6: Trends and Mechanical Loading Index
+## Prompt 6: Trends and baselines
 
 ```
-Build /app/trends with three tabs: Overview, Sites, Sessions.
+Build /app/trends as a longitudinal movement analytics page with three tabs: Overview, Movement Trends, Sessions.
 
-Top controls: date range (7 d, 30 d, 90 d, Mission), exercise filter, gravity regime filter, "Compare to 1g reference" toggle, Export (CSV or PDF, mocked).
+The page describes how compatible movement observations change across a recording history. It does not present bone or tissue loading, safety margins, health status, or a clinical baseline.
 
-Overview tab panels:
-- Mechanical Loading Index: daily bar chart (percent of target) with a weekly average line and a 100% target line. Visually cap at 120%; show an amber note beyond 110% ("Above reference. Review with CMO.").
-- Femoral strain vs reference: line chart with a shaded effective-range band and session markers.
-- Safety margin: dot plot of minimum margin to upper bounds per session.
-- Form stability: weekly average with sparkline.
-- Session calendar: month heat calendar colored by session status pill.
-- Gravity comparison: grouped bar chart of hip reaction force and femoral strain for a standard squat at 0g, 0.16g, 0.38g and 1g.
+Keep actual research output separate from illustrative demo history. Never include a research recording in an illustrative baseline. Identify the source on every chart, session row, and detail panel. The current research sample is one public-video squat analysis, has an incomplete recording, and does not establish a personal baseline.
 
-Sites tab: small-multiple grid of mini charts (femur, knee, hip, lumbar, ankle), each with a threshold band; click expands to a full chart in a dialog.
-Sessions tab: sortable, filterable table (date, exercise, regime, load, adequacy %, safety margin, form, status, flags). Row click opens the post-session summary.
+Global filters: date range (7 days, 30 days, 90 days, all sessions), exercise, and source (Illustrative history or Research output). Do not use a gravity filter unless historical records actually contain comparable gravity metadata.
 
-Add an info drawer "About the Mechanical Loading Index" explaining: numerator is time-integrated mechanical stimulus delivered that day, denominator is the same astronaut's 1g reference daily stimulus, and the disclaimer "A measure of stimulus delivered. It does not measure or predict bone status."
-Use direct labels instead of legends where possible, a maximum of four series per chart, tabular numerals, and a "View as table" toggle on every chart.
+Overview:
+- Baseline status based only on compatible illustrative sessions; the prototype rule is fewer than 3 compatible sessions = insufficient, 3–5 = provisional, and 6 or more = established. This is a demo rule, not a clinical threshold. Calculate the illustrative reference from the first four designated compatible demo sessions, independent of the chart's selected date window.
+- Summary cards for recorded sessions, detected repetitions, average repetition duration, and baseline status.
+- Movement activity charts for repetitions per session and average repetition duration.
+- A clickable, neutral session-activity calendar and a concise, rule-based movement observation.
+- Keep the single research result in its own card with its actual repetition count, recording duration, incomplete status, and limited reconstruction quality.
+
+Movement Trends:
+- Provide hip, knee, and ankle coordinate-excursion trends in degrees, with a metric selector and raw/deviation mode.
+- Compare only compatible exercise and measurement definitions. Calculate the illustrative reference and deviations from the same illustrative records shown in the page; show a reference range only when sufficient history exists.
+- With the single research recording selected, show its left/right estimates and explain that there are not enough compatible recordings for a time series or personal baseline.
+- State that coordinate excursions are not clinical range-of-motion assessments. A difference is an observation, not an automatic improvement, deterioration, or warning.
+
+Sessions:
+- Show an interactive calendar and a history table with session ID, date (or clearly labeled processing date when capture date is unavailable), exercise, repetitions, recording duration, reconstruction status, quality, and source.
+- Selecting an illustrative row opens its clearly labeled demo details. Selecting the research row offers a link to the Body Map; do not imply that illustrative sessions have corresponding videos or 3D reconstructions.
+
+Use the TALA pastel identity, direct labels, tabular numerals, and a chart/table toggle for every time-series chart. Put units, session IDs, dates, source labels, and available model status/confidence in chart tooltips. Avoid health-colored status coding; status labels must include text and an icon.
 ```
 
 ---

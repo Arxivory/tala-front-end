@@ -403,7 +403,6 @@ export function AppShell({ children }: { children: ReactNode }) {
                 Demo
               </span>
             ) : null}
-            <ThemeMenu />
             <NotificationsMenu />
             <ProfileMenu />
           </div>

@@ -138,7 +138,7 @@ export default function DailyCheckIn() {
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
 
         {/* MAIN CHECK-IN CONTENT */}
-        <main className="flex-1 p-6 lg:p-8 max-w-4xl mx-auto w-full space-y-6">
+        <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-3 py-6 sm:px-4 lg:px-6">
           
           {/* TOAST ON SUBMIT */}
           {isSubmitted && (

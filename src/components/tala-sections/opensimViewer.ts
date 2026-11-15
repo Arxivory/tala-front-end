@@ -1,9 +1,15 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
+import { BODY_MOTION_INSIGHTS, getRangeColorRatio } from "@/data/body-map-insights";
+
 const VTP_ROOT = "/data/opensim-models/vtp/";
 const MODEL_URL = "/data/opensim-models/scaled_model.osim";
 const MOTION_URL = "/data/opensim-models/opensim_motion.mot";
+const BASE_BODY_COLOR = "#c5bfce";
+const LOW_MOTION_COLOR = new THREE.Color("#f6bfd7");
+const HIGH_MOTION_COLOR = new THREE.Color("#ffb17a");
+const ASSUMED_BODY_COLOR = "#d8d3dd";
 const SELECTED_BODIES = new Set([
   "pelvis",
   "torso",
@@ -31,6 +37,32 @@ export type OpenSimViewerStatus =
   | { state: "loading" }
   | { state: "ready"; durationSeconds: number }
   | { state: "error"; message: string };
+
+export interface OpenSimCoordinateRange {
+  minimum: number;
+  maximum: number;
+}
+
+export interface OpenSimViewerFrame {
+  timeSeconds: number;
+  frameIndex: number;
+  coordinates: Map<string, number>;
+  coordinateRanges: Map<string, OpenSimCoordinateRange>;
+  inDegrees: boolean;
+  angularCoordinates: Set<string>;
+}
+
+export interface OpenSimViewerCallbacks {
+  onStatus: (status: OpenSimViewerStatus) => void;
+  onBodySelect: (bodyName: string | null) => void;
+  onFrame: (frame: OpenSimViewerFrame) => void;
+}
+
+export interface OpenSimViewerHandle {
+  setHeatmapEnabled: (enabled: boolean) => void;
+  setSelectedBody: (bodyName: string | null) => void;
+  dispose: () => void;
+}
 
 type Vector3Tuple = [number, number, number];
 
@@ -85,19 +117,26 @@ interface JointRig {
 interface ArticulatedRig {
   joints: JointRig[];
   model: OpenSimModelDefinition;
-  rootPositionAnchor: THREE.Vector3;
+  rootHorizontalPositionAnchor: HorizontalPositionAnchor;
+  materialsByBody: Map<string, THREE.MeshStandardMaterial>;
+  coordinateRanges: Map<string, OpenSimCoordinateRange>;
+}
+
+interface HorizontalPositionAnchor {
+  x: number;
+  z: number;
 }
 
 export function createOpenSimViewer(
   container: HTMLElement,
-  onStatus: (status: OpenSimViewerStatus) => void,
+  callbacks: OpenSimViewerCallbacks,
   getPlaybackTime: () => number,
-) {
+): OpenSimViewerHandle {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color("#f7f4fa");
 
   const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 50);
-  camera.position.set(1.9, 1.3, 2.8);
+  camera.position.set(1.6, 1.3, -1.8);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -129,19 +168,22 @@ export function createOpenSimViewer(
   scene.add(grid);
 
   const model = new THREE.Group();
+  model.position.set(-0.3, -0.2, -0.5);
   scene.add(model);
 
-  const material = new THREE.MeshStandardMaterial({
-    color: "#c5bfce",
-    roughness: 0.78,
-    metalness: 0,
-    side: THREE.DoubleSide,
-  });
   const abortController = new AbortController();
   let disposed = false;
   let animationFrame = 0;
   let motion: OpenSimMot | undefined;
   let rig: ArticulatedRig | undefined;
+  let heatmapEnabled = false;
+  let selectedBodyName: string | null = null;
+  let lastReportedFrameIndex = -1;
+  let selectableMeshes: THREE.Mesh[] = [];
+  let bodyMaterials = new Map<string, THREE.MeshStandardMaterial>();
+  const raycaster = new THREE.Raycaster();
+  const pointer = new THREE.Vector2();
+  let pointerStart: { x: number; y: number; pointerId: number } | undefined;
 
   const resizeObserver = new ResizeObserver(() => {
     const width = container.clientWidth;
@@ -158,28 +200,50 @@ export function createOpenSimViewer(
     animationFrame = window.requestAnimationFrame(render);
     controls.update();
     if (motion && rig) {
-      applyMotionFrame(rig, motion, motion.startTime + getPlaybackTime());
+      const timeSeconds = motion.startTime + getPlaybackTime();
+      const coordinates = applyMotionFrame(
+        rig,
+        motion,
+        timeSeconds,
+        heatmapEnabled,
+        selectedBodyName,
+      );
+      const frameIndex = findNearestMotionFrameIndex(motion, timeSeconds);
+      if (frameIndex !== lastReportedFrameIndex) {
+        lastReportedFrameIndex = frameIndex;
+        callbacks.onFrame({
+          timeSeconds,
+          frameIndex,
+          coordinates,
+          coordinateRanges: rig.coordinateRanges,
+          inDegrees: motion.inDegrees,
+          angularCoordinates: rig.model.angularCoordinates,
+        });
+      }
     }
     renderer.render(scene, camera);
   };
   render();
 
   void loadModel(abortController.signal)
-    .then(({ meshesByBody, parsedMotion, parsedModel }) => {
+    .then(({ meshesByBody, materialsByBody, parsedMotion, parsedModel }) => {
       if (disposed) {
         disposeMeshes(meshesByBody);
+        materialsByBody.forEach((material) => material.dispose());
         return;
       }
       motion = parsedMotion;
-      rig = buildArticulatedRig(model, parsedModel, meshesByBody, parsedMotion);
-      onStatus({
+      bodyMaterials = materialsByBody;
+      selectableMeshes = Array.from(meshesByBody.values()).flat();
+      rig = buildArticulatedRig(model, parsedModel, meshesByBody, parsedMotion, materialsByBody);
+      callbacks.onStatus({
         state: "ready",
         durationSeconds: parsedMotion.endTime - parsedMotion.startTime,
       });
     })
     .catch((error: unknown) => {
       if (disposed || abortController.signal.aborted) return;
-      onStatus({
+      callbacks.onStatus({
         state: "error",
         message:
           error instanceof Error
@@ -188,13 +252,59 @@ export function createOpenSimViewer(
       });
     });
 
+  const selectBody = (bodyName: string | null) => {
+    if (bodyName !== null && !rig?.model.bodies.has(bodyName)) {
+      throw new Error(`OpenSim body ${bodyName} is not available in the viewer.`);
+    }
+    selectedBodyName = bodyName;
+    callbacks.onBodySelect(bodyName);
+  };
+
+  const handlePointerDown = (event: PointerEvent) => {
+    if (event.button !== 0) return;
+    pointerStart = { x: event.clientX, y: event.clientY, pointerId: event.pointerId };
+  };
+
+  const handlePointerUp = (event: PointerEvent) => {
+    const start = pointerStart;
+    pointerStart = undefined;
+    if (
+      !start ||
+      start.pointerId !== event.pointerId ||
+      event.button !== 0 ||
+      Math.hypot(event.clientX - start.x, event.clientY - start.y) > 6
+    ) {
+      return;
+    }
+    const bounds = renderer.domElement.getBoundingClientRect();
+    if (!bounds.width || !bounds.height) return;
+    pointer.set(
+      ((event.clientX - bounds.left) / bounds.width) * 2 - 1,
+      -((event.clientY - bounds.top) / bounds.height) * 2 + 1,
+    );
+    model.updateMatrixWorld(true);
+    raycaster.setFromCamera(pointer, camera);
+    const hit = raycaster.intersectObjects(selectableMeshes, false)[0];
+    const bodyName = hit?.object.userData["openSimBodyName"];
+    selectBody(typeof bodyName === "string" ? bodyName : null);
+  };
+
+  renderer.domElement.addEventListener("pointerdown", handlePointerDown);
+  renderer.domElement.addEventListener("pointerup", handlePointerUp);
+
   return {
+    setHeatmapEnabled(enabled: boolean) {
+      heatmapEnabled = enabled;
+    },
+    setSelectedBody: selectBody,
     dispose() {
       disposed = true;
       abortController.abort();
       window.cancelAnimationFrame(animationFrame);
       resizeObserver.disconnect();
       controls.dispose();
+      renderer.domElement.removeEventListener("pointerdown", handlePointerDown);
+      renderer.domElement.removeEventListener("pointerup", handlePointerUp);
       scene.traverse((object) => {
         if (object instanceof THREE.Mesh) object.geometry.dispose();
         if (object instanceof THREE.LineSegments) {
@@ -203,7 +313,7 @@ export function createOpenSimViewer(
           materials.forEach((lineMaterial) => lineMaterial.dispose());
         }
       });
-      material.dispose();
+      bodyMaterials.forEach((material) => material.dispose());
       renderer.dispose();
       renderer.domElement.remove();
     },
@@ -228,8 +338,14 @@ export function createOpenSimViewer(
     const parsedMotion = parseOpenSimMot(motionText);
     validateMotionCoordinates(parsedMotion, parsedModel);
 
-    const meshesByBody = await Promise.all(
+    const bodyEntries = await Promise.all(
       Array.from(parsedModel.bodies.values()).map(async (body) => {
+        const material = new THREE.MeshStandardMaterial({
+          color: BASE_BODY_COLOR,
+          roughness: 0.78,
+          metalness: 0,
+          side: THREE.DoubleSide,
+        });
         const meshes = await Promise.all(
           body.geometries.map(async (geometryDefinition) => {
             const response = await fetch(`${VTP_ROOT}${geometryDefinition.file}`, { signal });
@@ -241,14 +357,22 @@ export function createOpenSimViewer(
             geometry.computeVertexNormals();
             const mesh = new THREE.Mesh(geometry, material);
             mesh.name = geometryDefinition.file;
+            mesh.userData["openSimBodyName"] = body.name;
             return mesh;
           }),
         );
-        return [body.name, meshes] as const;
+        return [body.name, { meshes, material }] as const;
       }),
     );
+    const meshesByBody = new Map(
+      bodyEntries.map(([bodyName, entry]) => [bodyName, entry.meshes] as const),
+    );
+    const materialsByBody = new Map(
+      bodyEntries.map(([bodyName, entry]) => [bodyName, entry.material] as const),
+    );
     return {
-      meshesByBody: new Map(meshesByBody),
+      meshesByBody,
+      materialsByBody,
       parsedMotion,
       parsedModel,
     };
@@ -536,6 +660,7 @@ function buildArticulatedRig(
   model: OpenSimModelDefinition,
   meshesByBody: Map<string, THREE.Mesh[]>,
   motion: OpenSimMot,
+  materialsByBody: Map<string, THREE.MeshStandardMaterial>,
 ): ArticulatedRig {
   const bodyGroups = new Map<string, THREE.Group>();
   for (const body of model.bodies.values()) {
@@ -595,11 +720,35 @@ function buildArticulatedRig(
   return {
     joints,
     model,
-    rootPositionAnchor: createRootPositionAnchor(model, motion),
+    rootHorizontalPositionAnchor: createRootHorizontalPositionAnchor(model, motion),
+    materialsByBody,
+    coordinateRanges: buildCoordinateRanges(motion),
   };
 }
 
-export function createRootPositionAnchor(model: OpenSimModelDefinition, motion: OpenSimMot) {
+function buildCoordinateRanges(motion: OpenSimMot) {
+  const ranges = new Map<string, OpenSimCoordinateRange>();
+  for (const [coordinate, columnIndex] of motion.columnIndices) {
+    if (coordinate === "time") continue;
+    let minimum = Number.POSITIVE_INFINITY;
+    let maximum = Number.NEGATIVE_INFINITY;
+    for (const frame of motion.frames) {
+      const value = frame[columnIndex];
+      if (value === undefined || !Number.isFinite(value)) {
+        throw new Error(`OpenSim motion file has an invalid value for ${coordinate}.`);
+      }
+      minimum = Math.min(minimum, value);
+      maximum = Math.max(maximum, value);
+    }
+    ranges.set(coordinate, { minimum, maximum });
+  }
+  return ranges;
+}
+
+export function createRootHorizontalPositionAnchor(
+  model: OpenSimModelDefinition,
+  motion: OpenSimMot,
+): HorizontalPositionAnchor {
   const rootJoint = model.joints.find(
     (joint) => joint.parentBody === "ground" && joint.childBody === "pelvis",
   );
@@ -616,7 +765,22 @@ export function createRootPositionAnchor(model: OpenSimModelDefinition, motion: 
     motion.inDegrees,
     model.angularCoordinates,
   );
-  return new THREE.Vector3().setFromMatrixPosition(initialTransform);
+  return {
+    x: initialTransform.elements[12]!,
+    z: initialTransform.elements[14]!,
+  };
+}
+
+export function anchorRootHorizontalPosition(
+  transform: THREE.Matrix4,
+  anchor: HorizontalPositionAnchor,
+) {
+  const verticalPosition = transform.elements[13];
+  if (verticalPosition === undefined) {
+    throw new Error("OpenSim ground-to-pelvis transform is missing its vertical position.");
+  }
+  transform.setPosition(anchor.x, verticalPosition, anchor.z);
+  return transform;
 }
 
 export function evaluateOpenSimJointTransform(
@@ -670,7 +834,13 @@ export function evaluateOpenSimJointTransform(
     .multiply(joint.childFrame.clone().invert());
 }
 
-function applyMotionFrame(rig: ArticulatedRig, motion: OpenSimMot, time: number) {
+function applyMotionFrame(
+  rig: ArticulatedRig,
+  motion: OpenSimMot,
+  time: number,
+  heatmapEnabled: boolean,
+  selectedBodyName: string | null,
+) {
   const frame = sampleOpenSimMot(motion, time);
   for (const joint of rig.joints) {
     const transform = evaluateOpenSimJointTransform(
@@ -680,11 +850,62 @@ function applyMotionFrame(rig: ArticulatedRig, motion: OpenSimMot, time: number)
       rig.model.angularCoordinates,
     );
     if (joint.definition.parentBody === "ground" && joint.definition.childBody === "pelvis") {
-      transform.setPosition(rig.rootPositionAnchor);
+      anchorRootHorizontalPosition(transform, rig.rootHorizontalPositionAnchor);
     }
     joint.transformGroup.matrix.copy(transform);
     joint.transformGroup.matrixWorldNeedsUpdate = true;
   }
+  updateBodyMaterials(rig, frame, heatmapEnabled, selectedBodyName);
+  return frame;
+}
+
+function updateBodyMaterials(
+  rig: ArticulatedRig,
+  frame: Map<string, number>,
+  heatmapEnabled: boolean,
+  selectedBodyName: string | null,
+) {
+  for (const [bodyName, material] of rig.materialsByBody) {
+    const insight = BODY_MOTION_INSIGHTS.find((entry) => entry.bodyName === bodyName);
+    const coordinate = insight?.heatmapCoordinate;
+    const value = coordinate ? frame.get(coordinate) : undefined;
+    const range = coordinate ? rig.coordinateRanges.get(coordinate) : undefined;
+    const colorRatio =
+      heatmapEnabled && !insight?.unavailableNote && value !== undefined && range
+        ? getRangeColorRatio(value, range.minimum, range.maximum)
+        : undefined;
+
+    if (colorRatio === undefined) {
+      material.color.set(
+        heatmapEnabled && insight?.unavailableNote ? ASSUMED_BODY_COLOR : BASE_BODY_COLOR,
+      );
+    } else {
+      material.color.copy(LOW_MOTION_COLOR).lerp(HIGH_MOTION_COLOR, colorRatio);
+    }
+    material.emissive.set(bodyName === selectedBodyName ? "#8f315b" : "#000000");
+    material.emissiveIntensity = bodyName === selectedBodyName ? 0.18 : 0;
+  }
+}
+
+function findNearestMotionFrameIndex(motion: OpenSimMot, time: number) {
+  const clampedTime = THREE.MathUtils.clamp(time, motion.startTime, motion.endTime);
+  let low = 0;
+  let high = motion.frames.length - 1;
+  while (low < high - 1) {
+    const middle = Math.floor((low + high) / 2);
+    const middleTime = motion.frames[middle]?.[0];
+    if (middleTime === undefined) {
+      throw new Error("OpenSim motion file contains an invalid time sample.");
+    }
+    if (middleTime <= clampedTime) low = middle;
+    else high = middle;
+  }
+  const lowTime = motion.frames[low]?.[0];
+  const highTime = motion.frames[high]?.[0];
+  if (lowTime === undefined || highTime === undefined) {
+    throw new Error("OpenSim motion file does not contain valid time samples.");
+  }
+  return clampedTime - lowTime <= highTime - clampedTime ? low : high;
 }
 
 function resolveJointFrame(joint: Element, socketName: string) {
