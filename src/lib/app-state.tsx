@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 
 import { crew as allCrew } from "@/data/crew";
@@ -77,8 +70,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const setGravity = useCallback((g: GravityRegime) => {
     setGravityState(g);
     persist(KEYS.gravity, g);
-    toast(`Gravity regime set to ${g}`, {
-      description: "All loading estimates and comparisons now use this regime.",
+    toast(`Gravity scenario selected: ${g}`, {
+      description:
+        "This selects precomputed context only; it does not recalculate movement or baseline data.",
     });
   }, []);
 

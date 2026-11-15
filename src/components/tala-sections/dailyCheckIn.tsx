@@ -30,8 +30,33 @@ import {
   HelpCircle,
   Activity
 } from 'lucide-react';
+import { useApp } from '@/lib/app-state';
+import type { CheckIn } from '@/data/types';
+
+type SleepQualityLabel = 'Poor' | 'Fair' | 'Good';
+type FatigueLevel = 'None' | 'Mild' | 'Moderate' | 'High' | 'Severe';
+type SorenessSeverity = 'None' | 'Mild' | 'Moderate' | 'Severe';
+
+const fatigueValues: Record<FatigueLevel, CheckIn['fatigue']> = {
+  None: 'none',
+  Mild: 'mild',
+  Moderate: 'moderate',
+  High: 'high',
+  Severe: 'severe',
+};
+const sleepQualityValues: Record<SleepQualityLabel, CheckIn['sleepQuality']> = {
+  Poor: 1,
+  Fair: 3,
+  Good: 5,
+};
+const sorenessValues: Record<Exclude<SorenessSeverity, 'None'>, CheckIn['soreness'][number]['severity']> = {
+  Mild: 'mild',
+  Moderate: 'moderate',
+  Severe: 'high',
+};
 
 export default function DailyCheckIn() {
+  const { saveCheckIn } = useApp();
   // Global & Theme State
   const [activeTab, setActiveTab] = useState('Check-in');
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -40,11 +65,11 @@ export default function DailyCheckIn() {
 
   // Form State (Section 13)
   const [sleepHours, setSleepHours] = useState(7.5);
-  const [sleepQuality, setSleepQuality] = useState('Good'); // 'Poor' | 'Fair' | 'Good'
-  const [fatigueLevel, setFatigueLevel] = useState('Moderate'); // 'None' | 'Mild' | 'Moderate' | 'High' | 'Severe'
+  const [sleepQuality, setSleepQuality] = useState<SleepQualityLabel>('Good');
+  const [fatigueLevel, setFatigueLevel] = useState<FatigueLevel>('Moderate');
   const [selectedSorenessAreas, setSelectedSorenessAreas] = useState(['Lower Back']);
-  const [sorenessSeverity, setSorenessSeverity] = useState('Mild'); // 'None' | 'Mild' | 'Moderate' | 'Severe'
-  const [stressLevel, setStressLevel] = useState(2); // 1 (Low) to 5 (High)
+  const [sorenessSeverity, setSorenessSeverity] = useState<SorenessSeverity>('Mild');
+  const [stressLevel, setStressLevel] = useState<1 | 2 | 3 | 4 | 5>(2); // 1 (Low) to 5 (High)
   const [hydrationStatus, setHydrationStatus] = useState('On track'); // 'On track' | 'Behind'
   const [nutritionStatus, setNutritionStatus] = useState('On track'); // 'On track' | 'Behind'
   const [discomfortNote, setDiscomfortNote] = useState('');
@@ -92,7 +117,7 @@ export default function DailyCheckIn() {
   const readiness = getReadinessStatus();
 
   // Handle Soreness Region Toggle
-  const toggleSorenessArea = (areaId) => {
+  const toggleSorenessArea = (areaId: string) => {
     if (selectedSorenessAreas.includes(areaId)) {
       setSelectedSorenessAreas(selectedSorenessAreas.filter((a) => a !== areaId));
     } else {
@@ -100,8 +125,25 @@ export default function DailyCheckIn() {
     }
   };
 
-  const handleSaveCheckIn = (e) => {
+  const handleSaveCheckIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    saveCheckIn({
+      date: new Date().toISOString().slice(0, 10),
+      sleepHours,
+      sleepQuality: sleepQualityValues[sleepQuality],
+      fatigue: fatigueValues[fatigueLevel],
+      soreness:
+        sorenessSeverity === 'None'
+          ? []
+          : selectedSorenessAreas.map((site) => ({
+              site,
+              severity: sorenessValues[sorenessSeverity],
+            })),
+      stress: stressLevel,
+      hydration: hydrationStatus === 'On track',
+      nutrition: nutritionStatus === 'On track',
+      ...(discomfortNote.trim() ? { note: discomfortNote.trim() } : {}),
+    });
     setIsSubmitted(true);
     setTimeout(() => setIsSubmitted(false), 4000);
   };
@@ -210,11 +252,11 @@ export default function DailyCheckIn() {
                 <div>
                   <label className="block text-[13px] font-semibold mb-2" style={{ color: theme.textMuted }}>Sleep Quality</label>
                   <div className="grid grid-cols-3 gap-3">
-                    {[
+                    {([
                       { label: 'Poor', icon: Frown },
                       { label: 'Fair', icon: Meh },
                       { label: 'Good', icon: Smile },
-                    ].map((q) => {
+                    ] as const).map((q) => {
                       const QIcon = q.icon;
                       const isSelected = sleepQuality === q.label;
                       return (
@@ -255,7 +297,7 @@ export default function DailyCheckIn() {
 
               {/* 5-Step Segmented Selector */}
               <div className="grid grid-cols-5 gap-2 pt-2">
-                {['None', 'Mild', 'Moderate', 'High', 'Severe'].map((lvl) => {
+                {(['None', 'Mild', 'Moderate', 'High', 'Severe'] as const).map((lvl) => {
                   const isSelected = fatigueLevel === lvl;
                   return (
                     <button
@@ -320,7 +362,7 @@ export default function DailyCheckIn() {
               <div>
                 <label className="block text-[13px] font-semibold mb-2" style={{ color: theme.textMuted }}>Soreness Severity</label>
                 <div className="grid grid-cols-4 gap-2">
-                  {['None', 'Mild', 'Moderate', 'Severe'].map((sev) => {
+                  {(['None', 'Mild', 'Moderate', 'Severe'] as const).map((sev) => {
                     const isSelected = sorenessSeverity === sev;
                     return (
                       <button
@@ -358,7 +400,7 @@ export default function DailyCheckIn() {
                     <span className="text-[13px] font-bold tnum" style={{ fontFamily: headingFont, color: theme.textStrong }}>Level {stressLevel}</span>
                   </div>
                   <div className="flex gap-2">
-                    {[1, 2, 3, 4, 5].map((s) => (
+                    {([1, 2, 3, 4, 5] as const).map((s) => (
                       <button
                         key={s}
                         type="button"
@@ -497,41 +539,6 @@ export default function DailyCheckIn() {
             )}
 
           </form>
-
-          {/* 14-DAY WELLNESS TREND STRIP */}
-          <div className="p-6 rounded-[24px] shadow-sm border border-pink-100/60 dark:border-purple-950 space-y-4" style={{ backgroundColor: theme.bgSurface }}>
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="font-bold text-[20px]" style={{ fontFamily: headingFont, color: theme.textStrong }}>14-Day Wellness Trend Strip</h2>
-                <p className="text-[13px]" style={{ color: theme.textMuted }}>Historical sleep and fatigue logs providing context for exercise kinetics.</p>
-              </div>
-              <span className="text-[13px] font-semibold text-emerald-600 dark:text-emerald-400 tnum">14-Day Average: 7.4 hrs sleep</span>
-            </div>
-
-            {/* Mini Strip Visualization */}
-            <div className="h-24 w-full flex items-end gap-2 pt-4 border-b border-pink-100 dark:border-purple-950 relative">
-              {fourteenDayTrend.map((item) => (
-                <div key={item.day} className="flex-1 flex flex-col items-center h-full justify-end group relative">
-                  <div
-                    className="w-full rounded-t-md transition-all duration-300"
-                    style={{
-                      height: `${(item.sleep / 12) * 100}%`,
-                      backgroundColor: item.sleep >= 7 ? '#7CC9A0' : '#E8BC68',
-                    }}
-                  ></div>
-                  {/* Tooltip */}
-                  <div className="absolute -top-8 hidden group-hover:flex flex-col items-center bg-gray-900 text-white text-[12px] px-2 py-1 rounded shadow-md z-10 whitespace-nowrap tnum">
-                    <span>Day {item.day}: {item.sleep} hrs ({item.fatigue})</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex items-center justify-between text-[13px]" style={{ color: theme.textMuted }}>
-              <span>14 Days Ago</span>
-              <span>Today (Day 14)</span>
-            </div>
-          </div>
 
           {/* CLAIM BOUNDARY FOOTNOTE */}
           <div className="p-4 rounded-[20px] border border-pink-100/60 dark:border-purple-950 flex items-center justify-between" style={{ backgroundColor: theme.bgSurface }}>

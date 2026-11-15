@@ -80,19 +80,25 @@ Start by building: design tokens, theme provider with light/night/auto, the logo
 ```
 Build the public landing page at "/" and the sign-in screen at "/signin" for TALA, using the existing design tokens and components. Light mode default, night mode must also work.
 
-Landing page sections, in order:
-1. Sticky translucent header: logo, links (How it works, Features, Safety, Demo), theme toggle, primary pink button "Open demo".
-2. Hero: headline "Review the movement behind every rep." Subline: "TALA turns recorded exercise video into computer-vision pose estimates and reconstructed movement observations. This demo uses precomputed research results; live capture and backend integration are planned." Two buttons: "Open demo" (primary, goes to /app in Demo Mode) and "Watch the 60-second tour" (secondary, opens a modal with a placeholder tour). Keep all research outputs clearly labeled as estimates and avoid implying live inference.
-3. Problem section: three cards (Sensor blind spot, Loading translation gap, Communication latency) each with an icon, one plain sentence, and for latency the stat "3 seconds to 20+ minutes one-way".
-4. How it works: a four-step horizontal flow, Capture, Compute, Check, Guide, with a connecting line. Each step expands on click to two sentences.
-5. Feature showcase: tabs (Record and review, Movement mirror, Trends, Offline assistant), each with a stylized UI mock and three short benefits.
-6. Mission scenarios: three cards for LEO 0g, Lunar 0.16g, Mars 0.38g with a gravity slider that updates an example bar chart of hip load for a standard squat.
-7. Safety and claims: two columns. "What TALA does": estimates joint loads and mechanical strain, flags sessions outside cited ranges, cites its sources. "What TALA does not do": predict bone loss, diagnose, replace flight surgeons.
-8. Offline-first: a small diagram (astronaut tablet, spacecraft edge, delayed ground link) with a Demo placeholder tag.
-9. Final call to action with "Open demo" and "Sign in".
-10. Footer: Space Apps 2026 credit, data and model attribution, "Not endorsed by NASA".
+Keep the current landing page's visual structure intact: retain all ten sections in their existing order, all five image assets and placements, layouts, grids, cards, spacing, colors, typography, and responsive behavior. Make a content-accuracy pass; do not redesign, remove, or rearrange sections.
 
-Do not use fade-and-slide animations on every section. Use motion only for the hero twin and one gentle reveal of the How it works line.
+Use the positioning "Twin-based Astronaut Life Analytics": an exploratory research prototype combining computer-vision movement analysis, OpenSim-based biomechanical research, gravity scenarios, and NASA-literature-grounded AI.
+
+Retain the existing ten-section narrative:
+1. Hero: introduce TALA as an exploratory movement and wellness intelligence prototype. Keep the two-column layout, astronaut photo, and three CTAs. Label research and illustrative data honestly.
+2. Problem: four cards about movement-video context, modeling assumptions, distributed evidence, and clearly labeled demo data.
+3. Why it matters: explain why transparent movement research can support future exploration; use only counts tied to the sample/prototype, not unsupported health statistics.
+4. Solution: retain the horizontal flow for movement video, computer vision, OpenSim analysis, and NASA-literature AI.
+5. Differentiators: describe an integrated research workflow without unsupported claims about competitors, real-time feedback, or operational performance.
+6. Capabilities: cover pose estimation, OpenSim reconstruction, biomechanical analysis, gravity-scenario research, evidence-grounded AI assistance, and movement/wellness trends. Distinguish implemented research, precomputed frontend results, and illustrative data.
+7. Audience: retain three persona cards for crew/exercise participants, mission-support/research teams, and research/clinical reviewers. Buttons must link to existing application routes.
+8. Impact: show only verifiable sample or prototype facts; do not claim measured bandwidth savings, response times, or health outcomes.
+9. Trust: state research grounding, precomputed/illustrative data boundaries, and that this is not live monitoring or a validated astronaut health system.
+10. Footer CTA: invite exploration of the working prototype and explain demo-request limitations.
+
+Remove claims of real-time digital-twin monitoring, live telemetry, rep-by-rep strain feedback, clinical guidance, bone status or bone-loss monitoring, injury detection, prescriptions, and unmeasured performance thresholds. Update image alt text to describe the actual image. Keep the existing visual layout while pointing CTAs and navigation to valid app routes.
+
+Do not use fade-and-slide animations on every section. Use motion sparingly.
 
 Sign-in screen: centered card with the logo, Crew ID and PIN fields, "Sign in" (primary), "Open demo mode" (secondary), "Switch crew member" (tertiary), and the note "Data stays on this device until a ground link is available." Demo mode logs in as Alex Rivera with all mock data.
 ```
@@ -117,17 +123,20 @@ Use the companion avatar "Tala" in a small calm intro on step 1. Finish with a s
 ## Prompt 3: Home dashboard
 
 ```
-Build the Home dashboard at /app. Goal: in five seconds the user knows today's status, what to do next, and whether anything needs attention. One primary action only: "Start session".
+Build /app as the astronaut's daily movement-monitoring entry point. Keep the existing pastel visual identity, but use the current precomputed research output and do not imply live capture, telemetry, calibrated astronaut baselines, or health monitoring.
 
-Use a 12-column grid:
-- Row 1 left: greeting card "Good morning, Alex. Day 42 on the Gateway." with the avatar and today's plan "Squat, 3 x 8 at 0.16g". Row 1 right: action card with large primary button "Start session" and secondary "Do check-in first" (only if no check-in today).
-- Row 2: three MetricCards. (1) Mechanical Loading Index today as a soft circular ring (percent of today's target relative to the astronaut's 1g reference) with tooltip "Measures mechanical stimulus delivered, not bone status." (2) Peak femoral strain vs 1g reference. (3) Form stability from the last session. Hover reveals "View trend".
-- Row 3 left (8 cols): 30-day trend panel with a toggle (Femoral strain, Lumbar moment, Session count), a shaded target band, and session markers. Row 3 right (4 cols): consistency ring for the week and the next milestone.
-- Row 4 left: last session summary with date, exercise, PipTimeline, status pill and "Open summary". Row 4 right: "Needs attention" list with up to 3 items (unresolved anomaly, low-confidence session, reminder), each deep-linking. Empty state text: "Nothing needs attention."
+Use the signed-in profile name but mark the profile as a sample account. The current research sample is one public-video squat recording, has 2 detected repetitions, lasts 9.4 seconds, has incomplete endpoints, and reports limited kinematic reconstruction quality. Its capture date is not available. Personal baseline comparison is unavailable.
 
-Also include a readiness chip near the greeting (Ready, Take it easy, Check with CMO) with a "How is this calculated?" link that opens a small sheet showing the transparent rules.
+Home hierarchy:
+- Greeting: "TALA movement monitoring", "Good morning, Alex", and a short note that this is a prototype using precomputed research output and separately labeled illustrative history. Do not show a mission day, gravity location, exercise prescription, or readiness status.
+- Primary action: "Explore latest analysis" linking to /app/body. Secondary action: "Quick check-in" linking to /app/checkin. Do not call this "Start session" or imply the browser is recording live.
+- Four concise snapshot cards: movement analysis availability, kinematic reconstruction quality, personal baseline availability, and today's check-in state. The check-in state reflects device-local app state. Model-derived values show a unit, status, and confidence.
+- Latest Movement Observation panel: squat, detected repetitions, source video duration, reconstruction-quality status/confidence, and unavailable baseline comparison. Link to the movement mirror. Identify the record as research output, not astronaut history.
+- Baseline readiness panel: show insufficient compatible history for this research sample. State that a personal movement reference is not a healthy reference standard. Keep illustrative history separate.
+- Progressive "Explore movement insights" disclosure: show the latest research session's right/left hip, knee, and ankle coordinate excursions, with units, status, confidence, and the note that these are not clinical range-of-motion assessments. Link to historical illustrative comparisons in Trends.
+- Footer claim boundary: the research sample is precomputed public-video output, not live monitoring or an astronaut health record. Any illustrative history is labeled separately.
 
-Empty state for a new user with no sessions: avatar, "Let's record your first session", button "Start session".
+Remove the Mechanical Loading Index, femoral strain, lumbar safety, form-stability score, "All Parameters Nominal", streaks, NASA-STD-3001 bounds, and rep-by-rep quality pips unless supported by a validated data source. Do not put an astronaut location or gravity scenario selector in the Home hero.
 ```
 
 ---
@@ -173,13 +182,13 @@ Build /app/body as a movement mirror for the selected research recording.
 ## Prompt 6: Trends and baselines
 
 ```
-Build /app/trends as a longitudinal movement analytics page with three tabs: Overview, Movement Trends, Sessions.
+Build /app/trends as a movement analytics page with four tabs: Overview, Movement Trends, Sessions, Gravity Analysis.
 
 The page describes how compatible movement observations change across a recording history. It does not present bone or tissue loading, safety margins, health status, or a clinical baseline.
 
 Keep actual research output separate from illustrative demo history. Never include a research recording in an illustrative baseline. Identify the source on every chart, session row, and detail panel. The current research sample is one public-video squat analysis, has an incomplete recording, and does not establish a personal baseline.
 
-Global filters: date range (7 days, 30 days, 90 days, all sessions), exercise, and source (Illustrative history or Research output). Do not use a gravity filter unless historical records actually contain comparable gravity metadata.
+Global filters: date range (7 days, 30 days, 90 days, all sessions), exercise, and source (Illustrative history or Research output). Do not apply these historical filters to Gravity Analysis: it always shows the one precomputed research recording and its fixed trajectory across modeled environments.
 
 Overview:
 - Baseline status based only on compatible illustrative sessions; the prototype rule is fewer than 3 compatible sessions = insufficient, 3–5 = provisional, and 6 or more = established. This is a demo rule, not a clinical threshold. Calculate the illustrative reference from the first four designated compatible demo sessions, independent of the chart's selected date window.
@@ -197,6 +206,14 @@ Movement Trends:
 Sessions:
 - Show an interactive calendar and a history table with session ID, date (or clearly labeled processing date when capture date is unavailable), exercise, repetitions, recording duration, reconstruction status, quality, and source.
 - Selecting an illustrative row opens its clearly labeled demo details. Selecting the research row offers a link to the Body Map; do not imply that illustrative sessions have corresponding videos or 3D reconstructions.
+
+Gravity Analysis:
+- Compare the precomputed gravitational potential-energy difference from the lowest reconstructed center-of-mass height to its initial height across microgravity, lunar, Mars, and Earth-reference scenarios.
+- State that the same reconstructed movement is held fixed across scenarios. Clearly label modeled OpenSim body mass, center-of-mass excursion, gravity acceleration, and energy units; use status and low-confidence badges because the source reconstruction is limited.
+- Explain the method, vertical-axis assumption, estimated phase boundaries, and source limitations. These values are not muscle work, metabolic expenditure, effort, exercise resistance, adaptation, joint loading, or a clinical assessment.
+- Keep the scenario selector in AppShell synchronized with scenario highlighting on this tab. Changing it only selects/highlights an existing precomputed scenario; it does not recalculate movement or baseline data.
+- State that a single research reconstruction cannot establish a personal astronaut baseline. Do not mix its values with illustrative history.
+- Link Body Map to this tab using a direct Gravity Analysis URL.
 
 Use the TALA pastel identity, direct labels, tabular numerals, and a chart/table toggle for every time-series chart. Put units, session IDs, dates, source labels, and available model status/confidence in chart tooltips. Avoid health-colored status coding; status labels must include text and an icon.
 ```

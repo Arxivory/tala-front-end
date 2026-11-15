@@ -470,16 +470,16 @@ export default function SessionFlow() {
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              {researchDemoAssessment.gravityContext.map((context) => (
+              {researchDemoAssessment.gravityContext.scenarios.map((context) => (
                 <MetricCard
                   className="border-primary-300/40"
-                  key={context.environment}
-                  title={context.environment}
+                  key={context.regime}
+                  title={`${context.environment} (${context.regime})`}
                   value={context.energyDifferenceJ.toFixed(2)}
                   unit="J"
                   status="neutral"
                   confidence="low"
-                  footnote={`Modeled at ${context.gravity}; same movement held fixed across environments.`}
+                  footnote={`Modeled at ${context.gravityMetersPerSecondSquared.toFixed(2)} m/s²; same movement held fixed across environments.`}
                 />
               ))}
             </div>

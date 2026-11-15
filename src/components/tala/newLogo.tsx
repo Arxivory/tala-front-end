@@ -1,4 +1,4 @@
-import mascot from "@/assets/tala-mascot.png";
+import mascot from "@/assets/tala-logo.png";
 import { cn } from "@/lib/utils";
 
 export function Mascot({ className, size = 36 }: { className?: string; size?: number }) {

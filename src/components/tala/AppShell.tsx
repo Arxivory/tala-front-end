@@ -358,7 +358,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             expanded ? "opacity-100" : "opacity-0",
           )}
         >
-          Shows mechanical loading, not bone status.
+          Gravity selection highlights precomputed context only.
         </p>
       </aside>
 
@@ -377,7 +377,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             value={gravity}
             onValueChange={(v) => v && setGravity(v as GravityRegime)}
             className="hidden rounded-full border border-border bg-raised p-1 sm:inline-flex"
-            aria-label="Gravity regime"
+            aria-label="Selected gravity scenario for precomputed context"
           >
             {GRAVITY_OPTIONS.map((g) => (
               <ToggleGroupItem

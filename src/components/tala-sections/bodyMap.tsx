@@ -460,6 +460,13 @@ export default function BodyMapSection() {
           <div className="mt-4">
             <DemoTag label="Precomputed analysis" />
           </div>
+          <div className="mt-4">
+            <Button asChild variant="outline" className="rounded-full">
+              <Link to="/app/trends" search={{ tab: "gravity" }}>
+                View gravity analysis
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 

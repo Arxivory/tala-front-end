@@ -27,6 +27,7 @@ import {
 } from "recharts";
 
 import { Button } from "@/components/ui/button";
+import { GravityAnalysisPanel } from "@/components/tala-sections/GravityAnalysisPanel";
 import {
   Dialog,
   DialogContent,
@@ -53,8 +54,9 @@ import {
   type TrendSession,
   type TrendSource,
 } from "@/data/trends";
+import { useApp } from "@/lib/app-state";
 
-type TrendTab = "overview" | "movement" | "sessions";
+export type TrendTab = "overview" | "movement" | "sessions" | "gravity";
 type TrendView = "chart" | "table";
 type ValueMode = "measurement" | "deviation";
 
@@ -94,6 +96,7 @@ const TABS: { id: TrendTab; label: string; icon: typeof BarChart3 }[] = [
   { id: "overview", label: "Overview", icon: BarChart3 },
   { id: "movement", label: "Movement trends", icon: LineChartIcon },
   { id: "sessions", label: "Sessions", icon: CalendarDays },
+  { id: "gravity", label: "Gravity analysis", icon: Activity },
 ];
 
 const METRICS: { id: MovementMetric; label: string; fullLabel: string }[] = [
@@ -434,8 +437,14 @@ function ResearchDisclosure({ compact = false }: { compact?: boolean }) {
   );
 }
 
-export default function TrendsSection() {
-  const [activeTab, setActiveTab] = useState<TrendTab>("overview");
+export default function TrendsSection({
+  activeTab,
+  onTabChange,
+}: {
+  activeTab: TrendTab;
+  onTabChange: (tab: TrendTab) => void;
+}) {
+  const { gravity, setGravity } = useApp();
   const [source, setSource] = useState<TrendSource>("illustrative");
   const [dateRange, setDateRange] = useState<TrendDateRange>("30d");
   const [exerciseFilter, setExerciseFilter] = useState("all");
@@ -604,7 +613,7 @@ export default function TrendsSection() {
                 : "text-muted-foreground hover:bg-muted hover:text-strong"
             }`}
             aria-current={activeTab === id ? "page" : undefined}
-            onClick={() => setActiveTab(id)}
+            onClick={() => onTabChange(id)}
           >
             <Icon className="size-4" aria-hidden="true" />
             {label}
@@ -1210,6 +1219,10 @@ export default function TrendsSection() {
             )}
           </section>
         </div>
+      ) : null}
+
+      {activeTab === "gravity" ? (
+        <GravityAnalysisPanel selectedRegime={gravity} onSelectRegime={setGravity} />
       ) : null}
 
       <footer className="flex items-start gap-3 rounded-2xl border border-border bg-muted/30 p-4">

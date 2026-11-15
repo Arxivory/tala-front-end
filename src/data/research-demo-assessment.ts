@@ -26,16 +26,49 @@ export const researchDemoAssessment = {
   descentPhases: 3,
   baselineComparisonAvailable: false,
   jointLoadsAvailable: false,
-  gravityContext: [
-    { environment: "Microgravity (0g)", gravity: "0.00 m/s²", energyDifferenceJ: 0 },
-    { environment: "Lunar (0.16g)", gravity: "1.62 m/s²", energyDifferenceJ: 23.122207698952344 },
-    { environment: "Mars (0.38g)", gravity: "3.71 m/s²", energyDifferenceJ: 52.95271022414394 },
-    {
-      environment: "Earth reference (1g)",
-      gravity: "9.81 m/s²",
-      energyDifferenceJ: 139.9699988462537,
-    },
-  ],
+  gravityContext: {
+    method:
+      "Whole-body gravitational potential-energy comparison using the OpenSim model center of mass.",
+    verticalAxis: "OpenSim Y",
+    modeledBodyMassKg: 74.30439078738935,
+    centerOfMassHeightExcursionMeters: 0.6841703142436071,
+    energyMetric:
+      "Potential-energy difference from the lowest reconstructed center-of-mass height to the initial height.",
+    interpretation:
+      "The same reconstructed movement is evaluated under each gravity condition. These values are not measured muscle work, metabolic expenditure, movement adaptation, muscle activation, joint loading, or exercise resistance.",
+    limitations: [
+      "Center-of-mass estimates depend on the scaled OpenSim model and reconstructed kinematics.",
+      "The input is a monocular-video-derived reconstruction, not calibrated motion capture.",
+      "The reconstructed movement is held fixed across gravitational environments.",
+      "Phase boundaries are estimated from the smoothed center-of-mass signal.",
+    ],
+    scenarios: [
+      {
+        regime: "0g",
+        environment: "Microgravity",
+        gravityMetersPerSecondSquared: 0,
+        energyDifferenceJ: 0,
+      },
+      {
+        regime: "0.16g",
+        environment: "Lunar",
+        gravityMetersPerSecondSquared: 1.62,
+        energyDifferenceJ: 23.122207698952344,
+      },
+      {
+        regime: "0.38g",
+        environment: "Mars",
+        gravityMetersPerSecondSquared: 3.71,
+        energyDifferenceJ: 52.95271022414394,
+      },
+      {
+        regime: "1g",
+        environment: "Earth reference",
+        gravityMetersPerSecondSquared: 9.80665,
+        energyDifferenceJ: 139.9699988462537,
+      },
+    ],
+  },
   movementEstimates: [
     {
       id: "hip",

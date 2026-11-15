@@ -31,17 +31,17 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TALA — The astronaut's health co-pilot for deep space" },
+      { title: "TALA — Twin-based Astronaut Life Analytics" },
       {
         name: "description",
         content:
-          "TALA turns an ordinary cabin camera into a real-time 3D biomechanical digital twin, flags unsafe joint and bone strain, and gives offline clinical guidance when Earth is 20+ minutes away.",
+          "TALA is an exploratory prototype combining computer-vision movement analysis, OpenSim-based biomechanical research, gravity scenarios, and NASA-literature-grounded AI.",
       },
-      { property: "og:title", content: "TALA — The astronaut's health co-pilot for deep space" },
+      { property: "og:title", content: "TALA — Twin-based Astronaut Life Analytics" },
       {
         property: "og:description",
         content:
-          "A camera-based digital twin and offline clinical assistant for Artemis, Lunar Gateway and Mars transit crews.",
+          "Explore a record-to-insights research workflow with precomputed results, illustrative frontend data, and transparent limitations.",
       },
     ],
   }),
@@ -51,87 +51,126 @@ export const Route = createFileRoute("/")({
 const problems = [
   {
     icon: <IconCamera size={22} />,
-    title: "Telemetry blind spot",
-    body: "Miniaturised deep-space exercise devices ship without the instrumentation ARED had. Load data simply isn't captured.",
-  },
-  {
-    icon: <IconSync size={22} />,
-    title: "Up to 24-minute delay",
-    body: "One-way Mars comms make real-time coaching from a flight surgeon physically impossible.",
+    title: "Video needs movement context",
+    body: "An exercise clip alone does not explain how a person moved or what estimated coordinates mean.",
   },
   {
     icon: <IconGravity size={22} />,
-    title: "Earth-trained models fail",
-    body: "Biomechanical models calibrated at 1 g misread motion in 0 g, 0.16 g and 0.38 g environments.",
+    title: "Mission conditions shape analysis",
+    body: "Gravity scenarios and modeling assumptions should be explicit when researchers compare reconstructed movement.",
   },
   {
-    icon: <IconBone size={22} />,
-    title: "Damage is invisible until return",
-    body: "Bone loss is typically confirmed by post-flight DXA — long after the countermeasure window closed.",
+    icon: <IconChat size={22} />,
+    title: "Research evidence is distributed",
+    body: "Movement estimates and mission-relevant literature can be difficult to interpret together.",
+  },
+  {
+    icon: <IconChart size={22} />,
+    title: "Demo data needs clear labels",
+    body: "Precomputed results and illustrative trends should be distinguished from live astronaut records.",
   },
 ];
 
 const flow = [
-  { icon: <IconCamera size={20} />, label: "Cabin camera", note: "Existing hardware" },
-  { icon: <IconTwin size={20} />, label: "Markerless tracking", note: "No wearables" },
-  { icon: <IconPulse size={20} />, label: "3D twin + strain", note: "Real time, on device" },
-  { icon: <IconChat size={20} />, label: "Offline clinical AI", note: "Works with no link" },
+  { icon: <IconCamera size={20} />, label: "Movement video", note: "Research input" },
+  { icon: <IconTwin size={20} />, label: "Computer vision", note: "Pose estimates" },
+  {
+    icon: <IconPulse size={20} />,
+    label: "OpenSim analysis",
+    note: "Reconstruction & biomechanics",
+  },
+  {
+    icon: <IconChat size={20} />,
+    label: "NASA literature AI",
+    note: "Source-referenced explanations",
+  },
 ];
 
 const differentiators = [
   {
-    them: "Bulky wearable sensor suites — or no sensors at all",
-    us: "Nothing to wear. A camera already in the module is the sensor.",
+    them: "Movement video and biomechanical analysis reviewed separately",
+    us: "TALA research explores computer-vision pose estimates alongside OpenSim reconstruction.",
   },
   {
-    them: "Video downlinked and reviewed days later on the ground",
-    us: "Form and strain feedback inside the rep, on the crew's tablet.",
+    them: "Gravity assumptions separated from movement results",
+    us: "Gravity-dependent research compares modeled scenarios with their assumptions made explicit.",
   },
   {
-    them: "Earth-calibrated biomechanics applied to partial gravity",
-    us: "Gravity-aware physics for 0 g, lunar 0.16 g and Mars 0.38 g.",
+    them: "Movement results and evidence lookup kept in different tools",
+    us: "A NASA-literature-grounded RAG prototype provides contextual explanations with references.",
   },
   {
-    them: "Static PDF manuals searched by a fatigued crew member",
-    us: "An offline clinical assistant that answers in plain language in seconds.",
+    them: "Research outputs and illustrative frontend data easy to confuse",
+    us: "The prototype labels precomputed research results separately from illustrative history.",
   },
 ];
 
 const capabilities = [
-  { icon: <IconTwin size={22} />, title: "Real-time 3D digital twin", body: "A joint-level skeletal model of the crew member, rendered as they move." },
-  { icon: <IconCamera size={22} />, title: "Markerless motion tracking", body: "Pose and load estimated from ordinary cabin video — zero wearables." },
-  { icon: <IconGravity size={22} />, title: "Gravity-aware physics", body: "Torque and strain solved for the actual gravity regime of the mission." },
-  { icon: <IconChat size={22} />, title: "Offline clinical assistant", body: "Medical protocols answered on board, with no link to Earth required." },
-  { icon: <IconSync size={22} />, title: "Mission Control sync", body: "Compressed biomechanical bundles instead of raw video downlink." },
-  { icon: <IconChart size={22} />, title: "Baseline health dashboard", body: "Pre-flight DXA and mobility baselines tracked against mission trend." },
+  {
+    icon: <IconCamera size={22} />,
+    title: "Computer-vision pose estimation",
+    body: "Pose estimates from research video; the browser does not capture or analyze live camera footage.",
+  },
+  {
+    icon: <IconTwin size={22} />,
+    title: "OpenSim-based reconstruction",
+    body: "Research outputs and an approximate skeletal visualization make reconstructed movement easier to explore.",
+  },
+  {
+    icon: <IconPulse size={22} />,
+    title: "Biomechanical analysis",
+    body: "Movement estimates from the research workflow, not clinical evaluations or validated health measurements.",
+  },
+  {
+    icon: <IconGravity size={22} />,
+    title: "Gravity-scenario research",
+    body: "Explore modeled movement quantities under different gravity assumptions; these do not measure effort or adaptation.",
+  },
+  {
+    icon: <IconChat size={22} />,
+    title: "Evidence-grounded AI assistance",
+    body: "A NASA-document RAG prototype offers contextual explanations with source references.",
+  },
+  {
+    icon: <IconChart size={22} />,
+    title: "Movement and wellness trends",
+    body: "Frontend views combine precomputed research output with separately labeled illustrative history.",
+  },
 ];
 
 const personas = [
   {
     photo: cameraPhoto,
-    title: "Astronauts & CMOs",
-    where: "In-flight",
-    body: "Glanceable form feedback mid-workout and an offline medical second opinion when the ground is hours away.",
+    alt: "Astronaut exercising on a resistance device aboard the International Space Station",
+    title: "Crew and exercise participants",
+    where: "Crew-facing exploration",
+    body: "Review a precomputed movement analysis and self-reported check-in; the prototype does not provide live monitoring.",
   },
   {
     photo: surgeonPhoto,
-    title: "Flight Surgeons & BMEs",
-    where: "Mission Control",
-    body: "Longitudinal bone strain analytics, anomaly replay and prescription control across the whole crew.",
+    alt: "Research participant performing a barbell squat in a biomechanics laboratory",
+    title: "Mission-support and research teams",
+    where: "Research review",
+    body: "Explore movement outputs, modeling context, and illustrative trends while keeping the data sources distinct.",
   },
   {
     photo: clinicPhoto,
-    title: "ASCRs & Earth clinicians",
-    where: "Spinoff / dual-use",
-    body: "The same twin, repurposed for webcam-guided physical therapy and remote recovery monitoring.",
+    alt: "Research participant supported by a harness during movement testing in a laboratory",
+    title: "Research and clinical reviewers",
+    where: "Evidence exploration",
+    body: "Review NASA-literature-grounded explanations and example outputs; TALA is not a diagnosis or clinical decision tool.",
   },
 ];
 
 const stats = [
-  { value: "95%+", label: "Bandwidth saved vs. raw video downlink" },
-  { value: "< 3 s", label: "Offline clinical query response" },
-  { value: "0", label: "Wearable sensors required" },
-  { value: "3", label: "Gravity regimes modelled: 0 g, 0.16 g, 0.38 g" },
+  { value: "1", label: "Precomputed squat research sample represented in this frontend" },
+  { value: "2", label: "Repetitions detected in the sample clip, which has incomplete endpoints" },
+  { value: "3", label: "Bilateral joint-coordinate families shown: hip, knee, and ankle" },
+  {
+    value: "4",
+    label:
+      "Research areas explored: computer vision, OpenSim, gravity analysis, and NASA-document RAG",
+  },
 ];
 
 function Landing() {
@@ -145,7 +184,9 @@ function Landing() {
           <Wordmark size={32} />
           <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
             <a href="#problem" className="transition-colors hover:text-foreground">Problem</a>
-            <a href="#solution" className="transition-colors hover:text-foreground">Solution</a>
+            <a href="#solution" className="transition-colors hover:text-foreground">
+              Approach
+            </a>
             <a href="#capabilities" className="transition-colors hover:text-foreground">Capabilities</a>
             <a href="#audience" className="transition-colors hover:text-foreground">Who it's for</a>
           </nav>
@@ -163,36 +204,44 @@ function Landing() {
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-16 lg:grid-cols-[1.05fr_1fr] lg:pb-28 lg:pt-24">
           <div>
             <h1 className="text-display mt-6 text-[2.75rem] font-semibold sm:text-6xl">
-              The astronaut's health co-pilot for deep space.
+              Astronaut movement and wellness intelligence.
             </h1>
             <p className="mt-3 font-display text-sm font-medium tracking-[0.12em] text-muted-foreground uppercase">
               Twin-based Astronaut Life Analytics
             </p>
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-muted-foreground">
-              TALA turns an ordinary cabin camera into a real-time biomechanical digital twin —
-              watching joint torque and bone strain rep by rep, and answering clinical questions on
-              board when Earth is twenty minutes away.
+              TALA is an exploratory prototype combining computer-vision movement analysis,
+              biomechanical research, and NASA-literature-grounded AI to make astronaut exercise
+              data easier to explore. Frontend results are precomputed or illustrative; this is not
+              live camera analysis or clinical monitoring.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button size="lg" onClick={() => setDemoOpen(true)}>
                 Open Demo
               </Button>
-              <Button size="lg">
-                See Source Code
+              <Button asChild size="lg">
+                <a
+                  href="https://github.com/Arxivory/tala-front-end"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  See Source Code
+                </a>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <a>See Research</a>
+                <a href="#trust">Research &amp; limitations</a>
               </Button>
             </div>
             <p className="mt-6 text-xs text-muted-foreground">
-              All Images in this page are respectively credited to NASA, ESA, and the European Southern Observatory.
+              Images provide context for spaceflight, exercise research, and mission support; they
+              do not depict TALA's analysis output.
             </p>
           </div>
 
           <div className="relative">
             <img
               src={heroPhoto}
-              alt="Astronaut exercising on a resistance device inside a spacecraft module"
+              alt="Astronaut conducting a spacewalk above Earth"
               width={1600}
               height={1104}
               className="photo-tint h-80 w-full rounded-3xl object-cover shadow-lift ring-1 ring-border-soft sm:h-[26rem]"
@@ -205,8 +254,8 @@ function Landing() {
       <section id="problem" className="mx-auto max-w-6xl px-5 py-24">
         <SectionHeading
           eyebrow="The problem"
-          title="Deep space breaks the old playbook"
-          support="Every assumption behind current crew-health monitoring — big instrumented hardware, a live link to Earth, 1 g biomechanics — stops holding past low Earth orbit."
+          title="Movement data needs context"
+          support="Future exploration research needs clear ways to review movement observations, modeling assumptions, and supporting evidence without confusing estimates with health conclusions."
         />
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.35fr_1fr]">
           <div className="grid gap-4 sm:grid-cols-2">
@@ -223,7 +272,7 @@ function Landing() {
           <div className="overflow-hidden rounded-3xl border border-border-soft">
             <img
               src={cameraPhoto}
-              alt="Compact resistance training device used in orbit"
+              alt="Astronaut exercising on a resistance device aboard the International Space Station"
               loading="lazy"
               width={1280}
               height={960}
@@ -239,33 +288,34 @@ function Landing() {
           <div>
             <SectionHeading
               eyebrow="Why it matters"
-              title="A missed countermeasure becomes a mission risk"
-              support="Crew health is mission hardware. When it degrades quietly, the mission degrades with it."
+              title="Make movement research easier to interpret"
+              support="Transparent tools can help researchers explore exercise movement, biomechanical estimates, and evidence while respecting the limits of each."
             />
             <p className="mt-6 text-[15px] leading-relaxed text-muted-foreground">
-              Without effective loading, astronauts lose roughly 1–1.5% of hip and spine bone mineral
-              density every month in microgravity, alongside measurable muscle atrophy. On a
-              three-year Mars campaign that is the difference between walking out of the lander and
-              being carried. An injury 200 million kilometres from a hospital has no evacuation plan.
+              TALA explores a workflow that connects video-derived pose estimates, OpenSim-based
+              reconstruction, gravity-scenario research, and source-referenced explanations. The
+              frontend uses one precomputed squat sample and separately labeled illustrative
+              history. It does not evaluate bone status, injury, or readiness and is not a clinical
+              system.
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <div className="card-soft p-5">
-                <p className="num-lg text-2xl">1–1.5%</p>
+                <p className="num-lg text-2xl">1</p>
                 <p className="mt-2 text-xs text-muted-foreground">
-                  Bone density lost per month without adequate loading
+                  Precomputed squat research sample represented in this frontend
                 </p>
               </div>
               <div className="card-soft p-5">
-                <p className="num-lg text-2xl">0</p>
+                <p className="num-lg text-2xl">3</p>
                 <p className="mt-2 text-xs text-muted-foreground">
-                  Evacuation options during Mars transit
+                  Joint-coordinate families shown: hip, knee, and ankle
                 </p>
               </div>
             </div>
           </div>
           <img
             src={surgeonPhoto}
-            alt="Flight surgeon reviewing crew medical data"
+            alt="Research participant performing a barbell squat in a biomechanics laboratory"
             loading="lazy"
             width={1280}
             height={960}
@@ -278,16 +328,15 @@ function Landing() {
       <section id="solution" className="mx-auto max-w-6xl px-5 py-24">
         <SectionHeading
           eyebrow="The solution"
-          title="Meet TALA"
-          support="A camera-based digital twin and an offline clinical assistant, running on the spacecraft itself."
+          title="An exploratory record-to-insights workflow"
+          support="TALA brings together computer vision, biomechanical modeling, gravity scenarios, and NASA-literature-grounded AI in a research prototype."
           align="center"
         />
         <p className="mx-auto mt-6 max-w-3xl text-center text-[15px] leading-relaxed text-muted-foreground">
-          TALA watches an astronaut exercise through a camera that is already in the module. It builds
-          a joint-level skeletal twin in real time, solves torque and bone strain for the mission's
-          actual gravity, and speaks up only when something needs correcting. Its clinical assistant
-          answers medical questions on board — no link to Earth required — and only a compact,
-          compressed summary travels back to Mission Control.
+          The research workflow explores pose estimation from video, OpenSim reconstruction and
+          biomechanical analysis, modeled gravity scenarios, and retrieval-augmented explanations
+          grounded in NASA documents. The frontend displays precomputed research results and
+          illustrative data; it does not process a live camera feed or provide clinical guidance.
         </p>
 
         <div className="mt-14 overflow-x-auto px-6 py-6">
@@ -319,8 +368,8 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <SectionHeading
             eyebrow="What makes this different"
-            title="Why TALA, and not the alternatives"
-            support="The workarounds in use today all assume conditions deep space doesn't provide."
+            title="A connected research workflow"
+            support="TALA explores how movement analysis, biomechanical modeling, gravity assumptions, and evidence lookup can be reviewed together."
           />
           <div className="mt-12 space-y-3">
             {differentiators.map((d) => (
@@ -350,7 +399,7 @@ function Landing() {
         <SectionHeading
           eyebrow="Key capabilities"
           title="What the platform does"
-          support="Six core capabilities, all designed to work with the hardware and bandwidth a deep-space mission actually has."
+          support="Six research and prototype capabilities across movement analysis, interpretation, and review; some frontend content is precomputed or illustrative."
         />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {capabilities.map((c) => (
@@ -370,15 +419,15 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <SectionHeading
             eyebrow="Who it's for"
-            title="Three portals, one twin"
-            support="The same biomechanical model serves the crew in flight, the ground team, and clinicians on Earth."
+            title="People who may use or review TALA"
+            support="TALA is an exploratory prototype for crew-facing movement review, mission-support exploration, and research audiences—not operational medical software."
           />
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {personas.map((p) => (
               <div key={p.title} className="card-soft overflow-hidden">
                 <img
                   src={p.photo}
-                  alt={p.title}
+                  alt={p.alt}
                   loading="lazy"
                   width={1280}
                   height={960}
@@ -394,13 +443,13 @@ function Landing() {
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild variant="secondary">
-              <Link to="/crew">Open Crew Operations</Link>
+              <Link to="/app">Explore Crew Workspace</Link>
             </Button>
             <Button asChild variant="secondary">
-              <Link to="/control">Open Mission Control</Link>
+              <Link to="/app/trends">Explore Movement Trends</Link>
             </Button>
             <Button asChild variant="secondary">
-              <Link to="/clinic">Open Terrestrial & Clinical</Link>
+              <Link to="/app/assistant">Explore Evidence Assistant</Link>
             </Button>
           </div>
         </div>
@@ -410,8 +459,8 @@ function Landing() {
       <section className="mx-auto max-w-6xl px-5 py-24">
         <SectionHeading
           eyebrow="Impact"
-          title="What the concept targets"
-          support="Design goals for the prototype, measured against today's operational baseline."
+          title="What the prototype currently shows"
+          support="A small set of transparent sample outputs and research components, not operational performance claims."
           align="center"
         />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -425,10 +474,10 @@ function Landing() {
       </section>
 
       {/* 9. Trust */}
-      <section className="relative overflow-hidden border-y border-border-soft">
+      <section id="trust" className="relative overflow-hidden border-y border-border-soft">
         <img
           src={missionControlPhoto}
-          alt="Mission control operations room"
+          alt="Illustrative mission operations room with screens showing Earth and spacecraft"
           loading="lazy"
           width={1600}
           height={912}
@@ -439,24 +488,24 @@ function Landing() {
             <IconShield size={22} />
           </span>
           <h2 className="text-display mt-6 text-3xl font-semibold sm:text-4xl">
-            Built for the operational gap, not the demo reel
+            Research-grounded and explicit about limits
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
-            TALA is designed around a documented need: the loss of ARED-class instrumented exercise
-            hardware on deep-space vehicles, and the communication delay that makes ground-side
-            biomechanical review unworkable for Artemis and Mars-class missions. Clinical guidance
-            stays traceable to the source protocol, and crew data leaves the vehicle as a compact,
-            reviewable bundle.
+            TALA is an exploratory prototype combining research in computer vision, OpenSim,
+            gravity-dependent analysis, and NASA-document retrieval-augmented generation. This
+            frontend displays precomputed research results alongside separately labeled illustrative
+            data; it is not live monitoring or a validated astronaut health system. Estimates do not
+            diagnose, assess injury, or indicate bone status.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Pill className="bg-background/85">
-              <IconUser size={14} /> Crew-first interface standards
+              <IconUser size={14} /> Exploratory research prototype
             </Pill>
             <Pill className="bg-background/85">
-              <IconBone size={14} /> Traceable clinical sourcing
+              <IconBone size={14} /> No bone-status or diagnosis claims
             </Pill>
             <Pill className="bg-background/85">
-              <IconSync size={14} /> Delay-tolerant by design
+              <IconSync size={14} /> Precomputed and illustrative data labeled
             </Pill>
           </div>
         </div>
@@ -469,17 +518,18 @@ function Landing() {
           <div className="relative">
             <Mascot size={56} className="mx-auto" />
             <h2 className="text-display mt-5 text-3xl font-semibold sm:text-4xl">
-              See the twin in motion
+              Explore TALA's prototype
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-[15px] text-muted-foreground">
-              Walk through all three portals with mocked mission data — no account needed.
+              Explore the record-to-insights experience with precomputed analysis and separately
+              labeled illustrative data. No live camera processing or clinical monitoring.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Button asChild size="lg">
-                <Link to="/crew">Enter the prototype</Link>
+                <Link to="/app">Enter the prototype</Link>
               </Button>
               <Button size="lg" variant="outline" onClick={() => setDemoOpen(true)}>
-                Request a demo
+                About this demo
               </Button>
             </div>
           </div>
@@ -491,8 +541,8 @@ function Landing() {
           <div>
             <Wordmark withTagline size={34} />
             <p className="mt-4 max-w-xs text-xs leading-relaxed text-muted-foreground">
-              A concept submission for the NASA Space Apps Challenge 2026. Prototype interface with
-              mocked data — not a certified medical device.
+              A NASA Space Apps exploratory prototype. The frontend uses precomputed research
+              results and illustrative data; it is not a live monitoring or clinical system.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-10 text-sm sm:grid-cols-3">
@@ -504,19 +554,33 @@ function Landing() {
             </div>
             <div className="space-y-2.5">
               <p className="eyebrow">Portals</p>
-              <Link to="/crew" className="block text-muted-foreground hover:text-foreground">Crew Operations</Link>
-              <Link to="/control" className="block text-muted-foreground hover:text-foreground">Mission Control</Link>
-              <Link to="/clinic" className="block text-muted-foreground hover:text-foreground">Terrestrial & Clinical</Link>
+              <Link to="/app" className="block text-muted-foreground hover:text-foreground">
+                Crew Workspace
+              </Link>
+              <Link to="/app/trends" className="block text-muted-foreground hover:text-foreground">
+                Movement Trends
+              </Link>
+              <Link
+                to="/app/assistant"
+                className="block text-muted-foreground hover:text-foreground"
+              >
+                Evidence Assistant
+              </Link>
             </div>
             <div className="space-y-2.5">
               <p className="eyebrow">Access</p>
-              <Link to="/login" className="block text-muted-foreground hover:text-foreground">Log in</Link>
-              <Link to="/signup" className="block text-muted-foreground hover:text-foreground">Sign up</Link>
+              <Link to="/signin" className="block text-muted-foreground hover:text-foreground">
+                Sign in
+              </Link>
+              <Link to="/onboarding" className="block text-muted-foreground hover:text-foreground">
+                Get started
+              </Link>
             </div>
           </div>
         </div>
         <div className="border-t border-border-soft px-5 py-5 text-center text-[11px] text-muted-foreground">
-          © 2026 TALA — Twin-based Astronaut Life Analytics. Concept prototype.
+          © 2026 TALA — Twin-based Astronaut Life Analytics. Exploratory prototype; not endorsed by
+          NASA.
         </div>
       </footer>
 
@@ -524,15 +588,17 @@ function Landing() {
         <DialogContent className="rounded-3xl sm:max-w-md">
           <DialogHeader>
             <Mascot size={44} />
-            <DialogTitle className="text-display pt-2 text-xl">Demo requests are mocked</DialogTitle>
+            <DialogTitle className="text-display pt-2 text-xl">
+              Explore the working prototype
+            </DialogTitle>
             <DialogDescription className="text-sm leading-relaxed">
-              This is a concept prototype, so there's no sales team behind this button. You can walk
-              the full experience yourself instead.
+              This button does not submit a demo request. Open the prototype to explore its
+              precomputed research output, movement mirror, check-in, and illustrative trends.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-wrap gap-2 pt-2">
             <Button asChild>
-              <Link to="/app">Crew Operations</Link>
+              <Link to="/app">Open the prototype</Link>
             </Button>
           </div>
         </DialogContent>
